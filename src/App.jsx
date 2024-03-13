@@ -13,13 +13,15 @@ import { ToastContainer } from "react-toastify";
 // Stylings
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Main from "./layouts/Main";
+import Error from "./pages/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    // element: <Main />,
-    // loader: mainLoader,
-    // errorElement: <Error />,
+    element: <Main />,
+    loader: mainLoader,
+    errorElement: <Error />,
     children: [
       {
         index: true,
