@@ -13,8 +13,9 @@ import { ToastContainer } from "react-toastify";
 // Stylings
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Main from "./layouts/Main";
+import Main, { mainLoader } from "./layouts/Main";
 import Error from "./pages/Error";
+import Dashboard, { dashboardAction, dashboardLoader } from "./components/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -24,12 +25,11 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        index: true,
-        // path: "/:id",
-        // element: <Dashboard />,
-        // loader: dashboardLoader,
-        // action: dashboardAction,
-        // errorElement: <Error />,
+        index: true, 
+        element: <Dashboard />,
+        loader: dashboardLoader,
+        action: dashboardAction,
+        errorElement: <Error />,
       },
       {
         path: "*",

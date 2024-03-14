@@ -6,22 +6,18 @@ import { fetchData } from "../helpers"
 // assets
 import Nav from "../components/Nav";
 
-const [page, setPage] = useState("")
-
 export function mainLoader() {
-    const [page, setPage] = useState("")
-    setPage("Landing");
     const loggedUser = fetchData("loggedUser");
-    return { loggedUser, page }
+    return { loggedUser }
 }
 
 
 const Main = () => {
-    const { page } = useLoaderData();
+    const { loggedUser } = useLoaderData();
 
     return (
         <div className="layout">
-        <Nav page={page}/>
+        <Nav/>
             <main>
             <Outlet />
             </main>
