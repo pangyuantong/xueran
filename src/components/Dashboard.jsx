@@ -1,17 +1,18 @@
 import React from "react";
 import { fetchData } from "../helpers";
+import AuthForm from "./AuthForm";
 
 export function dashboardLoader() {
   const loggedUser = fetchData("loggedUser");
   return { loggedUser };
 }
 
-export function dashboardAction() {
-
-}
+export function dashboardAction() {}
 
 const Dashboard = () => {
-  return <div>test</div>;
+  return (
+    <AuthForm />
+  );
 };
 
 export default Dashboard;

@@ -1,68 +1,102 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.custom-background {
+  background-image: url("/image/background.jpg");
+  background-size: cover;
+  background-position: center;
+  overflow-y: auto; /* This makes the div scrollable vertically */
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+.haunted-title {
+  font-family: 'Poppins', sans-serif; /* Poppins is modern and readable, but you can choose a more gothic font if you prefer */
+  font-size: 48px; /* Adjust size as needed */
+  color: #c20000; /* Bright red for a demonic touch */
+  text-shadow: 2px 2px 4px #000000; /* Shadow for a haunted effect */
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-body {
-  margin: 0;
-  display: flex;
+.spooky-title {
+  font-family: 'Montserrat', sans-serif !important; /* Bold and modern font */
+  font-size: 45px !important; /* Large size for impact */
+  font-weight: 700 !important;/* Large size for impact */
+  color: #ffffff !important; /* Eerie red color */
+  text-align: center !important; /* Center align the title */
+  text-transform: uppercase !important; /* Makes the title stand out more */
+  letter-spacing: 2px !important; /* Increase spacing for a dramatic effect */
+  text-shadow: 2px 2px 4px #000 !important; /* Dark shadow for depth */
+  transition: all 0.3s ease !important; /* Smooth transition for hover effect */
+  position: relative !important; /* Required for pseudo-element positioning */
+  cursor: pointer !important; /* Changes the cursor to indicate the title is interactive */
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+
+.spooky-para {
+  width: 65%;
+  font-family: 'Roboto Mono', monospace; /* Modern, monospaced font for a clean yet eerie vibe */
+  font-size: 18px; /* Adjust size as needed */
+  color: #E0E0E0; /* Soft, ghostly white */
+  background-color: #1A1A1D; /* Deep, dark background */
+  padding: 20px; /* Padding around the text */
+  border-left: 5px solid #FF0000; /* Bright red accent line for a hint of something sinister */
+  text-shadow: 1px 1px 5px #000; /* Subtle shadow to lift the text off the background */
+  animation: glitch 1s infinite alternate; /* Glitch effect for an extra spooky vibe */
+  line-height: 1.6; /* Adjust line spacing for readability */
+}
+
+@keyframes glitch {
+  0% {
+    transform: skew(-0.5deg);
+  }
+  20% {
+    transform: skew(0.5deg);
+  }
+  40% {
+    transform: skew(-0.5deg);
+  }
+  60% {
+    transform: skew(0.5deg) translateX(-2px);
+  }
+  80% {
+    transform: skew(-0.5deg) translateX(2px);
+  }
+  100% {
+    transform: skew(0.5deg);
+  }
+}
+
+.spooky-input {
+  width: 65%;
+  font-family: 'Roboto Mono', monospace; /* Consistent with the spooky theme */
+  background-color: #2A2A2D; /* Dark background for a spooky effect */
+  color: #E0E0E0; /* Light text color for contrast */
+  border: 2px solid #FF5555; /* Eerie red border */
+  border-radius: 5px; /* Slightly rounded corners for a modern touch */
+  padding: 10px 15px; /* Adequate padding for text */
+  font-size: 16px; /* Readable font size */
+  transition: all 0.3s ease; /* Smooth transition for focus effect */
+}
+
+.spooky-input:focus {
+  box-shadow: 0 0 8px #FF5555; /* Glowing effect on focus */
+  border-color: #FFFFFF; /* Changes border color on focus for contrast */
+}
+
+.spooky-input::placeholder {
+  color: #999; /* Placeholder text color */
+  font-style: italic; /* Italic placeholder text for a mysterious vibe */
+}
+
+.error {
+  -ms-grid-row-align: center;
+  -ms-grid-column-align: center;
+  place-self: center;
+  display: -ms-grid;
+  display: grid;
   place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+  place-content: center;
+  gap: var(--space-lg);
+  padding-block: var(--space-lg);
+  text-align: center;
+  color: #E0E0E0;
 }

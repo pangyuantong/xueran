@@ -16,11 +16,9 @@ const Main = () => {
     const { loggedUser } = useLoaderData();
 
     return (
-        <div className="layout">
+        <div className="custom-background">
         <Nav/>
-            <main>
             <Outlet />
-            </main>
         </div>
     )
 }
