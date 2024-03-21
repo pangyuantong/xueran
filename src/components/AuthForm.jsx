@@ -3,6 +3,8 @@ import { Button, Container, Row, Col } from "react-bootstrap";
 import { Form } from "react-router-dom";
 import { LifebuoyIcon } from "@heroicons/react/24/solid";
 import priest from "../assets/priest.png";
+
+
 const AuthForm = () => {
   return (
     <Container fluid className="my-5">
@@ -32,7 +34,7 @@ const AuthForm = () => {
                   autoComplete="mobile"
                   className="spooky-input"
                 />
-                <input type="hidden" name="_action" value="getIdentity" />
+                <input type="hidden" name="_action" value="authContact" />
               </Row>
 
               <Row className="justify-content-center my-3">

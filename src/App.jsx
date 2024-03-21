@@ -14,7 +14,7 @@ import { ToastContainer } from "react-toastify";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Main, { mainLoader } from "./layouts/Main";
 import Error from "./pages/Error";
-import Dashboard, { dashboardAction, dashboardLoader } from "./components/Dashboard";
+import Dashboard, { dashboardAction, dashboardLoader } from "./pages/Dashboard";
 
 const router = createBrowserRouter([
   {
