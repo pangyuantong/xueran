@@ -1,43 +1,49 @@
+import axios from "axios";
 import { useState, useEffect } from "react";
 
 export const fetchData = (key) => {
   return JSON.parse(localStorage.getItem(key));
 };
 
-const useFetch = (url) => {
+// API Firing
+export const getAuth = async ({ formdata = null, token = null }) => {
+//   if (formdata) {
+//     const response = await axios.post(
+//       `http://192.168.68.114/portal/public/api/user`,
+//       formdata
+//     );
+//   } else {
+//     const response = await axios.get(
+//       `http://192.168.68.114/portal/public/api/user`,
+//       {
+//         headers: {
+//           Authorization: `Bearer ${token}`, // Use 'Bearer' if required by your API
+//         },
+//       }
+//     );
+//   }
 
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-  const [isPending, setIsPending] = useState(true);
-  const [blogs, setBlogs] = useState(null);
+  const response = await axios.get(
+    // `http://192.168.68.114/portal/public/api/game/${mobile}/${gmID}`
+    `https://mocki.io/v1/18c7f8b8-88ea-4c8d-8889-a1c3daa40c18`
+  );
 
-  useEffect(() => {
-      const abortCont = new AbortController();
-      setTimeout(() => {
-          fetch(url, {signal: abortCont.signal})
-              .then(res => {
-                  if (!res.ok) {
-                      throw Error('Could not fetch the data for that resource')
-                  }
-                  return res.json();
-              })
-              .then((data) => {
-                  setIsPending(false);
-                  setData(data);
-                  console.log(data)
-              })
-              .catch(err => {
-                  if(err.name === 'AbortError'){
-                      console.log('Fetch Aborted')
-                  }
-                  setError(err.message);
-                  setIsPending(false);
-              })
-      }, 500);
-      return () => abortCont.abort();
-  }, [url]);
+  if (response.data.success) {
+    const res = response.data;
+    const loggedUser = {
+      userID: res.data.user.userID,
+      userName: res.data.user.userName,
+      userMobile: res.data.user.userMobile,
+      userCurrGame: res.data.user.joinedGameID,
+    };
 
-  // return () => console.log('cleanup');
-  return { data, isPending, error}
-}
+    if (res.data.user._token) {
+      localStorage.setItem("_token", JSON.stringify(res.data.user._token));
+    }
+    localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
 
+    return true;
+  } else {
+    return false;
+  }
+};

@@ -3,7 +3,8 @@
   background-image: url("/image/background.jpg");
   background-size: cover;
   background-position: center;
-  overflow-y: auto; /* This makes the div scrollable vertically */
+  overflow-y: auto;
+  min-height: 100vh; /* This makes the div scrollable vertically */
 }
 
 .haunted-title {
