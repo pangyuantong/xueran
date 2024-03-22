@@ -6,16 +6,16 @@ import AuthForm from "../components/AuthForm";
 
 // Helpers
 import { fetchData, getLobby, joinRoom } from "../helpers";
-import { useLoaderData } from "react-router-dom";
+import { redirect, useLoaderData } from "react-router-dom";
 import Lobby from "../components/Lobby";
 import Room from "../components/Room";
 
 export async function dashboardLoader() {
   const _token = fetchData("_token");
   const loggedUser = fetchData("loggedUser");
-
-  if (!getLobby()) {
+  if ((await getLobby()) !== true) {
     toast.error("Error validating token. Please login and try again.");
+    return redirect("/");
   }
 
   const gamesAvailable = fetchData("gamesAvailable");
@@ -37,15 +37,23 @@ const Dashboard = () => {
 
   useEffect(() => {
     // If either `loggedUser` or `_token` exists, set loading to false
-    if (roomNum) {
-      if (joinRoom(roomNum)) {
-        setJoinedRoom(true);
-        setBoardData(fetchData("boardData"));
+    async function attemptJoinRoom() {
+      if (roomNum) {
+        try {
+          if (await joinRoom(roomNum)) {
+            setJoinedRoom(true);
+            setBoardData(fetchData("boardData"));
 
-        loggedUser.userCurrGame = roomNum;
-        localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
+            loggedUser.userCurrGame = roomNum;
+            localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
+          }
+        } catch (e) {
+          console.error("Error retrieving data:", e);
+          throw new Error("Error retrieving data.");
+        }
       }
     }
+    attemptJoinRoom();
   }, [roomNum]);
 
   const handleClickJoin = (gmID) => {
@@ -62,7 +70,7 @@ const Dashboard = () => {
       {!joinedRoom ? (
         <Lobby gamesAvailable={gamesAvailable} handleClick={handleClickJoin} />
       ) : (
-        <Room boardData={boardData} boardRoles={boardRoles}/>
+        <Room boardData={boardData} boardRoles={boardRoles} />
       )}
     </>
   );

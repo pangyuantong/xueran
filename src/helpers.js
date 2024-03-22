@@ -49,10 +49,6 @@ export const getAuth = async ({ formdata = null, token = null }) => {
       if (res.data.user._token) {
         localStorage.setItem("_token", JSON.stringify(res.data.user._token));
       }
-
-      if (!loggedUser.userCurrGame) {
-        getLobby();
-      }
       localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
 
       toast.success(`Welcome back...${token}`, {
@@ -72,6 +68,10 @@ export const getAuth = async ({ formdata = null, token = null }) => {
 
 export const getLobby = async () => {
   const _token = fetchData("_token");
+  if (_token == null) {
+    localStorage.clear();
+    return false;
+  }
 
   try {
     //   const response = await axios.get(
@@ -96,6 +96,7 @@ export const getLobby = async () => {
 
       return true;
     } else {
+      localStorage.clear();
       return false;
     }
   } catch (e) {
@@ -130,6 +131,49 @@ export const joinRoom = async ({ gmID }) => {
 
       localStorage.setItem("boardRoles", JSON.stringify(boardRoles));
       localStorage.setItem("boardData", JSON.stringify(boardData));
+
+      return true;
+    } else {
+      return false;
+    }
+  } catch (e) {
+    console.error("Error retrieving data:", e);
+    throw new Error("Error retrieving data.");
+  }
+};
+
+export const drawSR = async () => {
+  const _token = fetchData("_token");
+  try {
+    //   const response = await axios.get(
+    // `http://192.168.68.114/portal/public/api/user/games/draw`,
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
+    //       },
+    //     }
+    //   );
+
+    const response = await axios.get(
+      `https://mocki.io/v1/8f772f63-3ba9-4f8f-ac79-e39c736b883e`
+    );
+
+    console.log(response);
+
+    if (response.data.success) {
+      const res = response.data;
+
+      const roleInfo = {
+        roleID: res.data.role,
+        roleImg: res.data.roleInfo.roleImg,
+        roleName: res.data.roleInfo.roleName,
+        roleDesc: res.data.roleInfo.roleDesc,
+        roleFaction: res.data.roleInfo.roleFaction,
+      };
+
+      localStorage.setItem("roleInfo", JSON.stringify(roleInfo));
+      localStorage.setItem("seatNum", res.data.seat);
+      // toast.success("Seat Number Retrieved.");
 
       return true;
     } else {

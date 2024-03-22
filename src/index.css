@@ -1,66 +1,95 @@
-
 .custom-background {
   background-image: url("/image/background.jpg");
   background-size: cover;
   background-position: center;
   overflow-y: auto;
-  min-height: 100vh; /* This makes the div scrollable vertically */
+  min-height: 100vh;
+  /* This makes the div scrollable vertically */
 }
 
 .haunted-title {
-  font-family: 'Poppins', sans-serif; /* Poppins is modern and readable, but you can choose a more gothic font if you prefer */
-  font-size: 48px; /* Adjust size as needed */
-  color: #c20000; /* Bright red for a demonic touch */
-  text-shadow: 2px 2px 4px #000000; /* Shadow for a haunted effect */
+  font-family: 'Poppins', sans-serif;
+  /* Poppins is modern and readable, but you can choose a more gothic font if you prefer */
+  font-size: 48px;
+  /* Adjust size as needed */
+  color: #c20000;
+  /* Bright red for a demonic touch */
+  text-shadow: 2px 2px 4px #000000;
+  /* Shadow for a haunted effect */
   text-align: center;
   margin-bottom: 20px;
 }
 
 .spooky-title {
-  font-family: 'Montserrat', sans-serif !important; /* Bold and modern font */
-  font-size: 45px !important; /* Large size for impact */
-  font-weight: 700 !important;/* Large size for impact */
-  color: #ffffff !important; /* Eerie red color */
-  text-align: center !important; /* Center align the title */
-  text-transform: uppercase !important; /* Makes the title stand out more */
-  letter-spacing: 2px !important; /* Increase spacing for a dramatic effect */
-  text-shadow: 2px 2px 4px #000 !important; /* Dark shadow for depth */
-  transition: all 0.3s ease !important; /* Smooth transition for hover effect */
-  position: relative !important; /* Required for pseudo-element positioning */
-  cursor: pointer !important; /* Changes the cursor to indicate the title is interactive */
+  font-family: 'Montserrat', sans-serif !important;
+  /* Bold and modern font */
+  font-size: 45px !important;
+  /* Large size for impact */
+  font-weight: 700 !important;
+  /* Large size for impact */
+  color: #ffffff !important;
+  /* Eerie red color */
+  text-align: center !important;
+  /* Center align the title */
+  text-transform: uppercase !important;
+  /* Makes the title stand out more */
+  letter-spacing: 2px !important;
+  /* Increase spacing for a dramatic effect */
+  text-shadow: 2px 2px 4px #000 !important;
+  /* Dark shadow for depth */
+  transition: all 0.3s ease !important;
+  /* Smooth transition for hover effect */
+  position: relative !important;
+  /* Required for pseudo-element positioning */
+  cursor: pointer !important;
+  /* Changes the cursor to indicate the title is interactive */
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
 
 .spooky-para {
   width: 65%;
-  font-family: 'Roboto Mono', monospace; /* Modern, monospaced font for a clean yet eerie vibe */
-  font-size: 18px; /* Adjust size as needed */
-  color: #E0E0E0; /* Soft, ghostly white */
-  background-color: #1A1A1D; /* Deep, dark background */
-  padding: 20px; /* Padding around the text */
-  border-left: 5px solid #FF0000; /* Bright red accent line for a hint of something sinister */
-  text-shadow: 1px 1px 5px #000; /* Subtle shadow to lift the text off the background */
-  animation: glitch 1s infinite alternate; /* Glitch effect for an extra spooky vibe */
-  line-height: 1.6; /* Adjust line spacing for readability */
+  font-family: 'Roboto Mono', monospace;
+  /* Modern, monospaced font for a clean yet eerie vibe */
+  font-size: 18px;
+  /* Adjust size as needed */
+  color: #E0E0E0;
+  /* Soft, ghostly white */
+  background-color: #1A1A1D;
+  /* Deep, dark background */
+  padding: 20px;
+  /* Padding around the text */
+  border-left: 5px solid #FF0000;
+  /* Bright red accent line for a hint of something sinister */
+  text-shadow: 1px 1px 5px #000;
+  /* Subtle shadow to lift the text off the background */
+  animation: glitch 1s infinite alternate;
+  /* Glitch effect for an extra spooky vibe */
+  line-height: 1.6;
+  /* Adjust line spacing for readability */
 }
 
 @keyframes glitch {
   0% {
     transform: skew(-0.5deg);
   }
+
   20% {
     transform: skew(0.5deg);
   }
+
   40% {
     transform: skew(-0.5deg);
   }
+
   60% {
     transform: skew(0.5deg) translateX(-2px);
   }
+
   80% {
     transform: skew(-0.5deg) translateX(2px);
   }
+
   100% {
     transform: skew(0.5deg);
   }
@@ -68,24 +97,36 @@
 
 .spooky-input {
   width: 65%;
-  font-family: 'Roboto Mono', monospace; /* Consistent with the spooky theme */
-  background-color: #2A2A2D; /* Dark background for a spooky effect */
-  color: #E0E0E0; /* Light text color for contrast */
-  border: 2px solid #FF5555; /* Eerie red border */
-  border-radius: 5px; /* Slightly rounded corners for a modern touch */
-  padding: 10px 15px; /* Adequate padding for text */
-  font-size: 16px; /* Readable font size */
-  transition: all 0.3s ease; /* Smooth transition for focus effect */
+  font-family: 'Roboto Mono', monospace;
+  /* Consistent with the spooky theme */
+  background-color: #2A2A2D;
+  /* Dark background for a spooky effect */
+  color: #E0E0E0;
+  /* Light text color for contrast */
+  border: 2px solid #FF5555;
+  /* Eerie red border */
+  border-radius: 5px;
+  /* Slightly rounded corners for a modern touch */
+  padding: 10px 15px;
+  /* Adequate padding for text */
+  font-size: 16px;
+  /* Readable font size */
+  transition: all 0.3s ease;
+  /* Smooth transition for focus effect */
 }
 
 .spooky-input:focus {
-  box-shadow: 0 0 8px #FF5555; /* Glowing effect on focus */
-  border-color: #FFFFFF; /* Changes border color on focus for contrast */
+  box-shadow: 0 0 8px #FF5555;
+  /* Glowing effect on focus */
+  border-color: #FFFFFF;
+  /* Changes border color on focus for contrast */
 }
 
 .spooky-input::placeholder {
-  color: #999; /* Placeholder text color */
-  font-style: italic; /* Italic placeholder text for a mysterious vibe */
+  color: #999;
+  /* Placeholder text color */
+  font-style: italic;
+  /* Italic placeholder text for a mysterious vibe */
 }
 
 .error {
@@ -105,55 +146,154 @@
 @import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
 
 .room-tab {
-  display: flex; /* Use flexbox to control the layout */
-  flex-direction: column; /* Stack children vertically */
-  background-color: #121212; /* Dark background for the tab container */
+  display: flex;
+  /* Use flexbox to control the layout */
+  flex-direction: column;
+  /* Stack children vertically */
+  background-color: #121212;
+  /* Dark background for the tab container */
   padding: 20px;
   border-radius: 8px;
-  height: 80vh; /* Set the height of the container */
+  height: 80vh;
+  /* Set the height of the container */
   overflow: hidden;
-  
+
 }
 
 /* Style for the tab titles */
 .nav-tabs .nav-link {
-  color: #a9a9a9; /* Light grey text color for contrast */
+  color: #a9a9a9;
+  /* Light grey text color for contrast */
   border: 1px solid transparent;
   border-radius: 8px;
-  background-color: #333; /* Slightly lighter dark shade for the tab */
-  margin-right: 5px; /* Space between tabs */
-  
+  background-color: #333;
+  /* Slightly lighter dark shade for the tab */
+  margin-right: 5px;
+  /* Space between tabs */
+
 }
 
 /* Style for the active tab title */
 .nav-tabs .nav-link.active {
   color: #fff;
-  background-color: #222; /* Even darker shade for active tab */
-  border-color: #444; /* Dark border color */
+  background-color: #222;
+  /* Even darker shade for active tab */
+  border-color: #444;
+  /* Dark border color */
 }
 
 /* Style for the tab content */
 .tab-content {
-  flex-grow: 1; /* Allow the content to grow to fill the available space */
-  overflow-y: auto; /* Add scroll to content if it exceeds the height */
-  padding: 20px;
-  border-radius: 0 8px 8px 8px; /* Round only the bottom corners */
-  background-color: #222; /* Dark background for the content */
-  color: #ccc; /* Light grey text for readability */
-  border: 1px solid #444; /* Dark border for content area */
-  top: -1px; /* Align the top border with the bottom of the tabs */
-  z-index: 0; /* Place the content below the tabs */
+  flex-grow: 1;
+  /* Allow the content to grow to fill the available space */
+  overflow-y: auto;
+  /* Add scroll to content if it exceeds the height */
+  padding-block: 20px;
+  padding-inline: 0px;
+  border-radius: 0 8px 8px 8px;
+  /* Round only the bottom corners */
+  background-color: #222;
+  /* Dark background for the content */
+  color: #ccc;
+  /* Light grey text for readability */
+  border: 1px solid #444;
+  /* Dark border for content area */
+  top: -1px;
+  /* Align the top border with the bottom of the tabs */
+  z-index: 0;
+  /* Place the content below the tabs */
 }
 
 /* Additional spooky theme colors and effects */
-.nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
-  color: #50c878; /* Eerie green color for hover/focus */
+.nav-tabs .nav-link:hover,
+.nav-tabs .nav-link:focus {
+  color: #50c878;
+  /* Eerie green color for hover/focus */
   background-color: #2a2a2a;
-  border-color:  #222;
+  border-color: #222;
 }
 
 /* Spooky effect for tab titles */
 .nav-tabs .nav-link {
-  font-family: 'Creepster', cursive; /* Example spooky font */
-  text-shadow: 1px 1px 2px #000; /* Text shadow for a spooky effect */
+  font-family: 'Creepster', cursive;
+  /* Example spooky font */
+  text-shadow: 1px 1px 2px #000;
+  /* Text shadow for a spooky effect */
+}
+
+
+.power-card {
+
+  .container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    perspective: 300px;
+  }
+
+  .card {
+    height: 450px;
+    width: 300px;
+    position: relative;
+    transition: transform 1500ms;
+    transform-style: preserve-3d;
+  }
+
+  /* Set the initial rotation to show the front face */
+  .front {
+    transform: rotateY(0);
+  }
+
+  /* Rotate the card on click to show the back face */
+  .card.flip {
+    transform: rotateY(180deg);
+  }
+
+  .front,
+  .back {
+    height: 100%;
+    width: 100%;
+    border-radius: 2px;
+    box-shadow: 0 0 5px 2px rgba(50, 50, 50, 0.25);
+    position: absolute;
+    backface-visibility: hidden;
+    /* Hide the back face when not visible */
+  }
+
+  .front {
+    background-image: url("https://images.thenile.io/r1000/4012927741450.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    align-items: center;
+    display: flex;
+    align-items: center;
+    /* Centers the content vertically */
+    justify-content: center;
+    /* Centers the content horizontally */
+    text-align: center;
+    /* Ensures text is centered even if it breaks into multiple lines */
+    
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+  .front h1 {
+    font-family: 'Creepster', cursive; /* This is a spooky-themed font */
+    color: #a56c16; /* A color that might be associated with blood or rust */
+    text-shadow: 2px 2px 4px #000000; /* Soft black shadow for a mysterious look */
+    font-size: 8em; /* Larger font size for emphasis */
+    margin: 0;
+    transform: rotate(-5deg); /* Tilt the number for an off-kilter look */
+    /* You might need to adjust the size and the shadow depending on the exact look you're going for */
+  }
+
+  .back {
+    /* background-image: url("https://millenniumcomics.com.au/cdn/shop/products/a13fd31b-ab15-55c2-a25f-1ed36dd99ac1.png?v=1636761965"); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #50c878;
+    transform: rotateY(180deg);
+  }
+
 }
