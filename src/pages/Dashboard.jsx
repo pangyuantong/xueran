@@ -5,14 +5,16 @@ import { toast } from "react-toastify";
 import AuthForm from "../components/AuthForm";
 
 // Helpers
-import { fetchData, getAuth, getLobby } from "../helpers";
+import { fetchData } from "../helpers";
 import { useLoaderData } from "react-router-dom";
+import Lobby from "../components/Lobby";
 
 export async function dashboardLoader() {
   const _token = fetchData("_token");
   const loggedUser = fetchData("loggedUser");
+  const gamesAvailable = fetchData("gamesAvailable");
 
-  return { loggedUser, _token };
+  return { loggedUser, _token, gamesAvailable };
 }
 
 export async function dashboardAction({ request }) {
@@ -20,15 +22,18 @@ export async function dashboardAction({ request }) {
   const { _action, ...values } = Object.fromEntries(data);
 
   if (_action == "authContact") {
-    
   }
   return null;
 }
 
 const Dashboard = () => {
-  const { loggedUser, _token } = useLoaderData();
+  const { loggedUser, _token, gamesAvailable } = useLoaderData();
 
-  return <><p>testtttttttttttttt</p></>;
+  return (
+    <>
+      <Lobby gamesAvailable={gamesAvailable}/>
+    </>
+  );
 };
 
 export default Dashboard;

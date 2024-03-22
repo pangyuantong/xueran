@@ -98,3 +98,32 @@ export const getLobby = async () => {
     return false;
   }
 };
+
+export const joinRoom = async () => {
+  const _token = fetchData("_token");
+
+  //   const response = await axios.get(
+  //     `http://192.168.68.114/portal/public/api/user/games`,
+  //     {
+  //       headers: {
+  //         Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
+  //       },
+  //     }
+  //   );
+
+  const response = await axios.get(
+    `https://mocki.io/v1/103ca5a5-440a-48aa-a5d3-d8bec8230cec`
+  );
+
+  console.log(response);
+
+  if (response.data.success) {
+    const res = response.data;
+
+    localStorage.setItem("gamesAvailable", JSON.stringify(res.data));
+
+    return true;
+  } else {
+    return false;
+  }
+};
