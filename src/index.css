@@ -273,27 +273,72 @@
     /* Centers the content horizontally */
     text-align: center;
     /* Ensures text is centered even if it breaks into multiple lines */
-    
+
   }
 
   @import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+
   .front h1 {
-    font-family: 'Creepster', cursive; /* This is a spooky-themed font */
-    color: #a56c16; /* A color that might be associated with blood or rust */
-    text-shadow: 2px 2px 4px #000000; /* Soft black shadow for a mysterious look */
-    font-size: 8em; /* Larger font size for emphasis */
+    font-family: 'Creepster', cursive;
+    /* This is a spooky-themed font */
+    color: #a56c16;
+    /* A color that might be associated with blood or rust */
+    text-shadow: 2px 2px 4px #000000;
+    /* Soft black shadow for a mysterious look */
+    font-size: 8em;
+    /* Larger font size for emphasis */
     margin: 0;
-    transform: rotate(-5deg); /* Tilt the number for an off-kilter look */
+    transform: rotate(-5deg);
+    /* Tilt the number for an off-kilter look */
     /* You might need to adjust the size and the shadow depending on the exact look you're going for */
   }
 
   .back {
     /* background-image: url("https://millenniumcomics.com.au/cdn/shop/products/a13fd31b-ab15-55c2-a25f-1ed36dd99ac1.png?v=1636761965"); */
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: #50c878;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    background: #f0f0f0;
+    /* light grey background, you can choose a theme-related color */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    box-sizing: border-box;
+    backface-visibility: hidden;
     transform: rotateY(180deg);
   }
 
+  .back .role-name {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #333; /* Dark text color for the role name */
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .back .character-image {
+    width: 70%; /* Adjust as needed */
+    margin: 5px 0; /* Spacing above and below the image */
+  }
+  
+  .back .description {
+    font-size: 18px;
+    color: #1c1c1c; /* Medium grey text color for the description */
+    margin-bottom: 10px;
+    letter-spacing: 2px !important;
+  }
+  
+  .back .category {
+    font-size: 18px;
+    color: #333; /* Dark text color for the category */
+    margin-top: auto;
+    padding-block: 10px;
+    width: 100%;
+    background-color: #ddd; /* Light background for the category section */
+    border-radius: 8px;
+    align-items: center;
+  }
 }
