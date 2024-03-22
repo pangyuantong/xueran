@@ -15,6 +15,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Main, { mainLoader } from "./layouts/Main";
 import Error from "./pages/Error";
 import Dashboard, { dashboardAction, dashboardLoader } from "./pages/Dashboard";
+import Landing, { landingAction, landingLoader } from "./pages/Landing";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,13 @@ const router = createBrowserRouter([
     children: [
       {
         index: true, 
+        element: <Landing />,
+        loader: landingLoader,
+        action: landingAction,
+        errorElement: <Error />,
+      },
+      {
+        path: "/dashboard",
         element: <Dashboard />,
         loader: dashboardLoader,
         action: dashboardAction,

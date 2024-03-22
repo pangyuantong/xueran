@@ -5,30 +5,39 @@ import { toast } from "react-toastify";
 import AuthForm from "../components/AuthForm";
 
 // Helpers
-import { fetchData, getAuth, getLobby } from "../helpers";
+import { fetchData, getAuth } from "../helpers";
 import { useLoaderData } from "react-router-dom";
 
-export async function dashboardLoader() {
+export async function landingLoader() {
   const _token = fetchData("_token");
+
+  if (_token) {
+    return await getAuth({
+      token: _token,
+    });
+  }
+
   const loggedUser = fetchData("loggedUser");
 
   return { loggedUser, _token };
 }
 
-export async function dashboardAction({ request }) {
+export async function landingAction({ request }) {
   const data = await request.formData();
   const { _action, ...values } = Object.fromEntries(data);
 
   if (_action == "authContact") {
-    
+    return await getAuth({
+      formdata: data,
+    });
   }
   return null;
 }
 
-const Dashboard = () => {
+const Landing = () => {
   const { loggedUser, _token } = useLoaderData();
 
-  return <><p>testtttttttttttttt</p></>;
+  return <>{!loggedUser && !_token && <AuthForm />}</>;
 };
 
-export default Dashboard;
+export default Landing;
