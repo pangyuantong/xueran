@@ -101,3 +101,14 @@
   text-align: center;
   color: #E0E0E0;
 }
+
+.room-tab {
+  background-color: #d3d3d35e;
+  border-radius: 10px;
+  height: 80vh;
+  overflow-y: auto;
+
+  .main {
+    padding: 20px;
+  }
+}

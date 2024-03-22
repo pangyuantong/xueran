@@ -58,8 +58,8 @@ export const getAuth = async ({ formdata = null, token = null }) => {
       toast.success(`Welcome back...${token}`, {
         autoClose: 1800,
       });
-      console.log("go dashboard")
-      return redirect("/dashboard")
+      console.log("go dashboard");
+      return redirect("/dashboard");
     } else {
       localStorage.clear();
       toast.error(`Token expired. Please login again.`);
@@ -73,57 +73,70 @@ export const getAuth = async ({ formdata = null, token = null }) => {
 export const getLobby = async () => {
   const _token = fetchData("_token");
 
-  //   const response = await axios.get(
-  //     `http://192.168.68.114/portal/public/api/user/games`,
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
-  //       },
-  //     }
-  //   );
+  try {
+    //   const response = await axios.get(
+    //     `http://192.168.68.114/portal/public/api/user/games`,
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
+    //       },
+    //     }
+    //   );
 
-  const response = await axios.get(
-    `https://mocki.io/v1/103ca5a5-440a-48aa-a5d3-d8bec8230cec`
-  );
+    const response = await axios.get(
+      `https://mocki.io/v1/103ca5a5-440a-48aa-a5d3-d8bec8230cec`
+    );
 
-  console.log(response);
+    console.log(response);
 
-  if (response.data.success) {
-    const res = response.data;
+    if (response.data.success) {
+      const res = response.data;
 
-    localStorage.setItem("gamesAvailable", JSON.stringify(res.data));
+      localStorage.setItem("gamesAvailable", JSON.stringify(res.data));
 
-    return true;
-  } else {
-    return false;
+      return true;
+    } else {
+      return false;
+    }
+  } catch (e) {
+    console.error("Error retrieving data:", e);
+    throw new Error("Error retrieving data.");
   }
 };
 
-export const joinRoom = async () => {
+export const joinRoom = async ({ gmID }) => {
   const _token = fetchData("_token");
+  const loggedUser = fetchData("loggedUser");
+  try {
+    //   const response = await axios.get(
+    // `http://192.168.68.114/portal/public/api/user/games/join?gmID=${gmID}`,
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
+    //       },
+    //     }
+    //   );
 
-  //   const response = await axios.get(
-  //     `http://192.168.68.114/portal/public/api/user/games`,
-  //     {
-  //       headers: {
-  //         Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
-  //       },
-  //     }
-  //   );
+    const response = await axios.get(
+      `https://mocki.io/v1/e7d4344f-cfb6-42ea-afc8-2eecf509c12a`
+    );
 
-  const response = await axios.get(
-    `https://mocki.io/v1/103ca5a5-440a-48aa-a5d3-d8bec8230cec`
-  );
+    console.log(response);
 
-  console.log(response);
+    if (response.data.success) {
+      const res = response.data;
+      const boardRoles = res.data.boardRoles;
+      const boardData = res.data.boardData;
 
-  if (response.data.success) {
-    const res = response.data;
+      localStorage.setItem("boardRoles", JSON.stringify(boardRoles));
+      localStorage.setItem("boardData", JSON.stringify(boardData));
 
-    localStorage.setItem("gamesAvailable", JSON.stringify(res.data));
-
-    return true;
-  } else {
-    return false;
+      return true;
+    } else {
+      return false;
+    }
+  } catch (e) {
+    console.error("Error retrieving data:", e);
+    throw new Error("Error retrieving data.");
   }
 };
