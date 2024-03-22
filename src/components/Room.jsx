@@ -15,16 +15,17 @@ const Room = ({ boardData, boardRoles }) => {
             defaultActiveKey="0"
             activeKey={toggle}
             onSelect={(k) => setToggle(k)}
-            className="mb-3"
+            className="mb-3 title"
             justify
+            style={{borderBottomColor : '#121212'}}
           >
-            <Tab eventKey="0" title="Home" className="main">
+            <Tab eventKey="0" title="抿牌" className="main">
               Tab content for Home
             </Tab>
-            <Tab eventKey="1" title="Profile">
+            <Tab eventKey="1" title="课本">
               Tab content for Profile
             </Tab>
-            <Tab eventKey="2" title="Contact">
+            <Tab eventKey="2" title="玩家">
               Tab content for Contact
             </Tab>
           </Tabs>

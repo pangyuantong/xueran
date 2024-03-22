@@ -102,13 +102,58 @@
   color: #E0E0E0;
 }
 
-.room-tab {
-  background-color: #d3d3d35e;
-  border-radius: 10px;
-  height: 80vh;
-  overflow-y: auto;
+@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
 
-  .main {
-    padding: 20px;
-  }
+.room-tab {
+  display: flex; /* Use flexbox to control the layout */
+  flex-direction: column; /* Stack children vertically */
+  background-color: #121212; /* Dark background for the tab container */
+  padding: 20px;
+  border-radius: 8px;
+  height: 80vh; /* Set the height of the container */
+  overflow: hidden;
+  
+}
+
+/* Style for the tab titles */
+.nav-tabs .nav-link {
+  color: #a9a9a9; /* Light grey text color for contrast */
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background-color: #333; /* Slightly lighter dark shade for the tab */
+  margin-right: 5px; /* Space between tabs */
+  
+}
+
+/* Style for the active tab title */
+.nav-tabs .nav-link.active {
+  color: #fff;
+  background-color: #222; /* Even darker shade for active tab */
+  border-color: #444; /* Dark border color */
+}
+
+/* Style for the tab content */
+.tab-content {
+  flex-grow: 1; /* Allow the content to grow to fill the available space */
+  overflow-y: auto; /* Add scroll to content if it exceeds the height */
+  padding: 20px;
+  border-radius: 0 8px 8px 8px; /* Round only the bottom corners */
+  background-color: #222; /* Dark background for the content */
+  color: #ccc; /* Light grey text for readability */
+  border: 1px solid #444; /* Dark border for content area */
+  top: -1px; /* Align the top border with the bottom of the tabs */
+  z-index: 0; /* Place the content below the tabs */
+}
+
+/* Additional spooky theme colors and effects */
+.nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
+  color: #50c878; /* Eerie green color for hover/focus */
+  background-color: #2a2a2a;
+  border-color:  #222;
+}
+
+/* Spooky effect for tab titles */
+.nav-tabs .nav-link {
+  font-family: 'Creepster', cursive; /* Example spooky font */
+  text-shadow: 1px 1px 2px #000; /* Text shadow for a spooky effect */
 }
