@@ -5,8 +5,8 @@ import { toast } from "react-toastify";
 import AuthForm from "../components/AuthForm";
 
 // Helpers
-import { fetchData, getLobby, joinRoom } from "../helpers";
-import { redirect, useLoaderData } from "react-router-dom";
+import { fetchData, getLobby, joinRoom, leaveGame } from "../helpers";
+import { redirect, useLoaderData, useNavigate } from "react-router-dom";
 import Lobby from "../components/Lobby";
 import Room from "../components/Room";
 
@@ -34,6 +34,8 @@ const Dashboard = () => {
   const [joinedRoom, setJoinedRoom] = useState(false);
   const [boardData, setBoardData] = useState();
   const [boardRoles, setBoardRoles] = useState(false);
+  const [currGamesAvailable, setCurrGamesAvailable] = useState(gamesAvailable);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // If either `loggedUser` or `_token` exists, set loading to false
@@ -43,9 +45,6 @@ const Dashboard = () => {
           if (await joinRoom(roomNum)) {
             setJoinedRoom(true);
             setBoardData(fetchData("boardData"));
-
-            loggedUser.userCurrGame = roomNum;
-            localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
           }
         } catch (e) {
           console.error("Error retrieving data:", e);
@@ -65,12 +64,48 @@ const Dashboard = () => {
     };
   };
 
+  const handleClickLeave = async () => {
+    try {
+      if (await leaveGame()) {
+        setJoinedRoom(false);
+        if (await getLobby()) {
+          setCurrGamesAvailable(fetchData("gamesAvailable"));
+        }
+      }
+    } catch (e) {
+      console.error("Error leaving game:", e);
+      throw new Error("Error leaving game.");
+    }
+  };
+
+  const handleClickLogout = () => {
+    // Use the confirm method to display a confirmation dialog box
+      console.log("Logged Out!");
+    const userConfirmed = window.confirm("Are you sure you want to logout?");
+
+    if (userConfirmed) { 
+      console.log("Logged Out!");
+      localStorage.clear();
+      navigate('/');
+    } else {
+      console.log("User canceled.");
+    }
+  };
+
   return (
     <>
       {!joinedRoom ? (
-        <Lobby gamesAvailable={gamesAvailable} handleClick={handleClickJoin} />
+        <Lobby
+          gamesAvailable={gamesAvailable}
+          handleClickJoin={handleClickJoin}
+          handleClickLogout={handleClickLogout}
+        />
       ) : (
-        <Room boardData={boardData} boardRoles={boardRoles} />
+        <Room
+          boardData={boardData}
+          boardRoles={boardRoles}
+          handleClickLeave={handleClickLeave}
+        />
       )}
     </>
   );

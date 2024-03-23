@@ -51,9 +51,9 @@ export const getAuth = async ({ formdata = null, token = null }) => {
       }
       localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
 
-      toast.success(`Welcome back...${token}`, {
-        autoClose: 1800,
-      });
+      // toast.success(`Welcome back...${token}`, {
+      //   autoClose: 1800,
+      // });
       console.log("go dashboard");
       return redirect("/dashboard");
     } else {
@@ -131,6 +131,9 @@ export const joinRoom = async ({ gmID }) => {
 
       localStorage.setItem("boardRoles", JSON.stringify(boardRoles));
       localStorage.setItem("boardData", JSON.stringify(boardData));
+      
+      loggedUser.userCurrGame = gmID;
+      localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
 
       return true;
     } else {
@@ -174,6 +177,43 @@ export const drawSR = async () => {
       localStorage.setItem("roleInfo", JSON.stringify(roleInfo));
       localStorage.setItem("seatNum", res.data.seat);
       // toast.success("Seat Number Retrieved.");
+
+      return true;
+    } else {
+      return false;
+    }
+  } catch (e) {
+    console.error("Error retrieving data:", e);
+    throw new Error("Error retrieving data.");
+  }
+};
+
+export const leaveGame = async () => {
+  const _token = fetchData("_token");
+  const loggedUser = fetchData("loggedUser");
+  try {
+    //   const response = await axios.get(
+    // `http://192.168.68.114/portal/public/api/user/games/leave`,
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
+    //       },
+    //     }
+    //   );
+
+    const response = await axios.get(
+      `https://mocki.io/v1/8f772f63-3ba9-4f8f-ac79-e39c736b883e`
+    );
+
+    if (response.data.success) {
+      localStorage.removeItem('boardRoles')
+      localStorage.removeItem('gamesAvailable')
+      localStorage.removeItem('boardData')
+      localStorage.removeItem('roleInfo')
+      localStorage.removeItem('seatNum')
+
+      loggedUser.userCurrGame = null;
+      localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
 
       return true;
     } else {

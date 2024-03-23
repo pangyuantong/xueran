@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Badge, Container, Tab, Tabs } from "react-bootstrap";
+import { Badge, Button, Container, Row, Tab, Tabs } from "react-bootstrap";
 import PowerCard from "./PowerCard";
-import { drawSR, fetchData } from "../helpers";
+import { drawSR, fetchData, leaveGame } from "../helpers";
+import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/24/solid";
 
-const Room = ({ boardData, boardRoles }) => {
+const Room = ({ boardData, boardRoles, handleClickLeave }) => {
   const [toggle, setToggle] = useState("1");
   const [seat, setSeat] = useState();
   useEffect(() => {
     async function drawCard() {
-
-        console.log('toggled')
+      console.log("toggled");
       if (toggle === "0") {
         try {
           if (await drawSR()) {
@@ -24,12 +24,25 @@ const Room = ({ boardData, boardRoles }) => {
     drawCard();
   }, [toggle]);
 
+  
+
   return (
     <Container fluid className="my-4 booklet" style={{ paddingInline: 0 }}>
       <section style={{ marginBottom: "10px", paddingInline: 0 }}>
-        <h1 className="spooky-title" style={{ marginBottom: "10px" }}>
-          {boardData.bdName}
-        </h1>
+        <Row>
+          <div className="col-2 pt-1">
+            <Button className="btn-fail" onClick={handleClickLeave}>
+              <ArrowLeftEndOnRectangleIcon width={20}/>
+            </Button>
+          </div>
+          <div className="col-8">
+            <h1 className="spooky-title" style={{ marginBottom: "10px" }}>
+              {boardData.bdName}
+            </h1>
+          </div>
+          <div className="col-2"></div>
+        </Row>
+
         <div className="room-tab">
           <Tabs
             defaultActiveKey="1"

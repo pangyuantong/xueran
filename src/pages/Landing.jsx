@@ -12,9 +12,9 @@ export async function landingLoader() {
   const _token = fetchData("_token");
 
   if (_token) {
-    // return await getAuth({
-    //   token: _token,
-    // });
+    return await getAuth({
+      token: _token,
+    });
   }
 
   const loggedUser = fetchData("loggedUser");
