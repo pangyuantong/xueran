@@ -43,8 +43,10 @@ const Dashboard = () => {
       if (roomNum) {
         try {
           if (await joinRoom(roomNum)) {
+            console.log('joined successfully:' + roomNum)
             setJoinedRoom(true);
             setBoardData(fetchData("boardData"));
+            setBoardRoles(fetchData("boardRoles"));
           }
         } catch (e) {
           console.error("Error retrieving data:", e);
@@ -68,6 +70,7 @@ const Dashboard = () => {
     try {
       if (await leaveGame()) {
         setJoinedRoom(false);
+        setRoomNum(null);
         if (await getLobby()) {
           setCurrGamesAvailable(fetchData("gamesAvailable"));
         }

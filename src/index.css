@@ -150,9 +150,10 @@
   /* Use flexbox to control the layout */
   flex-direction: column;
   /* Stack children vertically */
-  background-color: #121212;
+  background-color: #12121200;
   /* Dark background for the tab container */
-  padding: 20px;
+  /* padding: 20px; */
+  padding-top: 10px;
   border-radius: 8px;
   height: 80vh;
   /* Set the height of the container */
@@ -164,12 +165,13 @@
 .nav-tabs .nav-link {
   color: #a9a9a9;
   /* Light grey text color for contrast */
-  border: 1px solid transparent;
+  /* border: 1px solid transparent; */
   border-radius: 8px;
   background-color: #333;
   /* Slightly lighter dark shade for the tab */
   margin-right: 5px;
   /* Space between tabs */
+  border-bottom-color: #ffffff !important;
 
 }
 
@@ -192,11 +194,11 @@
   padding-inline: 0px;
   border-radius: 0 8px 8px 8px;
   /* Round only the bottom corners */
-  background-color: #222;
+  background-color: #22222200;
   /* Dark background for the content */
   color: #ccc;
   /* Light grey text for readability */
-  border: 1px solid #444;
+  /* border: 1px solid #444; */
   /* Dark border for content area */
   top: -1px;
   /* Align the top border with the bottom of the tabs */
@@ -210,7 +212,8 @@
   color: #50c878;
   /* Eerie green color for hover/focus */
   background-color: #2a2a2a;
-  border-color: #222;
+  border-color: #ffffff00;
+  border-bottom-color: #ffffff00 !important;
 }
 
 /* Spooky effect for tab titles */
@@ -218,6 +221,8 @@
   font-family: 'Creepster', cursive;
   /* Example spooky font */
   text-shadow: 1px 1px 2px #000;
+  
+  border-bottom-color: #ffffff00 !important;
   /* Text shadow for a spooky effect */
 }
 

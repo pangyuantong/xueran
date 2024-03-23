@@ -3,6 +3,7 @@ import { Badge, Button, Container, Row, Tab, Tabs } from "react-bootstrap";
 import PowerCard from "./PowerCard";
 import { drawSR, fetchData, leaveGame } from "../helpers";
 import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/24/solid";
+import Booklet from "./Booklet";
 
 const Room = ({ boardData, boardRoles, handleClickLeave }) => {
   const [toggle, setToggle] = useState("1");
@@ -56,7 +57,7 @@ const Room = ({ boardData, boardRoles, handleClickLeave }) => {
               {toggle === "0" && <PowerCard seatNum={seat} />}
             </Tab>
             <Tab eventKey="1" title="课本">
-              Tab content for Profile
+              <Booklet boardRoles={boardRoles}/>
             </Tab>
             <Tab eventKey="2" title="玩家">
               Tab content for Contact

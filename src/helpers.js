@@ -105,12 +105,13 @@ export const getLobby = async () => {
   }
 };
 
-export const joinRoom = async ({ gmID }) => {
+export const joinRoom = async ( roomNum ) => {
   const _token = fetchData("_token");
   const loggedUser = fetchData("loggedUser");
+  console.log('jshelper: ' + roomNum)
   try {
     //   const response = await axios.get(
-    // `http://192.168.68.114/portal/public/api/user/games/join?gmID=${gmID}`,
+    // `http://192.168.68.114/portal/public/api/user/games/join?gmID=${roomNum}`,
     //     {
     //       headers: {
     //         Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
@@ -132,7 +133,9 @@ export const joinRoom = async ({ gmID }) => {
       localStorage.setItem("boardRoles", JSON.stringify(boardRoles));
       localStorage.setItem("boardData", JSON.stringify(boardData));
       
-      loggedUser.userCurrGame = gmID;
+      loggedUser.userCurrGame = roomNum;
+      console.log(roomNum)
+      console.log(JSON.stringify(loggedUser));
       localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
 
       return true;
