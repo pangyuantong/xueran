@@ -27,7 +27,7 @@ const AuthForm = () => {
               <Row className="justify-content-center">
                 <input
                   type="number"
-                  name="mobile"
+                  name="userMobile"
                   required
                   placeholder="Enter your contact number"
                   aria-label="mobile"
