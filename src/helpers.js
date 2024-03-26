@@ -3,31 +3,30 @@ import { useState, useEffect } from "react";
 import { redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 
+const DEBUG_MODE = "MOCK";
+
 export const fetchData = (key) => {
   return JSON.parse(localStorage.getItem(key));
 };
 
 // API Firing
-export const getAuth = async ({ formdata = null, token = null }) => {
+export const getAuthByForm = async ({ formdata = null, token = null }) => {
   try {
-    const response = await axios.post(
-      `http://192.168.68.114/portal/public/api/user`,
-      formdata,
-      // {
-      //   headers: {
-      //     Authorization: `Bearer ${token}`, // Use 'Bearer' if required by your API
-      //   },
-      // }
-    );
-    // const response = await axios.get(
-    //   // with token
-    //   //   `https://mocki.io/v1/18c7f8b8-88ea-4c8d-8889-a1c3daa40c18`
-    //   // without token
-    //   // `https://mocki.io/v1/db9bdf03-6474-41ed-8c33-771d794f48f1`
-
-    //   //   without joined game
-    //   `https://mocki.io/v1/e8486685-b60d-423f-997b-d5e0841df9cc`
-    // );
+    var response;
+    if (DEBUG_MODE === "MOCK") {
+      response = await axios.get(
+        //   // with token
+        //   //   `https://mocki.io/v1/18c7f8b8-88ea-4c8d-8889-a1c3daa40c18`
+        //   // without token
+        //   // `https://mocki.io/v1/db9bdf03-6474-41ed-8c33-771d794f48f1`
+        `https://mocki.io/v1/e8486685-b60d-423f-997b-d5e0841df9cc`
+      );
+    } else {
+      response = await axios.post(
+        `http://192.168.68.114/portal/public/api/user`,
+        formdata
+      );
+    }
 
     if (response.data.success) {
       const res = response.data;
@@ -59,17 +58,28 @@ export const getAuth = async ({ formdata = null, token = null }) => {
   }
 };
 
-export const getAuthToken = async ({ formdata = null, token = null }) => {
+export const getAuthByToken = async ({ formdata = null, token = null }) => {
   const _token = fetchData("_token");
   try {
-    const response = await axios.get(
-      `http://192.168.68.114/portal/public/api/user`,
-      {
-        headers: {
-          Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
-        },
-      }
-    );
+    var response;
+    if (DEBUG_MODE === "MOCK") {
+      response = await axios.get(
+        //   // with token
+        //   //   `https://mocki.io/v1/18c7f8b8-88ea-4c8d-8889-a1c3daa40c18`
+        //   // without token
+        //   // `https://mocki.io/v1/db9bdf03-6474-41ed-8c33-771d794f48f1`
+        `https://mocki.io/v1/e8486685-b60d-423f-997b-d5e0841df9cc`
+      );
+    } else {
+      response = await axios.get(
+        `http://192.168.68.114/portal/public/api/user`,
+        {
+          headers: {
+            Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
+          },
+        }
+      );
+    }
 
     if (response.data.success) {
       const res = response.data;
@@ -109,7 +119,13 @@ export const getLobby = async () => {
   }
 
   try {
-      const response = await axios.get(
+    var response;
+    if (DEBUG_MODE === "MOCK") {
+      response = await axios.get(
+        `https://mocki.io/v1/103ca5a5-440a-48aa-a5d3-d8bec8230cec`
+      );
+    } else {
+      response = await axios.get(
         `http://192.168.68.114/portal/public/api/user/games`,
         {
           headers: {
@@ -117,10 +133,7 @@ export const getLobby = async () => {
           },
         }
       );
-
-    // const response = await axios.get(
-    //   `https://mocki.io/v1/103ca5a5-440a-48aa-a5d3-d8bec8230cec`
-    // );
+    }
 
     console.log(response);
 
@@ -140,23 +153,26 @@ export const getLobby = async () => {
   }
 };
 
-export const joinRoom = async ( roomNum ) => {
+export const joinRoom = async (roomNum) => {
   const _token = fetchData("_token");
   const loggedUser = fetchData("loggedUser");
-  console.log('jshelper: ' + roomNum)
+  console.log("jshelper: " + roomNum);
   try {
-      const response = await axios.get(
-    `http://192.168.68.114/portal/public/api/user/games/join?gmID=${roomNum}`,
+    var response;
+    if (DEBUG_MODE === "MOCK") {
+      response = await axios.get(
+        `https://mocki.io/v1/e7d4344f-cfb6-42ea-afc8-2eecf509c12a`
+      );
+    } else {
+      response = await axios.get(
+        `http://192.168.68.114/portal/public/api/user/games/join?gmID=${roomNum}`,
         {
           headers: {
             Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
           },
         }
       );
-
-    // const response = await axios.get(
-    //   `https://mocki.io/v1/e7d4344f-cfb6-42ea-afc8-2eecf509c12a`
-    // );
+    }
 
     console.log(response);
 
@@ -167,9 +183,9 @@ export const joinRoom = async ( roomNum ) => {
 
       localStorage.setItem("boardRoles", JSON.stringify(boardRoles));
       localStorage.setItem("boardData", JSON.stringify(boardData));
-      
+
       loggedUser.userCurrGame = roomNum;
-      console.log(roomNum)
+      console.log(roomNum);
       console.log(JSON.stringify(loggedUser));
       localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
 
@@ -186,18 +202,21 @@ export const joinRoom = async ( roomNum ) => {
 export const drawSR = async () => {
   const _token = fetchData("_token");
   try {
-      const response = await axios.get(
-    `http://192.168.68.114/portal/public/api/user/games/draw`,
+    var response;
+    if (DEBUG_MODE === "MOCK") {
+      response = await axios.get(
+        `https://mocki.io/v1/8f772f63-3ba9-4f8f-ac79-e39c736b883e`
+      );
+    } else {
+      response = await axios.get(
+        `http://192.168.68.114/portal/public/api/user/games/draw`,
         {
           headers: {
             Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
           },
         }
       );
-
-    // const response = await axios.get(
-    //   `https://mocki.io/v1/8f772f63-3ba9-4f8f-ac79-e39c736b883e`
-    // );
+    }
 
     console.log(response);
 
@@ -230,25 +249,28 @@ export const leaveGame = async () => {
   const _token = fetchData("_token");
   const loggedUser = fetchData("loggedUser");
   try {
-      const response = await axios.get(
-    `http://192.168.68.114/portal/public/api/user/games/quit`,
+    var response;
+    if (DEBUG_MODE === "MOCK") {
+      response = await axios.get(
+        `https://mocki.io/v1/8f772f63-3ba9-4f8f-ac79-e39c736b883e`
+      );
+    } else {
+      response = await axios.get(
+        `http://192.168.68.114/portal/public/api/user/games/quit`,
         {
           headers: {
             Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
           },
         }
       );
-
-    // const response = await axios.get(
-    //   `https://mocki.io/v1/8f772f63-3ba9-4f8f-ac79-e39c736b883e`
-    // );
+    }
 
     if (response.data.success) {
-      localStorage.removeItem('boardRoles')
-      localStorage.removeItem('gamesAvailable')
-      localStorage.removeItem('boardData')
-      localStorage.removeItem('roleInfo')
-      localStorage.removeItem('seatNum')
+      localStorage.removeItem("boardRoles");
+      localStorage.removeItem("gamesAvailable");
+      localStorage.removeItem("boardData");
+      localStorage.removeItem("roleInfo");
+      localStorage.removeItem("seatNum");
 
       loggedUser.userCurrGame = null;
       localStorage.setItem("loggedUser", JSON.stringify(loggedUser));

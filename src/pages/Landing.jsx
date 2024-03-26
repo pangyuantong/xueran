@@ -5,14 +5,14 @@ import { toast } from "react-toastify";
 import AuthForm from "../components/AuthForm";
 
 // Helpers
-import { fetchData, getAuth, getAuthToken } from "../helpers";
+import { fetchData, getAuthByForm, getAuthByToken } from "../helpers";
 import { useLoaderData } from "react-router-dom";
 
 export async function landingLoader() {
   const _token = fetchData("_token");
 
   if (_token) {
-    return await getAuthToken({
+    return await getAuthByToken({
       token: _token,
     });
   }
@@ -27,7 +27,7 @@ export async function landingAction({ request }) {
   const { _action, ...values } = Object.fromEntries(data);
 
   if (_action == "authContact") {
-    return await getAuth({
+    return await getAuthByForm({
       formdata: data,
     });
   }
