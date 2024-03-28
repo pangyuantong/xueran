@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Badge, Button, Container, Row, Tab, Tabs } from "react-bootstrap";
 import PowerCard from "./PowerCard";
-import { drawSR, fetchData, leaveGame } from "../helpers";
+import { drawRole, drawSeat, fetchData, leaveGame } from "../helpers";
 import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/24/solid";
 import Booklet from "./Booklet";
 
@@ -13,7 +13,7 @@ const Room = ({ boardData, boardRoles, handleClickLeave }) => {
       console.log("toggled");
       if (toggle === "0") {
         try {
-          if (await drawSR()) {
+          if (await drawSeat()) {
             setSeat(fetchData("seatNum"));
           }
         } catch (e) {

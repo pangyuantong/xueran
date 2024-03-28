@@ -16,6 +16,10 @@ import Main, { mainLoader } from "./layouts/Main";
 import Error from "./pages/Error";
 import Dashboard, { dashboardAction, dashboardLoader } from "./pages/Dashboard";
 import Landing, { landingAction, landingLoader } from "./pages/Landing";
+import Lobby from "./pages/LobbyPage";
+import Room from "./components/Room";
+import LobbyPage, { lobbyAction, lobbyLoader } from "./pages/LobbyPage";
+import RoomPage, { roomAction, roomLoader } from "./pages/RoomPage";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +40,20 @@ const router = createBrowserRouter([
         element: <Dashboard />,
         loader: dashboardLoader,
         action: dashboardAction,
+        errorElement: <Error />,
+      },
+      {
+        path: "/lobby",
+        element: <LobbyPage />,
+        loader: lobbyLoader,
+        action: lobbyAction,
+        errorElement: <Error />,
+      },
+      {
+        path: "/room",
+        element: <RoomPage />,
+        loader: roomLoader,
+        action: roomAction,
         errorElement: <Error />,
       },
       {

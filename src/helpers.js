@@ -3,50 +3,44 @@ import { useState, useEffect } from "react";
 import { redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const DEBUG_MODE = "MOK";
+const DEBUG_MODE = "MOCK";
 
 export const fetchData = (key) => {
   return JSON.parse(localStorage.getItem(key));
 };
 
 // API Firing
-export const getAuthByForm = async ({ formdata = null, token = null }) => {
+export const getAuthByForm = async ({ formdata = null }) => {
   try {
     var response;
     if (DEBUG_MODE === "MOCK") {
       response = await axios.get(
-        `https://mocki.io/v1/bc652a04-c12e-48f9-b16d-1228a6d00d41`
+        // `https://mocki.io/v1/bc652a04-c12e-48f9-b16d-1228a6d00d41`
+        // without game below
+        `https://mocki.io/v1/16ba4592-e461-47e7-8f37-ff11f2e2c9c0`
+        // false below
+        // `https://mocki.io/v1/241f87ae-2931-4576-b109-913bb86eb94f`
       );
     } else {
-      response = await axios.post(
-        `http://13.229.197.176/api/user`,
-        formdata
-      );
+      response = await axios.post(`http://13.229.197.176/api/user`, formdata);
     }
 
-    if (response.data.success) {
-      const res = response.data;
-      const loggedUser = {
-        userID: res.data.user.userID,
-        userName: res.data.user.userName,
-        userMobile: res.data.user.userMobile,
-        userCurrGame: res.data.user.joinedGameID,
-      };
+    const res = response.data;
+    if (response.data.success === true) {
+      localStorage.setItem("_token", JSON.stringify(res.data.user._token));
+      localStorage.setItem("loggedUser", JSON.stringify(res.data.user));
 
-      console.log(res.data.user._token);
-      if (res.data.user._token) {
-        localStorage.setItem("_token", JSON.stringify(res.data.user._token));
+      if (res.data.user.joinedGameID === null) {
+        toast.success("To Lobby");
+        return redirect(`/lobby`);
+      } else {
+        toast.success("To Room");
+        return redirect(`/room`);
       }
-      localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
-
-      // toast.success(`Welcome back...${token}`, {
-      //   autoClose: 1800,
-      // });
-      console.log("go dashboard");
-      return redirect("/dashboard");
     } else {
       localStorage.clear();
-      toast.error(`Token expired. Please login again.`);
+      toast.error("Oops! " + res.message);
+      return redirect("/");
     }
   } catch (e) {
     console.error("Error retrieving data:", e);
@@ -54,48 +48,42 @@ export const getAuthByForm = async ({ formdata = null, token = null }) => {
   }
 };
 
-export const getAuthByToken = async ({ formdata = null, token = null }) => {
+export const getAuthByToken = async () => {
   const _token = fetchData("_token");
   try {
     var response;
     if (DEBUG_MODE === "MOCK") {
       response = await axios.get(
-        `https://mocki.io/v1/27977a22-46f4-4a68-9d82-d8422a58b389`
+        // `https://mocki.io/v1/27977a22-46f4-4a68-9d82-d8422a58b389`
+        // without game below
+        `https://mocki.io/v1/16ba4592-e461-47e7-8f37-ff11f2e2c9c0`
+        // false below
+        // `https://mocki.io/v1/241f87ae-2931-4576-b109-913bb86eb94f`
       );
     } else {
-      response = await axios.get(
-        `http://13.229.197.176/api/user`,
-        {
-          headers: {
-            Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
-          },
-        }
-      );
+      response = await axios.get(`http://13.229.197.176/api/user`, {
+        headers: {
+          Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
+        },
+      });
     }
 
-    if (response.data.success) {
-      const res = response.data;
-      const loggedUser = {
-        userID: res.data.user.userID,
-        userName: res.data.user.userName,
-        userMobile: res.data.user.userMobile,
-        userCurrGame: res.data.user.joinedGameID,
-      };
+    const res = response.data;
+    if (response.data.success === true) {
+      toast.success("Welcome Back");
+      localStorage.setItem("loggedUser", JSON.stringify(res.data.user));
 
-      console.log(res.data.user._token);
-      if (res.data.user._token) {
-        localStorage.setItem("_token", JSON.stringify(res.data.user._token));
+      if (res.data.user.joinedGameID === null) {
+        toast.success("To Lobby");
+        return redirect(`/lobby`);
+      } else {
+        toast.success("To Room");
+        return redirect(`/room`);
       }
-      localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
-
-      // toast.success(`Welcome back...${token}`, {
-      //   autoClose: 1800,
-      // });
-      console.log("go dashboard");
-      return redirect("/dashboard");
     } else {
       localStorage.clear();
-      toast.error(`Token expired. Please login again.`);
+      toast.error("Oops!" + res.message);
+      return redirect(`/`);
     }
   } catch (e) {
     console.error("Error retrieving data:", e);
@@ -114,30 +102,33 @@ export const getLobby = async () => {
     var response;
     if (DEBUG_MODE === "MOCK") {
       response = await axios.get(
-        `https://mocki.io/v1/e7811454-b731-450d-8fe3-8ae9b040be62`
+        // `https://mocki.io/v1/e7811454-b731-450d-8fe3-8ae9b040be62`
+        // below without joined room
+        `https://mocki.io/v1/61cf67d3-79f8-4cf2-b109-eaa212c58897`
       );
     } else {
-      response = await axios.get(
-        `http://13.229.197.176/api/user/games`,
-        {
-          headers: {
-            Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
-          },
-        }
-      );
+      response = await axios.get(`http://13.229.197.176/api/user/games`, {
+        headers: {
+          Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
+        },
+      });
     }
 
-    console.log(response);
-
+    const res = response.data;
     if (response.data.success) {
-      const res = response.data;
+      localStorage.setItem("loggedUser", JSON.stringify(res.data.user));
 
-      localStorage.setItem("gamesAvailable", JSON.stringify(res.data));
-
-      return true;
+      if (res.data.user.joinedGameID != null) {
+        toast.success("To Room");
+        window.location.href = "/room";
+        return;
+      }
+      console.log("cont");
+      return JSON.stringify(res.data.games);
     } else {
       localStorage.clear();
-      return false;
+      toast.error("Oops!" + res.message);
+      return redirect(`/`);
     }
   } catch (e) {
     console.error("Error retrieving data:", e);
@@ -293,14 +284,11 @@ export const leaveGame = async () => {
         `https://mocki.io/v1/85af7970-7ced-475d-a0e8-ec325abe661b`
       );
     } else {
-      response = await axios.get(
-        `http://13.229.197.176/api/user/games/quit`,
-        {
-          headers: {
-            Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
-          },
-        }
-      );
+      response = await axios.get(`http://13.229.197.176/api/user/games/quit`, {
+        headers: {
+          Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
+        },
+      });
     }
 
     if (response.data.success) {
