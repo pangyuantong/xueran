@@ -4,6 +4,7 @@ import { drawRole, drawSeat, fetchData, getRoom, leaveGame } from "../helpers";
 import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import Booklet from "../components/Booklet";
+import PowerCard from "../components/PowerCard";
 
 
 
@@ -23,6 +24,7 @@ const RoomPage = () => {
   const [seat, setSeat] = useState();
   const [boardData, setBoardData] = useState({});
   const [boardRoles, setBoardRoles] = useState([]);
+  const [roleInfo, setRoleInfo] = useState({});
 
   useEffect(() => {
     async function loadRoom() {
@@ -44,8 +46,22 @@ const RoomPage = () => {
           toast.error("Oops! " + res.message);
           return navigate("/lobby");
         }
-
+      } catch (e) {
         setLoading(false);
+        console.error("Error retrieving data:", e);
+        throw new Error("Error retrieving data.");
+      }
+    }
+
+    async function loadSeat(){
+      try {
+        var res = await drawSeat();
+        var res = JSON.parse(res);
+        if (res.success === true) {
+          setSeat(res.data.seat)
+        } else {
+          toast.error("Oops! " + res.message);
+        }
       } catch (e) {
         setLoading(false);
         console.error("Error retrieving data:", e);
@@ -53,6 +69,9 @@ const RoomPage = () => {
       }
     }
     loadRoom();
+    loadSeat();
+    setLoading(false);
+    
   }, []);
   return (
     <Container fluid className="my-4 booklet" style={{ paddingInline: 0 }}>
@@ -84,7 +103,7 @@ const RoomPage = () => {
               {toggle === "0" && <PowerCard seatNum={seat} />}
             </Tab>
             <Tab eventKey="1" title="课本">
-              {/* <Booklet boardRoles={boardRoles}/> */}
+              <Booklet boardRoles={boardRoles}/>
             </Tab>
             <Tab eventKey="2" title="玩家">
               Tab content for Contact

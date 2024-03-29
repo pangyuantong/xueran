@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { fetchData } from "../helpers";
 
-const PowerCard = ({ seatNum }) => {
+const PowerCard = ({ seatNum, roleInfo }) => {
   const [isFlipped, setIsFlipped] = useState(false);
-  const roleInfo = fetchData("roleInfo");
   const handleClick = () => {
     setIsFlipped(!isFlipped); // Toggle the isFlipped state
   };
@@ -23,7 +22,7 @@ const PowerCard = ({ seatNum }) => {
             <h1>{seatNum}</h1>
           </div>
           <div className="back">
-            {roleInfo && (
+            {roleInfo ? (
               <>
                 <div className="role-name">{roleInfo.roleName}</div>
                 <img
@@ -33,13 +32,26 @@ const PowerCard = ({ seatNum }) => {
                 />
                 <p className="description">{roleInfo.roleDesc}</p>
                 <div className="category">
-                  {roleInfo.roleFaction === 0 && '镇民'}
-                  {roleInfo.roleFaction === 1 && '外来者'}
-                  {roleInfo.roleFaction === 2 && '爪牙'}
-                  {roleInfo.roleFaction === 3 && '恶魔'}
-                  {roleInfo.roleFaction === 4 && '旅行者'}
+                  {roleInfo.roleFaction === 0 && "镇民"}
+                  {roleInfo.roleFaction === 1 && "外来者"}
+                  {roleInfo.roleFaction === 2 && "爪牙"}
+                  {roleInfo.roleFaction === 3 && "恶魔"}
+                  {roleInfo.roleFaction === 4 && "旅行者"}
                 </div>
               </>
+            ) : (
+              <div>
+                <div className="role-name">尽情期待</div>
+                <img
+                  src="https://i.ibb.co/2jZYc3L/Screenshot-2024-03-20-141658.png"
+                  alt="Character"
+                  className="character-image"
+                />
+                <p className="description">你，冒汗了吗？你，要一瓶还是五瓶？</p>
+                <div className="category">
+                  还没有开始
+                </div>
+              </div>
             )}
           </div>
         </div>

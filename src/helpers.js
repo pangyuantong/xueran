@@ -118,7 +118,6 @@ export const getLobby = async () => {
 
     const res = response.data;
     return JSON.stringify(res);
-
   } catch (e) {
     console.error("Error retrieving data:", e);
     throw new Error("Error retrieving data.");
@@ -149,7 +148,6 @@ export const joinRoom = async (roomNum) => {
 
     const res = response.data;
     return JSON.stringify(res);
-    
   } catch (e) {
     console.error("Error retrieving data:", e);
     throw new Error("Error retrieving data.");
@@ -167,19 +165,15 @@ export const getRoom = async () => {
         // `https://mocki.io/v1/b43cf359-3ab2-4d4d-b54f-49184d3ef6b1`
       );
     } else {
-      response = await axios.get(
-        `http://13.229.197.176/api/user/games/info`,
-        {
-          headers: {
-            Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
-          },
-        }
-      );
+      response = await axios.get(`http://13.229.197.176/api/user/games/info`, {
+        headers: {
+          Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
+        },
+      });
     }
 
     const res = response.data;
     return JSON.stringify(res);
-    
   } catch (e) {
     console.error("Error retrieving data:", e);
     throw new Error("Error retrieving data.");
@@ -192,7 +186,7 @@ export const drawSeat = async () => {
     var response;
     if (DEBUG_MODE === "MOCK") {
       response = await axios.get(
-        `https://mocki.io/v1/a502efe6-4589-44f7-bb84-2a48dd72ee72`
+        `https://mocki.io/v1/796cf1c2-ff4a-4efc-8ebd-c67eec70f4aa`
       );
     } else {
       response = await axios.get(
@@ -205,27 +199,8 @@ export const drawSeat = async () => {
       );
     }
 
-    console.log(response);
-
-    if (response.data.success) {
-      const res = response.data;
-
-      const roleInfo = {
-        roleID: res.data.role,
-        roleImg: res.data.roleInfo.roleImg,
-        roleName: res.data.roleInfo.roleName,
-        roleDesc: res.data.roleInfo.roleDesc,
-        roleFaction: res.data.roleInfo.roleFaction,
-      };
-
-      localStorage.setItem("roleInfo", JSON.stringify(roleInfo));
-      localStorage.setItem("seatNum", res.data.seat);
-      // toast.success("Seat Number Retrieved.");
-
-      return true;
-    } else {
-      return false;
-    }
+    const res = response.data;
+    return JSON.stringify(res);
   } catch (e) {
     console.error("Error retrieving data:", e);
     throw new Error("Error retrieving data.");

@@ -14,7 +14,7 @@ const Booklet = ({ boardRoles }) => {
           镇民
         </h1>
         {townsfolk.map((role, index) => (
-          <details>
+          <details key={role.roleId}>
             <summary>
               <div>
               <img src={role.roleImg} alt="" width={50} height={50}/>
@@ -32,7 +32,7 @@ const Booklet = ({ boardRoles }) => {
           外来者
         </h1>
         {outsiders.map((role, index) => (
-          <details>
+          <details key={role.roleId}>
             <summary>
               <div>
               <img src={role.roleImg} alt="" width={50} height={50}/>
@@ -50,7 +50,7 @@ const Booklet = ({ boardRoles }) => {
           爪牙
         </h1>
         {minions.map((role, index) => (
-          <details>
+          <details key={role.roleId}>
             <summary>
               <div>
               <img src={role.roleImg} alt="" width={50} height={50}/>
@@ -68,7 +68,7 @@ const Booklet = ({ boardRoles }) => {
           恶魔
         </h1>
         {demons.map((role, index) => (
-          <details>
+          <details key={role.roleId}>
             <summary>
               <div>
               <img src={role.roleImg} alt="" width={50} height={50}/>
