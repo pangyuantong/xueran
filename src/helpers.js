@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { redirect } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const DEBUG_MODE = "MOCK";
@@ -93,6 +93,8 @@ export const getAuthByToken = async () => {
 
 export const getLobby = async () => {
   const _token = fetchData("_token");
+  // const navigate = useNavigate();
+
   if (_token == null) {
     localStorage.clear();
     return false;
@@ -115,21 +117,8 @@ export const getLobby = async () => {
     }
 
     const res = response.data;
-    if (response.data.success) {
-      localStorage.setItem("loggedUser", JSON.stringify(res.data.user));
+    return JSON.stringify(res);
 
-      if (res.data.user.joinedGameID != null) {
-        toast.success("To Room");
-        window.location.href = "/room";
-        return;
-      }
-      console.log("cont");
-      return JSON.stringify(res.data.games);
-    } else {
-      localStorage.clear();
-      toast.error("Oops!" + res.message);
-      return redirect(`/`);
-    }
   } catch (e) {
     console.error("Error retrieving data:", e);
     throw new Error("Error retrieving data.");
@@ -138,13 +127,14 @@ export const getLobby = async () => {
 
 export const joinRoom = async (roomNum) => {
   const _token = fetchData("_token");
-  const loggedUser = fetchData("loggedUser");
   console.log("jshelper: " + roomNum);
   try {
     var response;
     if (DEBUG_MODE === "MOCK") {
       response = await axios.get(
-        `https://mocki.io/v1/98929258-930c-46aa-9fd5-0f38f2ecda3f`
+        `https://mocki.io/v1/d1811817-dbf9-4bb8-bca0-f8da53e42bbb`
+        // FAIL BELOW
+        // `https://mocki.io/v1/64212e22-99be-4680-8cdb-39a28dafbe8c`
       );
     } else {
       response = await axios.get(
@@ -157,25 +147,9 @@ export const joinRoom = async (roomNum) => {
       );
     }
 
-    console.log(response);
-
-    if (response.data.success) {
-      const res = response.data;
-      const boardRoles = res.data.boardRoles;
-      const boardData = res.data.boardData;
-
-      localStorage.setItem("boardRoles", JSON.stringify(boardRoles));
-      localStorage.setItem("boardData", JSON.stringify(boardData));
-
-      loggedUser.userCurrGame = roomNum;
-      console.log(roomNum);
-      console.log(JSON.stringify(loggedUser));
-      localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
-
-      return true;
-    } else {
-      return false;
-    }
+    const res = response.data;
+    return JSON.stringify(res);
+    
   } catch (e) {
     console.error("Error retrieving data:", e);
     throw new Error("Error retrieving data.");
