@@ -40,7 +40,7 @@ const LobbyPage = () => {
           const userInfo = res.data.user;
           localStorage.setItem("loggedUser", JSON.stringify(userInfo));
           if (userInfo.joinedGameID !== null) {
-            navigate("/room");
+            return navigate("/room");
           }
           setGames(...games, res.data.games);
         } else {

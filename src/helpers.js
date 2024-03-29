@@ -156,6 +156,36 @@ export const joinRoom = async (roomNum) => {
   }
 };
 
+export const getRoom = async () => {
+  const _token = fetchData("_token");
+  try {
+    var response;
+    if (DEBUG_MODE === "MOCK") {
+      response = await axios.get(
+        `https://mocki.io/v1/b16cb1a8-4f61-45db-bdaf-0a58487aa1e7`
+        // WITHOUT ROOM
+        // `https://mocki.io/v1/b43cf359-3ab2-4d4d-b54f-49184d3ef6b1`
+      );
+    } else {
+      response = await axios.get(
+        `http://13.229.197.176/api/user/games/info`,
+        {
+          headers: {
+            Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
+          },
+        }
+      );
+    }
+
+    const res = response.data;
+    return JSON.stringify(res);
+    
+  } catch (e) {
+    console.error("Error retrieving data:", e);
+    throw new Error("Error retrieving data.");
+  }
+};
+
 export const drawSeat = async () => {
   const _token = fetchData("_token");
   try {
