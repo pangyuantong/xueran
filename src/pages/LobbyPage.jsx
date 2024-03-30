@@ -7,6 +7,7 @@ import {
   Card,
   Badge,
   Button,
+  Spinner,
 } from "react-bootstrap";
 import { Form, redirect, useLoaderData, useNavigate } from "react-router-dom";
 import {
@@ -27,12 +28,18 @@ export async function lobbyAction({ request }) {}
 
 const LobbyPage = () => {
   const navigate = useNavigate();
-  const { loggedUser, _token } = useLoaderData();
+
+  const { _token, loggedUser } = useLoaderData();
+  if (_token === null || loggedUser === null) {
+    // One or both are null, handle the scenario, maybe navigate to a login page
+    navigate("/"); // Replace '/login' with the actual path you need
+  }
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadLobby() {
+      console.log("load lobby");
       try {
         var res = await getLobby();
         var res = JSON.parse(res);
@@ -71,13 +78,27 @@ const LobbyPage = () => {
     }
   };
 
+  const handleClickLogout = () => {
+    // Use the confirm method to display a confirmation dialog box
+    console.log("Logout!");
+    const userConfirmed = window.confirm("Are you sure you want to logout?");
+
+    if (userConfirmed) {
+      console.log("Logged Out!");
+      localStorage.clear();
+      navigate("/");
+    } else {
+      console.log("User canceled.");
+    }
+  };
+
   return (
     <>
       <Container fluid className="my-4 booklet">
         <section style={{ marginBottom: "10px" }}>
           <Row>
             <div className="col-2 pt-1">
-              <Button className="btn-fail">
+              <Button className="btn-fail" onClick={handleClickLogout}>
                 <ArrowLeftEndOnRectangleIcon width={20} />
               </Button>
             </div>
@@ -88,7 +109,7 @@ const LobbyPage = () => {
             </div>
             <div className="col-2"></div>
           </Row>
-          {games.length > 0 &&
+          {games.length > 0 ? (
             games.map((game, index) => (
               <details key={index} onClick={() => handleClickJoin(game.gmID)}>
                 <summary>
@@ -103,7 +124,12 @@ const LobbyPage = () => {
                   </div>
                 </summary>
               </details>
-            ))}
+            ))
+          ) : (
+            <div className="d-flex justify-content-center align-items-center my-5">
+              <Spinner animation="border" variant="light" />
+            </div>
+          )}
         </section>
       </Container>
     </>

@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { redirect, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const DEBUG_MODE = "MOCK";
+const DEBUG_MODE = "XMOCK";
+const DOMAIN = "http://47.129.37.254";
 
 export const fetchData = (key) => {
   return JSON.parse(localStorage.getItem(key));
@@ -22,7 +23,7 @@ export const getAuthByForm = async ({ formdata = null }) => {
         // `https://mocki.io/v1/241f87ae-2931-4576-b109-913bb86eb94f`
       );
     } else {
-      response = await axios.post(`http://13.229.197.176/api/user`, formdata);
+      response = await axios.post(`${DOMAIN}/api/user`, formdata);
     }
 
     const res = response.data;
@@ -61,7 +62,7 @@ export const getAuthByToken = async () => {
         // `https://mocki.io/v1/241f87ae-2931-4576-b109-913bb86eb94f`
       );
     } else {
-      response = await axios.get(`http://13.229.197.176/api/user`, {
+      response = await axios.get(`${DOMAIN}/api/user`, {
         headers: {
           Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
         },
@@ -99,6 +100,8 @@ export const getLobby = async () => {
     localStorage.clear();
     return false;
   }
+  
+  console.log('load lobby JS')
 
   try {
     var response;
@@ -109,7 +112,7 @@ export const getLobby = async () => {
         `https://mocki.io/v1/61cf67d3-79f8-4cf2-b109-eaa212c58897`
       );
     } else {
-      response = await axios.get(`http://13.229.197.176/api/user/games`, {
+      response = await axios.get(`${DOMAIN}/api/user/games`, {
         headers: {
           Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
         },
@@ -137,7 +140,7 @@ export const joinRoom = async (roomNum) => {
       );
     } else {
       response = await axios.get(
-        `http://13.229.197.176/api/user/games/join?gmID=${roomNum}`,
+        `${DOMAIN}/api/user/games/join?gmID=${roomNum}`,
         {
           headers: {
             Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
@@ -165,7 +168,7 @@ export const getRoom = async () => {
         // `https://mocki.io/v1/b43cf359-3ab2-4d4d-b54f-49184d3ef6b1`
       );
     } else {
-      response = await axios.get(`http://13.229.197.176/api/user/games/info`, {
+      response = await axios.get(`${DOMAIN}/api/user/games/info`, {
         headers: {
           Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
         },
@@ -190,7 +193,7 @@ export const drawSeat = async () => {
       );
     } else {
       response = await axios.get(
-        `http://13.229.197.176/api/user/games/draw?drawType=Seat`,
+        `${DOMAIN}/api/user/games/draw?drawType=Seat`,
         {
           headers: {
             Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
@@ -213,11 +216,13 @@ export const drawRole = async () => {
     var response;
     if (DEBUG_MODE === "MOCK") {
       response = await axios.get(
-        `https://mocki.io/v1/b82e1a08-57e0-4a06-9393-c035d5b343b6`
+        `https://mocki.io/v1/c3979403-0b30-483d-93de-ae3fecf8a52d`
+        // BELOW IS GAME NOT STARTED
+        // `https://mocki.io/v1/6373e301-3bec-4657-b43f-8d1289c98fb9`
       );
     } else {
       response = await axios.get(
-        `http://13.229.197.176/api/user/games/draw?drawType=Role`,
+        `${DOMAIN}/api/user/games/draw?drawType=Role`,
         {
           headers: {
             Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
@@ -226,27 +231,8 @@ export const drawRole = async () => {
       );
     }
 
-    console.log(response);
-
-    if (response.data.success) {
-      const res = response.data;
-
-      const roleInfo = {
-        roleID: res.data.role,
-        roleImg: res.data.roleInfo.roleImg,
-        roleName: res.data.roleInfo.roleName,
-        roleDesc: res.data.roleInfo.roleDesc,
-        roleFaction: res.data.roleInfo.roleFaction,
-      };
-
-      localStorage.setItem("roleInfo", JSON.stringify(roleInfo));
-      localStorage.setItem("seatNum", res.data.seat);
-      // toast.success("Seat Number Retrieved.");
-
-      return true;
-    } else {
-      return false;
-    }
+    const res = response.data;
+    return JSON.stringify(res);
   } catch (e) {
     console.error("Error retrieving data:", e);
     throw new Error("Error retrieving data.");
@@ -260,30 +246,17 @@ export const leaveGame = async () => {
     var response;
     if (DEBUG_MODE === "MOCK") {
       response = await axios.get(
-        `https://mocki.io/v1/85af7970-7ced-475d-a0e8-ec325abe661b`
+        `https://mocki.io/v1/b45dbd45-330d-49d1-b79e-2d37ea243c69`
       );
     } else {
-      response = await axios.get(`http://13.229.197.176/api/user/games/quit`, {
+      response = await axios.get(`${DOMAIN}/api/user/games/quit`, {
         headers: {
           Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
         },
       });
     }
-
-    if (response.data.success) {
-      localStorage.removeItem("boardRoles");
-      localStorage.removeItem("gamesAvailable");
-      localStorage.removeItem("boardData");
-      localStorage.removeItem("roleInfo");
-      localStorage.removeItem("seatNum");
-
-      loggedUser.userCurrGame = null;
-      localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
-
-      return true;
-    } else {
-      return false;
-    }
+    const res = response.data;
+    return JSON.stringify(res);
   } catch (e) {
     console.error("Error retrieving data:", e);
     throw new Error("Error retrieving data.");
