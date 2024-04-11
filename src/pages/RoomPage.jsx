@@ -14,6 +14,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import Booklet from "../components/Booklet";
 import PowerCard from "../components/PowerCard";
 import { toast } from "react-toastify";
+import PlayerSeats from "../components/PlayerSeats";
 
 export async function roomLoader() {
   const _token = fetchData("_token");
@@ -154,7 +155,7 @@ const RoomPage = () => {
               )}
             </Tab>
             <Tab eventKey="2" title="玩家">
-              Tab content for Contact
+              <PlayerSeats />
             </Tab>
           </Tabs>
         </div>
