@@ -262,3 +262,27 @@ export const leaveGame = async () => {
     throw new Error("Error retrieving data.");
   }
 };
+
+export const viewPlayers = async () => {
+  const _token = fetchData("_token");
+  // const loggedUser = fetchData("loggedUser");
+  try {
+    var response;
+    if (DEBUG_MODE === "XMOCK") {
+      response = await axios.get(
+        `https://mocki.io/v1/0652c969-f81c-4ed4-8a97-a111c7aa3575`
+      );
+    } else {
+      response = await axios.get(`${DOMAIN}/api/user`, {
+        headers: {
+          Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
+        },
+      });
+    }
+    const res = response.data;
+    return JSON.stringify(res);
+  } catch (e) {
+    console.error("Error retrieving data:", e);
+    throw new Error("Error retrieving data.");
+  }
+};

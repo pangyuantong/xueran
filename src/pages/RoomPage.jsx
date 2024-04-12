@@ -34,11 +34,12 @@ const RoomPage = () => {
   }
 
   const [loading, setLoading] = useState(true);
-  const [toggle, setToggle] = useState("1");
+  const [toggle, setToggle] = useState("2");
   const [seat, setSeat] = useState();
   const [boardData, setBoardData] = useState({});
   const [boardRoles, setBoardRoles] = useState([]);
   const [drawnRole, setDrawnRole] = useState({});
+  const [gameData, setGameData] = useState({});
 
   useEffect(() => {
     async function loadRoom() {
@@ -56,9 +57,10 @@ const RoomPage = () => {
 
           setBoardData(res.data.boardData);
           setBoardRoles(...boardRoles, res.data.boardRoles);
+          setGameData(res.data.gameData);
         } else {
           toast.error("Oops! " + res.message);
-          return navigate("/lobby");
+          // return navigate("/lobby");
         }
       } catch (e) {
         setLoading(false);
@@ -155,7 +157,7 @@ const RoomPage = () => {
               )}
             </Tab>
             <Tab eventKey="2" title="玩家">
-              <PlayerSeats />
+              {toggle === "2" && <PlayerSeats capacity={gameData.gmCapacity} user = {loggedUser}/>}
             </Tab>
           </Tabs>
         </div>
