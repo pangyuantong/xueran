@@ -15,6 +15,7 @@ import Booklet from "../components/Booklet";
 import PowerCard from "../components/PowerCard";
 import { toast } from "react-toastify";
 import PlayerSeats from "../components/PlayerSeats";
+import { PowerCardV2 } from "../components/PowerCardV2";
 
 export async function roomLoader() {
   const _token = fetchData("_token");
@@ -140,7 +141,13 @@ const RoomPage = () => {
           >
             <Tab eventKey="0" title="抿牌" className="main">
               {toggle === "0" && (
-                <PowerCard
+                // <PowerCard
+                //   seatNum={seat}
+                //   drawnRole={drawnRole}
+                //   setDrawnRole={setDrawnRole}
+                //   setLoading={setLoading}
+                // />
+                <PowerCardV2
                   seatNum={seat}
                   drawnRole={drawnRole}
                   setDrawnRole={setDrawnRole}
