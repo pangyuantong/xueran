@@ -8,7 +8,7 @@ export const PowerCardV2 = ({
 }) => {
   return (
     <div className="power-card-v2">
-      <section className="page card-1-page">
+      <section className=" card-1-page">
         <div className="cards">
           <label id={seatNum}>
             <input type="checkbox" />

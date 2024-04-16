@@ -140,7 +140,7 @@ const RoomPage = () => {
           >
             <Tab eventKey="0" title="抿牌" className="main">
               {toggle === "0" &&
-                (loggedUser.userID === 5 || loggedUser.userID === 10 || loggedUser.userID === 2 ? (
+                (loggedUser.userID === 5 || loggedUser.userID === 10  ? (
                   <PowerCardV2
                     seatNum={seat}
                     drawnRole={drawnRole}

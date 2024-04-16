@@ -22,13 +22,20 @@ const PlayerSeats = ({ capacity, user }) => {
   // Function to toggle the visibility of the badge
   const toggleSeat = (id) => {
     if (demons.includes(id)) {
-      // If the id is already in the demons array, remove it
-      setDemons(demons.filter((demon) => demon !== id));
+        // If the id is already in the demons array, remove it
+        setDemons(demons.filter((demon) => demon !== id));
     } else {
-      // If the id is not in the demons array, add it
-      setDemons([...demons, id]);
+        // If the id is not in the demons array, add it
+        let updatedDemons = [...demons, id];
+        
+        // Check if the updated array length exceeds 3
+        if (updatedDemons.length > 3) {
+            // Remove the first element
+            updatedDemons.shift();
+        }
+        setDemons(updatedDemons);
     }
-  };
+};
 
   const SeatItem = ({ seatNumber, seatInfo }) => (
     <div className="mb-3 seats" onClick={()=>toggleSeat(seatNumber)}>
@@ -114,7 +121,7 @@ const PlayerSeats = ({ capacity, user }) => {
         </div>
       </Row>
       <Row>
-        <Button className="btn">SUBMIT PICK</Button>
+        <Button className="btn">PICK</Button>
       </Row>
     </div>
   );
