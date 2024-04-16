@@ -251,7 +251,7 @@
 
   /* Rotate the card on click to show the back face */
   .card.flip {
-    transform: rotateY(180deg);
+    transform: rotateY(-180deg);
   }
 
   .front,
@@ -313,7 +313,7 @@
     padding: 20px;
     box-sizing: border-box;
     backface-visibility: hidden;
-    transform: rotateY(180deg);
+    transform: rotateY(-180deg);
   }
 
   .back .role-name {
