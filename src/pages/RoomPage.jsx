@@ -156,7 +156,7 @@ const RoomPage = () => {
                   />
                 ))}
             </Tab>
-            <Tab eventKey="1" title="课本">
+            <Tab eventKey="1" title="课本"  style={{maxHeight: '75vh'}}>
               {boardRoles.length > 0 ? (
                 <Booklet boardRoles={boardRoles} />
               ) : (

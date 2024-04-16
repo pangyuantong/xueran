@@ -16,17 +16,43 @@ const PlayerSeats = ({ capacity, user }) => {
   const leftCount = Math.ceil(capacity / 2);
   const [seatData, setSeatData] = useState({});
 
+  // State to manage badge visibility
+  const [demons, setDemons] = useState([]);
+
+  // Function to toggle the visibility of the badge
+  const toggleSeat = (id) => {
+    if (demons.includes(id)) {
+      // If the id is already in the demons array, remove it
+      setDemons(demons.filter((demon) => demon !== id));
+    } else {
+      // If the id is not in the demons array, add it
+      setDemons([...demons, id]);
+    }
+  };
+
   const SeatItem = ({ seatNumber, seatInfo }) => (
-    <ListGroup.Item
-      as="li" 
-      className={`d-flex justify-content-between align-items-start `}
-      variant={seatInfo && seatInfo.userID === user.userID ? "info" : ""}
-    >
-      <div className="ms-2 me-auto">
-        <div className="fw-bold">{seatNumber}</div>
-        {seatInfo ? seatInfo.userName :"-"}
-      </div>
-    </ListGroup.Item>
+    <div className="mb-3 seats" onClick={()=>toggleSeat(seatNumber)}>
+      {" "}
+      {/* Added onClick event here */}
+      <ListGroup.Item
+        as="li"
+        action
+        className="d-flex justify-content-between align-items-start"
+        variant={seatInfo && seatInfo.userID === user.userID ? "info" : ""}
+        style={{ backgroundColor: "#eaeaea", minHeight: "90px" }}
+      >
+        <div className="ms-2 me-auto">
+          <div className="fw-bold">{seatNumber}</div>
+          {seatInfo ? seatInfo.userName : "-"}
+        </div>
+        {/* Conditional rendering of the badge based on showBadge state */}
+        {demons.includes(seatNumber) && (
+          <Badge bg="danger" pill>
+            恶
+          </Badge>
+        )}
+      </ListGroup.Item>
+    </div>
   );
 
   useEffect(() => {
@@ -86,6 +112,9 @@ const PlayerSeats = ({ capacity, user }) => {
                 })}
           </ListGroup>
         </div>
+      </Row>
+      <Row>
+        <Button className="btn">SUBMIT PICK</Button>
       </Row>
     </div>
   );

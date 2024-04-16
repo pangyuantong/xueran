@@ -1,5 +1,6 @@
 .custom-background {
   background-image: url("/image/background.jpg");
+  background-repeat: repeat-y;
   background-size: cover;
   background-position: center;
   overflow-y: auto;
@@ -155,7 +156,7 @@
   /* padding: 20px; */
   padding-top: 10px;
   border-radius: 8px;
-  height: 80vh;
+  /* height: 80vh; */
   /* Set the height of the container */
   overflow: hidden;
 
@@ -463,4 +464,41 @@
     margin-top: 76px;
     color: #25b697;
   }
+}
+
+.seats {
+  margin-bottom: 1rem; /* Equivalent to .mb-3 in Bootstrap */
+  border-radius: 10px;
+}
+
+.custom-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0.5rem 1rem; /* Common padding for list items */
+  border: 1px solid #cccccc; /* Typical border for list items */
+  list-style: none; /* Remove list style */
+  background-color: #fff; /* Default background */
+}
+
+.info {
+  background-color: #d1ecf1; /* Bootstrap's 'info' color */
+  color: #0c5460; /* Bootstrap 'info' text color */
+}
+
+.list-item-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+}
+
+.seat-number {
+  font-weight: bold;
+  margin-right: auto; /* Pushes everything else to the right */
+}
+
+.user-name {
+  /* Additional styles if needed */
 }
