@@ -123,8 +123,7 @@ const RoomPage = () => {
           </div>
           <div className="col-8">
             <h1 className="spooky-title" style={{ marginBottom: "10px" }}>
-              {/* {boardData.bdName} */}
-              -
+              {/* {boardData.bdName} */}-
             </h1>
           </div>
           <div className="col-2"></div>
@@ -140,20 +139,22 @@ const RoomPage = () => {
             style={{ borderBottomColor: "#121212" }}
           >
             <Tab eventKey="0" title="抿牌" className="main">
-              {toggle === "0" && (
-                // <PowerCard
-                //   seatNum={seat}
-                //   drawnRole={drawnRole}
-                //   setDrawnRole={setDrawnRole}
-                //   setLoading={setLoading}
-                // />
-                <PowerCardV2
-                  seatNum={seat}
-                  drawnRole={drawnRole}
-                  setDrawnRole={setDrawnRole}
-                  setLoading={setLoading}
-                />
-              )}
+              {toggle === "0" &&
+                (loggedUser.userID === 5 || loggedUser.userID === 10 || loggedUser.userID === 2 ? (
+                  <PowerCardV2
+                    seatNum={seat}
+                    drawnRole={drawnRole}
+                    setDrawnRole={setDrawnRole}
+                    setLoading={setLoading}
+                  />
+                ) : (
+                  <PowerCard
+                    seatNum={seat}
+                    drawnRole={drawnRole}
+                    setDrawnRole={setDrawnRole}
+                    setLoading={setLoading}
+                  />
+                ))}
             </Tab>
             <Tab eventKey="1" title="课本">
               {boardRoles.length > 0 ? (
@@ -165,7 +166,9 @@ const RoomPage = () => {
               )}
             </Tab>
             <Tab eventKey="2" title="玩家">
-              {toggle === "2" && <PlayerSeats capacity={gameData.gmCapacity} user = {loggedUser}/>}
+              {toggle === "2" && (
+                <PlayerSeats capacity={gameData.gmCapacity} user={loggedUser} />
+              )}
             </Tab>
           </Tabs>
         </div>

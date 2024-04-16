@@ -368,6 +368,7 @@
   h4 {
     margin: 0;
     font-weight: 500;
+    color: #25b697;
   }
 
   .cards {
@@ -394,6 +395,7 @@
   .card-1-page .card header h2 {
     font-size: 20px;
     text-transform: capitalize;
+    color: #25b697;
   }
 
   .card-1-page .card .front,
@@ -432,6 +434,7 @@
     font-style: normal;
     font-size: 80px;
     line-height: 1;
+    color: #25b697;
   }
 
   .card h3 {
@@ -458,5 +461,6 @@
 
   .card p {
     margin-top: 76px;
+    color: #25b697;
   }
 }
