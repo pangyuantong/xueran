@@ -358,19 +358,10 @@
 
 .power-card-v2 {
   .card-1-page {
-    margin: auto;
-    /* height: 100vh; */
-    display: grid;
-    place-items: center;
-    font-family: "Euclid Circular A", "Poppins";
-  }
-
-  h2,
-  h3,
-  h4 {
-    margin: 0;
-    font-weight: 500;
-    color: #25b697;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    perspective: 300px;
   }
 
   .cards {
@@ -378,97 +369,130 @@
     gap: 30px;
   }
 
-  .card-1-page .card {
+  .card {
     position: relative;
-    perspective: 1000px;
+    /* perspective: 1000px; */
+    /* this perspective will make image blur if too high */
     width: 300px;
-    height: 300px;
+    height: 450px;
     background-color: #ffffff00;
   }
 
-  .card-1-page .card header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 40px;
-    margin-bottom: 26px;
-  }
-
-  .card-1-page .card header h2 {
-    font-size: 20px;
-    text-transform: capitalize;
-    color: #25b697;
-  }
-
-  .card-1-page .card .front,
-  .card-1-page .card .back {
+  .card .front,
+  .card .back {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     backface-visibility: hidden;
-    background: #1e1e1e;
     border-radius: 10px;
     padding: 36px 36px 44px 44px;
     transition: 0.6s;
     cursor: pointer;
   }
 
-  .card-1-page .back {
+  .back {
     transform: rotateY(179deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    background: #f0f0f0;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    box-sizing: border-box;
   }
 
-  .card-1-page input {
+  .back .role-name {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #333;
+    /* Dark text color for the role name */
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .back .character-image {
+    width: 70%;
+    /* Adjust as needed */
+    margin: 5px 0;
+    /* Spacing above and below the image */
+  }
+  
+  .back .description {
+    font-size: 16px;
+    color: #1c1c1c;
+    /* Medium grey text color for the description */
+    margin-bottom: 10px;
+    letter-spacing: 1px !important;
+  }
+
+  .back .category {
+    font-size: 18px;
+    color: #333;
+    /* Dark text color for the category */
+    margin-top: auto;
+    padding-block: 10px;
+    width: 100%;
+    background-color: #ddd;
+    /* Light background for the category section */
+    border-radius: 8px;
+    align-items: center;
+  }
+
+  .card .front {
+
+    background-image: url("https://images.thenile.io/r1000/4012927741450.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    align-items: center;
+    display: flex;
+    align-items: center;
+    /* Centers the content vertically */
+    justify-content: center;
+    /* Centers the content horizontally */
+    text-align: center;
+  }
+
+  input {
     position: absolute;
     scale: 0;
   }
 
-  .card-1-page input:checked~.card .back {
+  input:checked~.card .back {
     transform: rotateY(0);
   }
 
-  .card-1-page input:checked~.card .front {
+  input:checked~.card .front {
     transform: rotateY(-180deg);
   }
 
-  .card var {
-    font-style: normal;
-    font-size: 80px;
-    line-height: 1;
-    color: #25b697;
-  }
+  @import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
 
-  .card h3 {
-    margin: 0 0 30px;
-    font-weight: 500;
-  }
-
-  #summary :is(var, h3) {
-    color: #3b82f6;
-  }
-
-  #overdue :is(var, h3) {
-    color: #e56363;
-  }
-
-  #features :is(var, h3) {
-    color: #25b697;
-  }
-
-  .card :is(h4, p) {
-    opacity: 0.6;
-    font-size: 20px;
-  }
-
-  .card p {
-    margin-top: 76px;
-    color: #25b697;
+  .front h1 {
+    font-family: 'Creepster', cursive;
+    /* This is a spooky-themed font */
+    color: #a56c16;
+    /* A color that might be associated with blood or rust */
+    text-shadow: 2px 2px 4px #000000;
+    /* Soft black shadow for a mysterious look */
+    font-size: 8em;
+    /* Larger font size for emphasis */
+    margin: 0;
+    /* transform: rotate(-5deg); */
+    /* Tilt the number for an off-kilter look */
+    /* You might need to adjust the size and the shadow depending on the exact look you're going for */
   }
 }
 
 .seats {
-  margin-bottom: 1rem; /* Equivalent to .mb-3 in Bootstrap */
+  margin-bottom: 1rem;
+  /* Equivalent to .mb-3 in Bootstrap */
   border-radius: 10px;
 }
 
@@ -476,15 +500,21 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 0.5rem 1rem; /* Common padding for list items */
-  border: 1px solid #cccccc; /* Typical border for list items */
-  list-style: none; /* Remove list style */
-  background-color: #fff; /* Default background */
+  padding: 0.5rem 1rem;
+  /* Common padding for list items */
+  border: 1px solid #cccccc;
+  /* Typical border for list items */
+  list-style: none;
+  /* Remove list style */
+  background-color: #fff;
+  /* Default background */
 }
 
 .info {
-  background-color: #d1ecf1; /* Bootstrap's 'info' color */
-  color: #0c5460; /* Bootstrap 'info' text color */
+  background-color: #d1ecf1;
+  /* Bootstrap's 'info' color */
+  color: #0c5460;
+  /* Bootstrap 'info' text color */
 }
 
 .list-item-content {
@@ -497,7 +527,8 @@
 
 .seat-number {
   font-weight: bold;
-  margin-right: auto; /* Pushes everything else to the right */
+  margin-right: auto;
+  /* Pushes everything else to the right */
 }
 
 .user-name {

@@ -29,10 +29,6 @@ const RoomPage = () => {
   const navigate = useNavigate();
 
   const { _token, loggedUser } = useLoaderData();
-  if (_token === null || loggedUser === null) {
-    // One or both are null, handle the scenario, maybe navigate to a login page
-    navigate("/"); // Replace '/login' with the actual path you need
-  }
 
   const [loading, setLoading] = useState(true);
   const [toggle, setToggle] = useState("2");
@@ -43,6 +39,10 @@ const RoomPage = () => {
   const [gameData, setGameData] = useState({});
 
   useEffect(() => {
+    if (_token === null || loggedUser === null) {
+      // One or both are null, handle the scenario, maybe navigate to a login page
+      navigate("/"); // Replace '/login' with the actual path you need
+    }
     async function loadRoom() {
       try {
         var res = await getRoom();
@@ -114,65 +114,72 @@ const RoomPage = () => {
 
   return (
     <Container fluid className="my-4 booklet" style={{ paddingInline: 0 }}>
-      <section style={{ marginBottom: "10px", paddingInline: 0 }}>
-        <Row>
-          <div className="col-2 pt-1">
-            <Button className="btn-fail" onClick={handleClickLeave}>
-              <ArrowLeftEndOnRectangleIcon width={20} />
-            </Button>
-          </div>
-          <div className="col-8">
-            <h1 className="spooky-title" style={{ marginBottom: "10px" }}>
-              {/* {boardData.bdName} */}-
-            </h1>
-          </div>
-          <div className="col-2"></div>
-        </Row>
+      {loading ? (
+        <Spinner animation="border" variant="light" />
+      ) : (
+        <section style={{ marginBottom: "10px", paddingInline: 0 }}>
+          <Row>
+            <div className="col-2 pt-1">
+              <Button className="btn-fail" onClick={handleClickLeave}>
+                <ArrowLeftEndOnRectangleIcon width={20} />
+              </Button>
+            </div>
+            <div className="col-8">
+              <h1 className="spooky-title" style={{ marginBottom: "10px" }}>
+                {/* {boardData.bdName} */}-
+              </h1>
+            </div>
+            <div className="col-2"></div>
+          </Row>
 
-        <div className="room-tab">
-          <Tabs
-            defaultActiveKey="1"
-            activeKey={toggle}
-            onSelect={(k) => setToggle(k)}
-            className="mb-3 title"
-            justify
-            style={{ borderBottomColor: "#121212" }}
-          >
-            <Tab eventKey="0" title="抿牌" className="main">
-              {toggle === "0" &&
-                (loggedUser.userID === 5 || loggedUser.userID === 10  ? (
-                  <PowerCardV2
-                    seatNum={seat}
-                    drawnRole={drawnRole}
-                    setDrawnRole={setDrawnRole}
-                    setLoading={setLoading}
-                  />
+          <div className="room-tab">
+            <Tabs
+              defaultActiveKey="1"
+              activeKey={toggle}
+              onSelect={(k) => setToggle(k)}
+              className="mb-3 title"
+              justify
+              style={{ borderBottomColor: "#121212" }}
+            >
+              <Tab eventKey="0" title="抿牌" className="main">
+                {toggle === "0" &&
+                  (loggedUser.userID === 5 || loggedUser.userID === 10 ? (
+                    <PowerCardV2
+                      seatNum={seat}
+                      drawnRole={drawnRole}
+                      setDrawnRole={setDrawnRole}
+                      setLoading={setLoading}
+                    />
+                  ) : (
+                    <PowerCard
+                      seatNum={seat}
+                      drawnRole={drawnRole}
+                      setDrawnRole={setDrawnRole}
+                      setLoading={setLoading}
+                    />
+                  ))}
+              </Tab>
+              <Tab eventKey="1" title="课本" style={{ maxHeight: "75vh" }}>
+                {boardRoles.length > 0 ? (
+                  <Booklet boardRoles={boardRoles} />
                 ) : (
-                  <PowerCard
-                    seatNum={seat}
-                    drawnRole={drawnRole}
-                    setDrawnRole={setDrawnRole}
-                    setLoading={setLoading}
+                  <div className="d-flex justify-content-center align-items-center">
+                    <Spinner animation="border" variant="light" />
+                  </div>
+                )}
+              </Tab>
+              <Tab eventKey="2" title="玩家">
+                {toggle === "2" && (
+                  <PlayerSeats
+                    capacity={gameData.gmCapacity}
+                    user={loggedUser}
                   />
-                ))}
-            </Tab>
-            <Tab eventKey="1" title="课本"  style={{maxHeight: '75vh'}}>
-              {boardRoles.length > 0 ? (
-                <Booklet boardRoles={boardRoles} />
-              ) : (
-                <div className="d-flex justify-content-center align-items-center">
-                  <Spinner animation="border" variant="light" />
-                </div>
-              )}
-            </Tab>
-            <Tab eventKey="2" title="玩家">
-              {toggle === "2" && (
-                <PlayerSeats capacity={gameData.gmCapacity} user={loggedUser} />
-              )}
-            </Tab>
-          </Tabs>
-        </div>
-      </section>
+                )}
+              </Tab>
+            </Tabs>
+          </div>
+        </section>
+      )}
     </Container>
   );
 };
