@@ -120,11 +120,13 @@ const PlayerSeats = ({ capacity, user }) => {
                         <div class="list-item list-item-left">
                           <div class="badge badge-left">{seatNumber}</div>
                           <div class="content-left">
-                            <div class="image-slot image-slot-left"></div>
+                            <div class="image-slot image-slot-left">
+                            </div>
                             <div class="text-content-left">
-                              {seatInfo ? seatInfo.userName : "-"}
+                              -
                             </div>
                           </div>
+                          <div class="title title-left">{seatInfo ? seatInfo.userName : "-"}</div>
                         </div>
                       );
                     })}
@@ -137,14 +139,15 @@ const PlayerSeats = ({ capacity, user }) => {
                     .slice(0, leftCount)
                     .map(([seatNumber, seatInfo]) => {
                       return (
-                        <div class="list-item list-item-right">
+                        <div class="" className={`list-item list-item-right ${seatInfo ? "occupied" : ""}`}>
                           <div class="badge badge-right">{seatNumber}</div>
                           <div class="content-right">
-                            <div class="image-slot image-slot-right"></div>
+                            <div class="image-slot image-slot-right "></div>
                             <div class="text-content-right">
-                              {seatInfo ? seatInfo.userName : "-"}
+                              -
                             </div>
                           </div>
+                          <div class="title title-right">{seatInfo ? seatInfo.userName : "-"}</div>
                         </div>
                       );
                     })}

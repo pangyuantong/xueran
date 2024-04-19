@@ -523,9 +523,10 @@
     top: -10px;
     width: 25px;
     height: 25px;
-    background: #ffffffe8;
+    background: #ffc0c08f;
     /* your color */
-    color: #000;
+    color: #b5fdff;
+    font-size: 16px;
     /* your color */
     border-radius: 40%;
     display: flex;
@@ -561,18 +562,18 @@
     top: 100%;
     /* adjust as needed */
     transform: translate(-50%, -50%);
-    width: 45px;
+    width: 50px;
     /* adjust as needed */
-    height: 45px;
+    height: 50px;
     /* adjust as needed */
-    /* background: url("src/assets/logo.jpg") no-repeat center center; */
+    background: url("https://i.ibb.co/CQ6Nz19/Whats-App-Image-2024-04-19-at-4-28-43-PM.jpg") no-repeat center center;
     background-color: #b3b3b387;
     background-size: cover;
     border-radius: 50%;
   }
   
   .image-slot-left {
-    left: -8px;
+    left: -6px;
   }
   
   .image-slot-right {
@@ -589,5 +590,32 @@
     margin-right: 15%;
     text-align: center;
     /* adjust as needed to make space for the image-slot */
+  }
+
+  .title {
+    position: absolute;
+    bottom: 0px;
+    background: #281e1e;
+    width: 50px;
+    max-width: 70px;
+    max-height: 21px;
+    /* your color */
+    color:  #ffa24c;
+    font-size: 13px;
+    /* your color */
+    border: 1px;
+    border-style: solid;
+    border-color: #ffa24c;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+  }
+
+  .title-left{
+    left: -10px;
+  }
+
+  .title-right{
+    right: -8px;
   }
 }
