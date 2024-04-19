@@ -34,10 +34,10 @@ export const getAuthByForm = async ({ formdata = null }) => {
       localStorage.setItem("loggedUser", JSON.stringify(res.data.user));
 
       if (res.data.user.joinedGameID === null) {
-        toast.success("To Lobby");
+        // toast.success("To Lobby");
         return redirect(`/lobby`);
       } else {
-        toast.success("To Room");
+        // toast.success("To Room");
         return redirect(`/room`);
       }
     } else {
@@ -77,10 +77,10 @@ export const getAuthByToken = async () => {
       localStorage.setItem("loggedUser", JSON.stringify(res.data.user));
 
       if (res.data.user.joinedGameID === null) {
-        toast.success("To Lobby");
+        // toast.success("To Lobby");
         return redirect(`/lobby`);
       } else {
-        toast.success("To Room");
+        // toast.success("To Room");
         return redirect(`/room`);
       }
     } else {

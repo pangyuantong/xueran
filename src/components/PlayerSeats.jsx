@@ -120,13 +120,13 @@ const PlayerSeats = ({ capacity, user }) => {
                         <div class="list-item list-item-left">
                           <div class="badge badge-left">{seatNumber}</div>
                           <div class="content-left">
-                            <div class="image-slot image-slot-left">
-                            </div>
-                            <div class="text-content-left">
-                              -
+                            <div class="text-content-left"></div>
+                          </div>
+                          <div class="image-slot image-slot-left">
+                            <div class="nametag nametag-left">
+                              {seatInfo ? seatInfo.userName : "-"}
                             </div>
                           </div>
-                          <div class="nametag nametag-left">{seatInfo ? seatInfo.userName : "-"}</div>
                         </div>
                       );
                     })}
@@ -139,15 +139,21 @@ const PlayerSeats = ({ capacity, user }) => {
                     .slice(0, leftCount)
                     .map(([seatNumber, seatInfo]) => {
                       return (
-                        <div class="" className={`list-item list-item-right ${seatInfo ? "occupied" : ""}`}>
+                        <div
+                          class=""
+                          className={`list-item list-item-right ${
+                            seatInfo ? "occupied" : ""
+                          }`}
+                        >
                           <div class="badge badge-right">{seatNumber}</div>
                           <div class="content-right">
-                            <div class="image-slot image-slot-right "></div>
-                            <div class="text-content-right">
-                              -
+                            <div class="text-content-right"></div>
+                          </div>
+                          <div class="image-slot image-slot-right ">
+                            <div class="nametag nametag-right">
+                              {seatInfo ? seatInfo.userName : "-"}
                             </div>
                           </div>
-                          <div class="nametag nametag-right">{seatInfo ? seatInfo.userName : "-"}</div>
                         </div>
                       );
                     })}

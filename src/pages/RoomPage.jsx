@@ -137,7 +137,7 @@ const RoomPage = () => {
             </div>
             <div className="col-8">
               <h1 className="spooky-title" style={{ marginBottom: "10px" }}>
-                {/* {boardData.bdName} */}-
+                {boardData.bdName}
               </h1>
             </div>
             <div className="col-2"></div>
