@@ -126,7 +126,7 @@ const PlayerSeats = ({ capacity, user }) => {
                               -
                             </div>
                           </div>
-                          <div class="title title-left">{seatInfo ? seatInfo.userName : "-"}</div>
+                          <div class="nametag nametag-left">{seatInfo ? seatInfo.userName : "-"}</div>
                         </div>
                       );
                     })}
@@ -147,7 +147,7 @@ const PlayerSeats = ({ capacity, user }) => {
                               -
                             </div>
                           </div>
-                          <div class="title title-right">{seatInfo ? seatInfo.userName : "-"}</div>
+                          <div class="nametag nametag-right">{seatInfo ? seatInfo.userName : "-"}</div>
                         </div>
                       );
                     })}
