@@ -597,6 +597,7 @@
     bottom: 0px;
     background: #281e1e;
     width: auto;
+    min-width: 50px;
     max-width: 100px;
     max-height: 21px;
     /* your color */
