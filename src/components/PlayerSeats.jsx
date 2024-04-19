@@ -15,6 +15,7 @@ const PlayerSeats = ({ capacity, user }) => {
   console.log(user.userID);
   const leftCount = Math.ceil(capacity / 2);
   const [seatData, setSeatData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   // State to manage badge visibility
   const [demons, setDemons] = useState([]);
@@ -22,23 +23,23 @@ const PlayerSeats = ({ capacity, user }) => {
   // Function to toggle the visibility of the badge
   const toggleSeat = (id) => {
     if (demons.includes(id)) {
-        // If the id is already in the demons array, remove it
-        setDemons(demons.filter((demon) => demon !== id));
+      // If the id is already in the demons array, remove it
+      setDemons(demons.filter((demon) => demon !== id));
     } else {
-        // If the id is not in the demons array, add it
-        let updatedDemons = [...demons, id];
-        
-        // Check if the updated array length exceeds 3
-        if (updatedDemons.length > 3) {
-            // Remove the first element
-            updatedDemons.shift();
-        }
-        setDemons(updatedDemons);
+      // If the id is not in the demons array, add it
+      let updatedDemons = [...demons, id];
+
+      // Check if the updated array length exceeds 3
+      if (updatedDemons.length > 3) {
+        // Remove the first element
+        updatedDemons.shift();
+      }
+      setDemons(updatedDemons);
     }
-};
+  };
 
   const SeatItem = ({ seatNumber, seatInfo }) => (
-    <div className="mb-3 seats" onClick={()=>toggleSeat(seatNumber)}>
+    <div className="mb-3 seats" onClick={() => toggleSeat(seatNumber)}>
       {" "}
       {/* Added onClick event here */}
       <ListGroup.Item
@@ -75,8 +76,9 @@ const PlayerSeats = ({ capacity, user }) => {
         } else {
           toast.error("Oops! " + res.message);
         }
+        setLoading(false);
       } catch (e) {
-        // setLoading(false);
+        setLoading(false);
         console.error("Error retrieving data:", e);
         throw new Error("Error retrieving data.");
       }
@@ -85,44 +87,75 @@ const PlayerSeats = ({ capacity, user }) => {
   }, []);
 
   return (
-    <div>
-      <Row>
-        <div className="col-6">
-          <ListGroup>
-            {Object.entries(seatData)
-              .slice(0, leftCount)
-              .map(([seatNumber, seatInfo]) => {
-                return (
-                  <SeatItem
-                    key={seatNumber}
-                    seatNumber={seatNumber}
-                    seatInfo={seatInfo}
-                  />
-                );
-              })}
-          </ListGroup>
+    <div className="my-3">
+      {leftCount < 1 ? (
+        <Container
+          fluid
+          style={{
+            height: "100vh",
+            width: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Spinner animation="border" variant="light" />
+        </Container>
+      ) : (
+        <div>
+          <Row>
+            <div className="col-6 cust-seat">
+              <ListGroup style={{ paddingLeft: "10px" }}>
+                {leftCount > 0 &&
+                  Object.entries(seatData)
+                    .slice(leftCount, capacity)
+                    .reverse()
+                    .map(([seatNumber, seatInfo]) => {
+                      return (
+                        // <SeatItem
+                        //   key={seatNumber}
+                        //   seatNumber={seatNumber}
+                        //   seatInfo={seatInfo}
+                        // />
+                        <div class="list-item list-item-left">
+                          <div class="badge badge-left">{seatNumber}</div>
+                          <div class="content-left">
+                            <div class="image-slot image-slot-left"></div>
+                            <div class="text-content-left">
+                              {seatInfo ? seatInfo.userName : "-"}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+              </ListGroup>
+            </div>
+            <div className="col-6 cust-seat">
+              <ListGroup style={{ paddingRight: "10px" }}>
+                {leftCount > 0 &&
+                  Object.entries(seatData)
+                    .slice(0, leftCount)
+                    .map(([seatNumber, seatInfo]) => {
+                      return (
+                        <div class="list-item list-item-right">
+                          <div class="badge badge-right">{seatNumber}</div>
+                          <div class="content-right">
+                            <div class="image-slot image-slot-right"></div>
+                            <div class="text-content-right">
+                              {seatInfo ? seatInfo.userName : "-"}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+              </ListGroup>
+            </div>
+          </Row>
+          <Row>
+            <Button className="btn">PICK</Button>
+          </Row>
         </div>
-        <div className="col-6">
-          <ListGroup>
-            {leftCount > 0 &&
-              Object.entries(seatData)
-                .slice(leftCount, capacity)
-                .reverse()
-                .map(([seatNumber, seatInfo]) => {
-                  return (
-                    <SeatItem
-                      key={seatNumber}
-                      seatNumber={seatNumber}
-                      seatInfo={seatInfo}
-                    />
-                  );
-                })}
-          </ListGroup>
-        </div>
-      </Row>
-      <Row>
-        <Button className="btn">PICK</Button>
-      </Row>
+      )}
     </div>
   );
 };

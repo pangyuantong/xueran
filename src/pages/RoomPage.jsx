@@ -115,7 +115,18 @@ const RoomPage = () => {
   return (
     <Container fluid className="my-4 booklet" style={{ paddingInline: 0 }}>
       {loading ? (
-        <Spinner animation="border" variant="light" />
+        <Container
+          fluid
+          style={{
+            height: "100vh",
+            width: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Spinner animation="border" variant="light" />
+        </Container>
       ) : (
         <section style={{ marginBottom: "10px", paddingInline: 0 }}>
           <Row>
@@ -168,7 +179,7 @@ const RoomPage = () => {
                   </div>
                 )}
               </Tab>
-              <Tab eventKey="2" title="玩家">
+              <Tab eventKey="2" title="玩家" style={{overflowX:'hidden'}}>
                 {toggle === "2" && (
                   <PlayerSeats
                     capacity={gameData.gmCapacity}

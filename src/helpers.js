@@ -23,6 +23,8 @@ export const getAuthByForm = async ({ formdata = null }) => {
         // `https://mocki.io/v1/241f87ae-2931-4576-b109-913bb86eb94f`
       );
     } else {
+      console.log("formdata")
+      console.log(formdata)
       response = await axios.post(`${DOMAIN}/api/user`, formdata);
     }
 

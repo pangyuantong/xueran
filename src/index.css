@@ -415,14 +415,14 @@
     font-weight: bold;
     text-transform: uppercase;
   }
-  
+
   .back .character-image {
     width: 70%;
     /* Adjust as needed */
     margin: 5px 0;
     /* Spacing above and below the image */
   }
-  
+
   .back .description {
     font-size: 16px;
     color: #1c1c1c;
@@ -490,47 +490,104 @@
   }
 }
 
-.seats {
-  margin-bottom: 1rem;
-  /* Equivalent to .mb-3 in Bootstrap */
-  border-radius: 10px;
-}
+.cust-seat {
 
-.custom-list-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 0.5rem 1rem;
-  /* Common padding for list items */
-  border: 1px solid #cccccc;
-  /* Typical border for list items */
-  list-style: none;
-  /* Remove list style */
-  background-color: #fff;
-  /* Default background */
-}
+  /* Shared styles for list items */
+  .list-item {
+    position: relative;
+    width: 100%;
+    height: 85px;
+    padding-top: 20px;
+    background: #281e1ea9;
+    /* your color */
+    color: #fff;
+    /* your color */
+    margin-bottom: 20px;
+    /* space between items */
+  }
 
-.info {
-  background-color: #d1ecf1;
-  /* Bootstrap's 'info' color */
-  color: #0c5460;
-  /* Bootstrap 'info' text color */
-}
+  /* Specific styles for alignment and padding */
+  .list-item-left {
+    align-self: self-end;
+    padding-left: 20px;
+  }
 
-.list-item-content {
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: center;
-  width: 100%;
-}
+  .list-item-right {
+    align-self: self-start;
+    padding-right: 20px;
+  }
 
-.seat-number {
-  font-weight: bold;
-  margin-right: auto;
-  /* Pushes everything else to the right */
-}
+  /* Shared styles for badges */
+  .badge {
+    position: absolute;
+    top: -10px;
+    width: 25px;
+    height: 25px;
+    background: #ffffffe8;
+    /* your color */
+    color: #000;
+    /* your color */
+    border-radius: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-.user-name {
-  /* Additional styles if needed */
+  /* Specific styles for positioning */
+  .badge-left {
+    left: -10px;
+  }
+
+  .badge-right {
+    right: -10px;
+  }
+
+
+  .content-left {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .content-right {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .image-slot {
+    position: absolute;
+    top: 100%;
+    /* adjust as needed */
+    transform: translate(-50%, -50%);
+    width: 45px;
+    /* adjust as needed */
+    height: 45px;
+    /* adjust as needed */
+    /* background: url("src/assets/logo.jpg") no-repeat center center; */
+    background-color: #b3b3b387;
+    background-size: cover;
+    border-radius: 50%;
+  }
+  
+  .image-slot-left {
+    left: -8px;
+  }
+  
+  .image-slot-right {
+    right: -52px;
+  }
+
+  .text-content-left {
+    margin-left: 15%;
+    text-align: center;
+    /* adjust as needed to make space for the image-slot */
+  }
+
+  .text-content-right {
+    margin-right: 15%;
+    text-align: center;
+    /* adjust as needed to make space for the image-slot */
+  }
 }

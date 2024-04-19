@@ -6,21 +6,21 @@ const PowerCard = ({ seatNum, drawnRole, setDrawnRole, setLoading }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const handleClickFlip = async () => {
     if (Object.keys(drawnRole).length === 0) {
-      setLoading(true);
+      // setLoading(true);
       try {
         var res = await drawRole();
         var res = JSON.parse(res);
         if (res.success === true) {
           const role = res.data.roleInfo;
           setDrawnRole(role);
-          setLoading(false);
+          // setLoading(false);
           setIsFlipped(!isFlipped);
         } else {
           console.log(res.message);
           toast.error("Oops! " + res.message);
         }
       } catch (e) {
-        setLoading(false);
+        // setLoading(false);
         console.error("Error retrieving data:", e);
         throw new Error("Error retrieving data.");
       }
