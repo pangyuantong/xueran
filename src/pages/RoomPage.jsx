@@ -145,7 +145,22 @@ const RoomPage = () => {
                 {boardData.bdName}
               </h1>
             </div>
-            <div className="col-2"></div>
+            {toggle === "1" && (
+              <div className="col-2 ">
+                <div className="tool-btns me-4">
+                  <div className="button r" id="button-6">
+                    <input
+                      type="checkbox"
+                      className="checkbox"
+                      checked={bookletCheck}
+                      onChange={handleCheckboxChange}
+                    />
+                    <div className="knobs"></div>
+                    <div className="layer"></div>
+                  </div>
+                </div>
+              </div>
+            )}
           </Row>
 
           <div className="room-tab">
@@ -178,20 +193,6 @@ const RoomPage = () => {
               <Tab eventKey="1" title="课本" style={{ maxHeight: "75vh" }}>
                 {boardRoles.length > 0 ? (
                   <div>
-                    <div className="d-flex justify-content-end pe-3 pb-2">
-                      <div className="tool-btns">
-                        <div className="button r" id="button-6">
-                          <input
-                            type="checkbox"
-                            className="checkbox"
-                            checked={bookletCheck}
-                            onChange={handleCheckboxChange}
-                          />
-                          <div className="knobs"></div>
-                          <div className="layer"></div>
-                        </div>
-                      </div>
-                    </div>
                     {bookletCheck === false ? (
                       <Booklet boardRoles={boardRoles} />
                     ) : (
