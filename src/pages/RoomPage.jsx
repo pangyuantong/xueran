@@ -37,6 +37,11 @@ const RoomPage = () => {
   const [boardRoles, setBoardRoles] = useState([]);
   const [drawnRole, setDrawnRole] = useState({});
   const [gameData, setGameData] = useState({});
+  const [bookletCheck, setBookletCheck] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setBookletCheck(!bookletCheck);
+  };
 
   useEffect(() => {
     if (_token === null || loggedUser === null) {
@@ -172,14 +177,34 @@ const RoomPage = () => {
               </Tab>
               <Tab eventKey="1" title="课本" style={{ maxHeight: "75vh" }}>
                 {boardRoles.length > 0 ? (
-                  <Booklet boardRoles={boardRoles} />
+                  <div>
+                    <div className="d-flex justify-content-end pe-3 pb-2">
+                      <div className="tool-btns">
+                        <div className="button r" id="button-6">
+                          <input
+                            type="checkbox"
+                            className="checkbox"
+                            checked={bookletCheck}
+                            onChange={handleCheckboxChange}
+                          />
+                          <div className="knobs"></div>
+                          <div className="layer"></div>
+                        </div>
+                      </div>
+                    </div>
+                    {bookletCheck === false ? (
+                      <Booklet boardRoles={boardRoles} />
+                    ) : (
+                      <div></div>
+                    )}
+                  </div>
                 ) : (
                   <div className="d-flex justify-content-center align-items-center">
                     <Spinner animation="border" variant="light" />
                   </div>
                 )}
               </Tab>
-              <Tab eventKey="2" title="玩家" style={{overflowX:'hidden'}}>
+              <Tab eventKey="2" title="玩家" style={{ overflowX: "hidden" }}>
                 {toggle === "2" && (
                   <PlayerSeats
                     capacity={gameData.gmCapacity}

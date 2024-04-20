@@ -70,7 +70,7 @@ const PlayerSeats = ({ capacity, user }) => {
         var res = JSON.parse(res);
         if (res.success === true) {
           // console.log(res.data.playersData.seats);
-          setSeatData(res.data.playersData.seats);
+          setSeatData(res.data);
           console.log(seatData);
           console.log("test");
         } else {
@@ -124,7 +124,7 @@ const PlayerSeats = ({ capacity, user }) => {
                           </div>
                           <div class="image-slot image-slot-left">
                             <div class="nametag nametag-left">
-                              {seatInfo ? seatInfo.userName : "-"}
+                              <p style={{ whiteSpace: 'nowrap'}}>{seatInfo ? seatInfo.userName : "-"}</p>
                             </div>
                           </div>
                         </div>
@@ -151,7 +151,7 @@ const PlayerSeats = ({ capacity, user }) => {
                           </div>
                           <div class="image-slot image-slot-right ">
                             <div class="nametag nametag-right">
-                              {seatInfo ? seatInfo.userName : "-"}
+                              <p style={{ whiteSpace: 'nowrap'}}>{seatInfo ? seatInfo.userName : "-"}</p>
                             </div>
                           </div>
                         </div>

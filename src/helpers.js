@@ -270,12 +270,12 @@ export const viewPlayers = async () => {
   // const loggedUser = fetchData("loggedUser");
   try {
     var response;
-    if (DEBUG_MODE === "XMOCK") {
+    if (DEBUG_MODE === "MOCK") {
       response = await axios.get(
         `https://mocki.io/v1/0652c969-f81c-4ed4-8a97-a111c7aa3575`
       );
     } else {
-      response = await axios.get(`${DOMAIN}/api/user`, {
+      response = await axios.get(`${DOMAIN}/api/user/games/all-player-seats`, {
         headers: {
           Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
         },
