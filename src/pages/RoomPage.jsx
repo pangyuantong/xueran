@@ -118,7 +118,16 @@ const RoomPage = () => {
   };
 
   return (
-    <Container fluid className="my-4 booklet" style={{ paddingInline: 0 }}>
+    <Container
+      fluid
+      className="my-4 "
+      style={{
+        padding: 0,
+        width: "100%",
+        display: "flex",
+        alignItems: "center",
+      }}
+    >
       {loading ? (
         <Container
           fluid
@@ -133,8 +142,10 @@ const RoomPage = () => {
           <Spinner animation="border" variant="light" />
         </Container>
       ) : (
-        <section style={{ marginBottom: "10px", paddingInline: 0 }}>
-          <Row>
+        <section
+          style={{ marginBottom: "10px", marginLeft: "0", marginRight: "0" }}
+        >
+          <Row className="justify-content-center" style={{ width: "100%" }}>
             <div className="col-2 pt-1">
               <Button className="btn-fail" onClick={handleClickLeave}>
                 <ArrowLeftEndOnRectangleIcon width={20} />
@@ -145,22 +156,6 @@ const RoomPage = () => {
                 {boardData.bdName}
               </h1>
             </div>
-            {toggle === "1" && (
-              <div className="col-2 ">
-                <div className="tool-btns me-4">
-                  <div className="button r" id="button-6">
-                    <input
-                      type="checkbox"
-                      className="checkbox"
-                      checked={bookletCheck}
-                      onChange={handleCheckboxChange}
-                    />
-                    <div className="knobs"></div>
-                    <div className="layer"></div>
-                  </div>
-                </div>
-              </div>
-            )}
           </Row>
 
           <div className="room-tab">
@@ -173,28 +168,34 @@ const RoomPage = () => {
               style={{ borderBottomColor: "#121212" }}
             >
               <Tab eventKey="0" title="抿牌" className="main">
-                {toggle === "0" &&
-                  (loggedUser.userID === 5 || loggedUser.userID === 10 ? (
-                    <PowerCardV2
-                      seatNum={seat}
-                      drawnRole={drawnRole}
-                      setDrawnRole={setDrawnRole}
-                      setLoading={setLoading}
-                    />
-                  ) : (
-                    <PowerCard
-                      seatNum={seat}
-                      drawnRole={drawnRole}
-                      setDrawnRole={setDrawnRole}
-                      setLoading={setLoading}
-                    />
-                  ))}
+                {toggle === "0" && (
+                  <PowerCardV2
+                    seatNum={seat}
+                    drawnRole={drawnRole}
+                    setDrawnRole={setDrawnRole}
+                    setLoading={setLoading}
+                  />
+                )}
               </Tab>
               <Tab eventKey="1" title="课本" style={{ maxHeight: "75vh" }}>
                 {boardRoles.length > 0 ? (
-                  <div>
+                  <div className="booklet">
                     {bookletCheck === false ? (
-                      <Booklet boardRoles={boardRoles} />
+                      <div>
+                        {/* <div className="tool-btns me-4">
+                          <div className="button r" id="button-6">
+                            <input
+                              type="checkbox"
+                              className="checkbox"
+                              checked={bookletCheck}
+                              onChange={handleCheckboxChange}
+                            />
+                            <div className="knobs"></div>
+                            <div className="layer"></div>
+                          </div>
+                        </div> */}
+                        <Booklet boardRoles={boardRoles} />
+                      </div>
                     ) : (
                       <div></div>
                     )}

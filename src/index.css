@@ -152,12 +152,10 @@
   flex-direction: column;
   /* Stack children vertically */
   background-color: #12121200;
-  /* Dark background for the tab container */
-  /* padding: 20px; */
   padding-top: 10px;
   border-radius: 8px;
-  /* height: 80vh; */
-  /* Set the height of the container */
+  overflow: hidden;
+  width: 100%;
   overflow: hidden;
 
 }
@@ -544,20 +542,6 @@
     right: -10px;
   }
 
-
-  .content-left {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-
-  .content-right {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-  }
-
   .image-slot {
     position: absolute;
     top: 40%;
@@ -578,7 +562,7 @@
   }
 
   .image-slot-right {
-    right: -25%;
+    left: 85%;
   }
 
   .nametag {

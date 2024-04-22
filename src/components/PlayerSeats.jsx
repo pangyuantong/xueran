@@ -103,7 +103,7 @@ const PlayerSeats = ({ capacity, user }) => {
         </Container>
       ) : (
         <div>
-          <Row>
+          <Row style={{ paddingInline: "3%" }}>
             <div className="col-6 cust-seat">
               <ListGroup style={{ paddingLeft: "10px" }}>
                 {leftCount > 0 &&
@@ -119,9 +119,6 @@ const PlayerSeats = ({ capacity, user }) => {
                         // />
                         <div class="list-item list-item-left">
                           <div class="badge badge-left">{seatNumber}</div>
-                          <div class="content-left">
-                            <div class="text-content-left"></div>
-                          </div>
                           <div class="image-slot image-slot-left">
                             <div class="nametag nametag-left">
                               <p style={{ whiteSpace: 'nowrap'}}>{seatInfo ? seatInfo.userName : "-"}</p>
@@ -146,9 +143,6 @@ const PlayerSeats = ({ capacity, user }) => {
                           }`}
                         >
                           <div class="badge badge-right">{seatNumber}</div>
-                          <div class="content-right">
-                            <div class="text-content-right"></div>
-                          </div>
                           <div class="image-slot image-slot-right ">
                             <div class="nametag nametag-right">
                               <p style={{ whiteSpace: 'nowrap'}}>{seatInfo ? seatInfo.userName : "-"}</p>
@@ -159,9 +153,6 @@ const PlayerSeats = ({ capacity, user }) => {
                     })}
               </ListGroup>
             </div>
-          </Row>
-          <Row>
-            <Button className="btn">PICK</Button>
           </Row>
         </div>
       )}
