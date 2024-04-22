@@ -31,18 +31,12 @@ const RoomPage = () => {
   const { _token, loggedUser } = useLoaderData();
 
   const [loading, setLoading] = useState(true);
-  const [toggle, setToggle] = useState("2");
+  const [toggle, setToggle] = useState("1");
   const [seat, setSeat] = useState();
   const [boardData, setBoardData] = useState({});
   const [boardRoles, setBoardRoles] = useState([]);
   const [drawnRole, setDrawnRole] = useState({});
   const [gameData, setGameData] = useState({});
-  const [bookletCheck, setBookletCheck] = useState(false);
-
-  const handleCheckboxChange = () => {
-    setBookletCheck(!bookletCheck);
-  };
-
   useEffect(() => {
     if (_token === null || loggedUser === null) {
       // One or both are null, handle the scenario, maybe navigate to a login page
@@ -120,12 +114,13 @@ const RoomPage = () => {
   return (
     <Container
       fluid
-      className="my-4 "
+      className="mt-4 "
       style={{
         padding: 0,
         width: "100%",
         display: "flex",
         alignItems: "center",
+        marginBottom: 0,
       }}
     >
       {loading ? (
@@ -143,31 +138,44 @@ const RoomPage = () => {
         </Container>
       ) : (
         <section
-          style={{ marginBottom: "10px", marginLeft: "0", marginRight: "0" }}
+          style={{
+            marginBottom: "10px",
+            marginLeft: "0",
+            marginRight: "0",
+            minWidth: "100%",
+          }}
         >
-          <Row className="justify-content-center" style={{ width: "100%" }}>
+          <Row className="" style={{ width: "100%" }}>
             <div className="col-2 pt-1">
-              <Button className="btn-fail" onClick={handleClickLeave}>
+              <Button
+                className="btn-fail"
+                onClick={handleClickLeave}
+                style={{
+                  borderTopLeftRadius: "0%",
+                  borderBottomLeftRadius: "0%",
+                }}
+              >
                 <ArrowLeftEndOnRectangleIcon width={20} />
               </Button>
             </div>
-            <div className="col-8">
+            <div className="col-9">
               <h1 className="spooky-title" style={{ marginBottom: "10px" }}>
                 {boardData.bdName}
               </h1>
             </div>
+            <div className="col-1"></div>
           </Row>
 
-          <div className="room-tab">
+          <div className="room-tab cus-tab">
             <Tabs
               defaultActiveKey="1"
               activeKey={toggle}
               onSelect={(k) => setToggle(k)}
-              className="mb-3 title"
+              className=""
               justify
-              style={{ borderBottomColor: "#121212" }}
+              style={{ borderBottomColor: "#50c878" }}
             >
-              <Tab eventKey="0" title="抿牌" className="main">
+              <Tab eventKey="0" title="抿牌" className="">
                 {toggle === "0" && (
                   <PowerCardV2
                     seatNum={seat}
@@ -177,12 +185,19 @@ const RoomPage = () => {
                   />
                 )}
               </Tab>
-              <Tab eventKey="1" title="课本" style={{ maxHeight: "75vh" }}>
+              <Tab eventKey="1" title="玩家" className="">
+                {toggle === "1" && (
+                  <PlayerSeats
+                    capacity={gameData.gmCapacity}
+                    user={loggedUser}
+                  />
+                )}
+              </Tab>
+              <Tab eventKey="2" title="课本" className="">
                 {boardRoles.length > 0 ? (
                   <div className="booklet">
-                    {bookletCheck === false ? (
-                      <div>
-                        {/* <div className="tool-btns me-4">
+                    <div>
+                      {/* <div className="tool-btns me-4">
                           <div className="button r" id="button-6">
                             <input
                               type="checkbox"
@@ -194,24 +209,13 @@ const RoomPage = () => {
                             <div className="layer"></div>
                           </div>
                         </div> */}
-                        <Booklet boardRoles={boardRoles} />
-                      </div>
-                    ) : (
-                      <div></div>
-                    )}
+                      <Booklet boardRoles={boardRoles} />
+                    </div>
                   </div>
                 ) : (
                   <div className="d-flex justify-content-center align-items-center">
                     <Spinner animation="border" variant="light" />
                   </div>
-                )}
-              </Tab>
-              <Tab eventKey="2" title="玩家" style={{ overflowX: "hidden" }}>
-                {toggle === "2" && (
-                  <PlayerSeats
-                    capacity={gameData.gmCapacity}
-                    user={loggedUser}
-                  />
                 )}
               </Tab>
             </Tabs>

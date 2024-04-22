@@ -1,15 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import logomark from "../assets/logomark.png";
+import { Row } from "react-bootstrap";
 
 const Booklet = ({ boardRoles }) => {
   const townsfolk = boardRoles.filter((role) => role.roleFaction === 0);
   const outsiders = boardRoles.filter((role) => role.roleFaction === 1);
   const minions = boardRoles.filter((role) => role.roleFaction === 2);
   const demons = boardRoles.filter((role) => role.roleFaction === 3);
+  
+  const [bookletCheck, setBookletCheck] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setBookletCheck(!bookletCheck);
+  };
+
 
   return (
-    <div className="keben" style={{ height: '100%',overflowY : 'auto'}}>
-      <section style={{ marginBottom: "10px" }}>
+    <div
+      className="keben"
+      style={{ height: "100%", overflowY: "auto", paddingBlock: "30px" }}
+    >
+      <section>
+        <Row>
+          <div className="d-flex justify-content-end pe-3 pb-2">
+            <div className="tool-btns">
+              <div className="button r" id="button-6">
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={bookletCheck}
+                  onChange={handleCheckboxChange}
+                />
+                <div className="knobs"></div>
+                <div className="layer"></div>
+              </div>
+            </div>
+          </div>
+        </Row>
         <h1 className="spooky-title" style={{ marginBottom: "10px" }}>
           镇民
         </h1>
@@ -17,7 +44,7 @@ const Booklet = ({ boardRoles }) => {
           <details key={role.roleId}>
             <summary>
               <div>
-              <img src={role.roleImg} alt="" width={50} height={50}/>
+                <img src={role.roleImg} alt="" width={50} height={50} />
                 <h3>
                   <strong>{role.roleName}</strong>
                   <small>{role.roleDesc}</small>
@@ -35,7 +62,7 @@ const Booklet = ({ boardRoles }) => {
           <details key={role.roleId}>
             <summary>
               <div>
-              <img src={role.roleImg} alt="" width={50} height={50}/>
+                <img src={role.roleImg} alt="" width={50} height={50} />
                 <h3>
                   <strong>{role.roleName}</strong>
                   <small>{role.roleDesc}</small>
@@ -53,7 +80,7 @@ const Booklet = ({ boardRoles }) => {
           <details key={role.roleId}>
             <summary>
               <div>
-              <img src={role.roleImg} alt="" width={50} height={50}/>
+                <img src={role.roleImg} alt="" width={50} height={50} />
                 <h3>
                   <strong>{role.roleName}</strong>
                   <small>{role.roleDesc}</small>
@@ -71,7 +98,7 @@ const Booklet = ({ boardRoles }) => {
           <details key={role.roleId}>
             <summary>
               <div>
-              <img src={role.roleImg} alt="" width={50} height={50}/>
+                <img src={role.roleImg} alt="" width={50} height={50} />
                 <h3>
                   <strong>{role.roleName}</strong>
                   <small>{role.roleDesc}</small>

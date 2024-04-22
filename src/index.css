@@ -152,11 +152,10 @@
   flex-direction: column;
   /* Stack children vertically */
   background-color: #12121200;
-  padding-top: 10px;
-  border-radius: 8px;
+  border-radius: 0;
   overflow: hidden;
   width: 100%;
-  overflow: hidden;
+  height: 100vh;
 
 }
 
@@ -165,44 +164,22 @@
   color: #a9a9a9;
   /* Light grey text color for contrast */
   /* border: 1px solid transparent; */
-  border-radius: 8px;
+  border-radius: 0;
   background-color: #333;
   /* Slightly lighter dark shade for the tab */
-  margin-right: 5px;
   /* Space between tabs */
-  border-bottom-color: #ffffff !important;
 
 }
 
 /* Style for the active tab title */
 .nav-tabs .nav-link.active {
   color: #fff;
-  background-color: #222;
+  background-color: #2a2a2a7d;
   /* Even darker shade for active tab */
-  border-color: #444;
+  border: 20px;
+  border-bottom: 20px;
+  border-color: #50c878;
   /* Dark border color */
-}
-
-/* Style for the tab content */
-.tab-content {
-  flex-grow: 1;
-  /* Allow the content to grow to fill the available space */
-  overflow-y: auto;
-  /* Add scroll to content if it exceeds the height */
-  padding-block: 20px;
-  padding-inline: 0px;
-  border-radius: 0 8px 8px 8px;
-  /* Round only the bottom corners */
-  background-color: #22222200;
-  /* Dark background for the content */
-  color: #ccc;
-  /* Light grey text for readability */
-  /* border: 1px solid #444; */
-  /* Dark border for content area */
-  top: -1px;
-  /* Align the top border with the bottom of the tabs */
-  z-index: 0;
-  /* Place the content below the tabs */
 }
 
 /* Additional spooky theme colors and effects */
@@ -210,9 +187,7 @@
 .nav-tabs .nav-link:focus {
   color: #50c878;
   /* Eerie green color for hover/focus */
-  background-color: #2a2a2a;
-  border-color: #ffffff00;
-  border-bottom-color: #ffffff00 !important;
+  background-color: #3c3c3c7d;
 }
 
 /* Spooky effect for tab titles */
@@ -225,6 +200,24 @@
   /* Text shadow for a spooky effect */
 }
 
+.cus-tab {
+  min-height: 100%;
+  overflow-x: hidden;
+  background-color: #3c3c3c7d;
+}
+/* Style for the tab content */
+.tab-content {
+  flex-grow: 1;
+  /* Allow the content to grow to fill the available space */
+  overflow-y: auto;
+  /* Add scroll to content if it exceeds the height */
+  padding-inline: 0px;
+  border-radius: 0;
+  /* Round only the bottom corners */
+  /* Dark background for the content */
+  z-index: 0;
+  /* Place the content below the tabs */
+}
 
 .power-card {
 
@@ -600,10 +593,10 @@
   .knobs,
   .layer {
     position: absolute;
-    top: 70%;
-    right: 40%;
-    bottom: -70%;
-    left: -40%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
   }
 
   .button {
