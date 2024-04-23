@@ -6,11 +6,11 @@ const Orders = ({ boardRoles, roleOrders }) => {
   console.log(boardRoles);
   return (
     <Row
-      className="orders px-2 pt-2"
-      style={{ height: "100%", overflowY: "auto", paddingBottom: "30px" }}
+      className="orders pt-2"
+      style={{ height: "100%", overflowY: "auto", paddingBottom: "30px", maxWidth:"100%", overflowX: "hidden", marginLeft:"0"}}
     >
       <Col className="ms-4">
-      <h1 className="spooky-title" style={{ marginBottom: "10px" }}>
+      <h1 className="spooky-title" style={{ marginBottom: "10px", fontSize: "30px !important"}}>
         首夜
       </h1>
         <div class="timeline">
@@ -19,7 +19,7 @@ const Orders = ({ boardRoles, roleOrders }) => {
               <div className="timeline-icon">
                 <img src={boardRoles[order + 1].roleImg} alt="" width={50} height={50} />
               </div>
-              <div className="">
+              <div className="ms-3">
                 <p className="spooky-para-static">
                   <strong>{boardRoles[order + 1].roleName}</strong>
                 </p>
@@ -39,8 +39,8 @@ const Orders = ({ boardRoles, roleOrders }) => {
               <div className="timeline-icon">
                 <img src={boardRoles[order + 1].roleImg} alt="" width={50} height={50} />
               </div>
-              <div className="">
-                <p className="spooky-para-static">
+              <div className="ms-3">
+                <p className="spooky-para-static me-1">
                   <strong>{boardRoles[order + 1].roleName}</strong>
                 </p>
               </div>

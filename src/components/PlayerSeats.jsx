@@ -38,28 +38,51 @@ const PlayerSeats = ({ capacity, user }) => {
     }
   };
 
-  const SeatItem = ({ seatNumber, seatInfo }) => (
-    <div className="mb-3 seats" onClick={() => toggleSeat(seatNumber)}>
-      {" "}
-      {/* Added onClick event here */}
-      <ListGroup.Item
-        as="li"
-        action
-        className="d-flex justify-content-between align-items-start"
-        variant={seatInfo && seatInfo.userID === user.userID ? "info" : ""}
-        style={{ backgroundColor: "#eaeaea", minHeight: "90px" }}
-      >
-        <div className="ms-2 me-auto">
-          <div className="fw-bold">{seatNumber}</div>
-          {seatInfo ? seatInfo.userName : "-"}
+  const LeftSeat = ({ seatNumber, seatInfo }) => (
+    <div
+      className={`pe-2 list-item list-item-left ${
+        seatInfo && seatInfo.userID === user.userID ? "list-item-self" : ""
+      }`}
+      onClick={() => toggleSeat(seatNumber)}
+    >
+      <div class="badge badge-left">{seatNumber}</div>
+      <div class="image-slot image-slot-left">
+        <div class="nametag nametag-left">
+          <p style={{ whiteSpace: "nowrap" }}>
+            {seatInfo ? seatInfo.userName : "-"}
+          </p>
         </div>
-        {/* Conditional rendering of the badge based on showBadge state */}
+      </div>
+      {demons.includes(seatNumber) && (
+        <Badge bg="danger" pill style={{ position: "relative" }}>
+          恶
+        </Badge>
+      )}
+    </div>
+  );
+
+  const RightSeat = ({ seatNumber, seatInfo }) => (
+    <div
+      className={`ps-2 list-item list-item-right ${
+        seatInfo && seatInfo.userID === user.userID ? "list-item-self" : ""
+      }`}
+      onClick={() => toggleSeat(seatNumber)}
+    >
+      <div class="badge badge-right">{seatNumber}</div>
+      <div class="image-slot image-slot-right ">
+        <div class="nametag nametag-right">
+          <p style={{ whiteSpace: "nowrap" }}>
+            {seatInfo ? seatInfo.userName : "-"}
+          </p>
+        </div>
+      </div>
+      <div className="d-flex flex-row-reverse">
         {demons.includes(seatNumber) && (
-          <Badge bg="danger" pill>
+          <Badge bg="danger" pill style={{ position: "relative" }}>
             恶
           </Badge>
         )}
-      </ListGroup.Item>
+      </div>
     </div>
   );
 
@@ -93,7 +116,7 @@ const PlayerSeats = ({ capacity, user }) => {
           fluid
           style={{
             height: "100vh",
-            width: "100vh",
+            maxWidth: "100vw",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -112,19 +135,11 @@ const PlayerSeats = ({ capacity, user }) => {
                     .reverse()
                     .map(([seatNumber, seatInfo]) => {
                       return (
-                        // <SeatItem
-                        //   key={seatNumber}
-                        //   seatNumber={seatNumber}
-                        //   seatInfo={seatInfo}
-                        // />
-                        <div class="list-item list-item-left">
-                          <div class="badge badge-left">{seatNumber}</div>
-                          <div class="image-slot image-slot-left">
-                            <div class="nametag nametag-left">
-                              <p style={{ whiteSpace: 'nowrap'}}>{seatInfo ? seatInfo.userName : "-"}</p>
-                            </div>
-                          </div>
-                        </div>
+                        <LeftSeat
+                          key={seatNumber}
+                          seatNumber={seatNumber}
+                          seatInfo={seatInfo}
+                        />
                       );
                     })}
               </ListGroup>
@@ -136,23 +151,31 @@ const PlayerSeats = ({ capacity, user }) => {
                     .slice(0, leftCount)
                     .map(([seatNumber, seatInfo]) => {
                       return (
-                        <div
-                          class=""
-                          className={`list-item list-item-right ${
-                            seatInfo ? "occupied" : ""
-                          }`}
-                        >
-                          <div class="badge badge-right">{seatNumber}</div>
-                          <div class="image-slot image-slot-right ">
-                            <div class="nametag nametag-right">
-                              <p style={{ whiteSpace: 'nowrap'}}>{seatInfo ? seatInfo.userName : "-"}</p>
-                            </div>
-                          </div>
-                        </div>
+                        <RightSeat
+                          key={seatNumber}
+                          seatNumber={seatNumber}
+                          seatInfo={seatInfo}
+                        />
                       );
                     })}
               </ListGroup>
             </div>
+          </Row>
+
+          <Row className="d-flex justify-content-center">
+            <Button className="btn-danger" style={{ width: "auto", height:"50px", borderRadius:"30%" }}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-crosshair"
+                viewBox="0 0 16 16"
+              >
+                <path d="M8.5.5a.5.5 0 0 0-1 0v.518A7 7 0 0 0 1.018 7.5H.5a.5.5 0 0 0 0 1h.518A7 7 0 0 0 7.5 14.982v.518a.5.5 0 0 0 1 0v-.518A7 7 0 0 0 14.982 8.5h.518a.5.5 0 0 0 0-1h-.518A7 7 0 0 0 8.5 1.018zm-6.48 7A6 6 0 0 1 7.5 2.02v.48a.5.5 0 0 0 1 0v-.48a6 6 0 0 1 5.48 5.48h-.48a.5.5 0 0 0 0 1h.48a6 6 0 0 1-5.48 5.48v-.48a.5.5 0 0 0-1 0v.48A6 6 0 0 1 2.02 8.5h.48a.5.5 0 0 0 0-1zM8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
+              </svg>
+              狙击
+            </Button>
           </Row>
         </div>
       )}

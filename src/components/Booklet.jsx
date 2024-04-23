@@ -11,82 +11,82 @@ const Booklet = ({ boardRoles }) => {
   return (
     <div
       className="keben"
-      style={{ height: "100%", overflowY: "auto", paddingBottom: "30px" }}
+      style={{ height: "100%", overflowY: "auto", paddingBlock: "30px" }}
     >
-      <div>
-        <section>
-          <h1 className="spooky-title" style={{ marginBottom: "10px" }}>
-            镇民
-          </h1>
-          {townsfolk.map((role, index) => (
-            <details key={role.roleId}>
-              <summary>
-                <div>
-                  <img src={role.roleImg} alt="" width={50} height={50} />
-                  <h3>
-                    <strong>{role.roleName}</strong>
-                    <small>{role.roleDesc}</small>
-                  </h3>
-                </div>
-              </summary>
-            </details>
-          ))}
-        </section>
-        <section style={{ marginBottom: "10px" }}>
-          <h1 className="spooky-title" style={{ marginBottom: "10px" }}>
-            外来者
-          </h1>
-          {outsiders.map((role, index) => (
-            <details key={role.roleId}>
-              <summary>
-                <div>
-                  <img src={role.roleImg} alt="" width={50} height={50} />
-                  <h3>
-                    <strong>{role.roleName}</strong>
-                    <small>{role.roleDesc}</small>
-                  </h3>
-                </div>
-              </summary>
-            </details>
-          ))}
-        </section>
-        <section style={{ marginBottom: "10px" }}>
-          <h1 className="spooky-title" style={{ marginBottom: "10px" }}>
-            爪牙
-          </h1>
-          {minions.map((role, index) => (
-            <details key={role.roleId}>
-              <summary>
-                <div>
-                  <img src={role.roleImg} alt="" width={50} height={50} />
-                  <h3>
-                    <strong>{role.roleName}</strong>
-                    <small>{role.roleDesc}</small>
-                  </h3>
-                </div>
-              </summary>
-            </details>
-          ))}
-        </section>
-        <section style={{ marginBottom: "10px" }}>
-          <h1 className="spooky-title" style={{ marginBottom: "10px" }}>
-            恶魔
-          </h1>
-          {demons.map((role, index) => (
-            <details key={role.roleId}>
-              <summary>
-                <div>
-                  <img src={role.roleImg} alt="" width={50} height={50} />
-                  <h3>
-                    <strong>{role.roleName}</strong>
-                    <small>{role.roleDesc}</small>
-                  </h3>
-                </div>
-              </summary>
-            </details>
-          ))}
-        </section>
-      </div>
+        <div>
+          <section>
+            <h1 className="spooky-title" style={{ marginBottom: "10px" }}>
+              镇民
+            </h1>
+            {townsfolk.map((role, index) => (
+              <details key={role.roleId}>
+                <summary>
+                  <div>
+                    <img src={role.roleImg} alt="" width={50} height={50} />
+                    <h3>
+                      <strong>{role.roleName}</strong>
+                      <small>{role.roleDesc}</small>
+                    </h3>
+                  </div>
+                </summary>
+              </details>
+            ))}
+          </section>
+          <section style={{ marginBottom: "10px" }}>
+            <h1 className="spooky-title" style={{ marginBottom: "10px" }}>
+              外来者
+            </h1>
+            {outsiders.map((role, index) => (
+              <details key={role.roleId}>
+                <summary>
+                  <div>
+                    <img src={role.roleImg} alt="" width={50} height={50} />
+                    <h3>
+                      <strong>{role.roleName}</strong>
+                      <small>{role.roleDesc}</small>
+                    </h3>
+                  </div>
+                </summary>
+              </details>
+            ))}
+          </section>
+          <section style={{ marginBottom: "10px" }}>
+            <h1 className="spooky-title" style={{ marginBottom: "10px" }}>
+              爪牙
+            </h1>
+            {minions.map((role, index) => (
+              <details key={role.roleId}>
+                <summary>
+                  <div>
+                    <img src={role.roleImg} alt="" width={50} height={50} />
+                    <h3>
+                      <strong>{role.roleName}</strong>
+                      <small>{role.roleDesc}</small>
+                    </h3>
+                  </div>
+                </summary>
+              </details>
+            ))}
+          </section>
+          <section style={{ marginBottom: "10px" }}>
+            <h1 className="spooky-title" style={{ marginBottom: "10px" }}>
+              恶魔
+            </h1>
+            {demons.map((role, index) => (
+              <details key={role.roleId}>
+                <summary>
+                  <div>
+                    <img src={role.roleImg} alt="" width={50} height={50} />
+                    <h3>
+                      <strong>{role.roleName}</strong>
+                      <small>{role.roleDesc}</small>
+                    </h3>
+                  </div>
+                </summary>
+              </details>
+            ))}
+          </section>
+        </div>
     </div>
   );
 };

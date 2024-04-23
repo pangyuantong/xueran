@@ -70,6 +70,7 @@ const RoomPage = () => {
           setGameData(res.data.gameData);
         } else {
           toast.error("Oops! " + res.message);
+          setLoading(false);
           // return navigate("/lobby");
         }
       } catch (e) {
@@ -88,6 +89,7 @@ const RoomPage = () => {
           setLoading(false);
         } else {
           toast.error("Oops! " + res.message);
+          setLoading(false);
         }
       } catch (e) {
         setLoading(false);
@@ -183,7 +185,8 @@ const RoomPage = () => {
               onSelect={(k) => setToggle(k)}
               className=""
               justify
-              style={{ borderBottomColor: "#50c878" }}
+              style={{ borderBottomColor: "#50c878",
+              overflowX: "hidden" }}
             >
               <Tab eventKey="0" title="抿牌" className="">
                 {toggle === "0" && (
@@ -195,7 +198,8 @@ const RoomPage = () => {
                   />
                 )}
               </Tab>
-              <Tab eventKey="1" title="玩家" className="">
+              <Tab eventKey="1" title="玩家" className="" style={{
+              overflowX: "hidden" }}>
                 {toggle === "1" && (
                   <PlayerSeats
                     capacity={gameData.gmCapacity}
@@ -205,7 +209,7 @@ const RoomPage = () => {
               </Tab>
               <Tab eventKey="2" title="课本" className="">
                 {boardRoles.length > 0 ? (
-                  <div className="booklet">
+                  <div className="booklet justify-content-center">
                     <section>
                       <Row className="pt-4">
                         <div className="d-flex justify-content-end pe-3 pb-2">
