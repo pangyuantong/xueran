@@ -70,6 +70,28 @@
   /* Adjust line spacing for readability */
 }
 
+.spooky-para-static {
+  width: auto;
+  font-family: 'Roboto Mono', monospace;
+  /* Modern, monospaced font for a clean yet eerie vibe */
+  font-size: 14px;
+  /* Adjust size as needed */
+  color: #E0E0E0;
+  /* Soft, ghostly white */
+  background-color: #1A1A1D;
+  /* Deep, dark background */
+  padding: 10px;
+  /* Padding around the text */
+  border-left: 5px solid #ffdfdf;
+  /* Bright red accent line for a hint of something sinister */
+  text-shadow: 1px 1px 5px #000;
+  /* Subtle shadow to lift the text off the background */ 
+  line-height: 1.6;
+  /* Adjust line spacing for readability */
+
+  margin-left: 12%;
+}
+
 @keyframes glitch {
   0% {
     transform: skew(-0.5deg);

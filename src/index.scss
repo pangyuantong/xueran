@@ -105,90 +105,199 @@
     padding: 5rem 0;
     font-size: clamp(1rem, 2.5vw, 1.125rem);
   }
-  
+
   section {
     width: 90%;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    
-    & + section {
+
+    &+section {
       margin-top: 2.5em;
     }
   }
-  
+
   h1 {
     font-weight: 700;
     line-height: 1.125;
     font-size: 24px;
   }
-  
+
   summary {
     background-color: #fff;
     position: relative;
     cursor: pointer;
     padding: 1em .5em;
     list-style: none; // Remove arrow
+
     &::-webkit-details-marker {
       display: none; // Remove arrow
     }
-    
+
     &:hover {
       background-color: #f2f5f9;
     }
-  
-    
+
+
     div {
       display: flex;
       align-items: center;
     }
-    
+
     h3 {
       display: flex;
       flex-direction: column;
     }
-    
+
     small {
       color: #2c2c2c;
       font-size: 12.5px;
-      letter-spacing: 1.1px; /* Adjusts space between characters */
-      line-height: 1.1 ;
-      
+      letter-spacing: 1.1px;
+      /* Adjusts space between characters */
+      line-height: 1.1;
+
     }
-    
+
     strong {
       font-weight: 1200;
       color: #2c2c2c;
       font-size: 15px;
     }
-    
+
     span:first-child {
       width: 4rem;
       height: 4rem;
       border-radius: 10px;
-      background-color: #f3e1e1; 
+      background-color: #f3e1e1;
       display: flex;
       flex-shrink: 0;
       align-items: center;
       justify-content: center;
       margin-right: 1.25em;
+
       svg {
         width: 2.25rem;
         height: 2.25rem;
       }
     }
-    
+
     span:last-child {
       font-weight: 700;
       margin-left: auto;
     }
-    
+
     &:focus {
       outline: none;
     }
-    
+
     .plus {
       color: #289672;
     }
   }
+}
+
+.orders {
+  @import url('https://fonts.googleapis.com/css?family=Niramit:300,300i,700');
+ 
+
+  // colors
+  $primary: #1d8cf8;
+  $secondary: #4f537b;
+  $info: #11cdef;
+  $success: #00bf9a;
+  $warning: #ff8d72;
+  $danger: #fd5d93;
+
+  // timeline variables
+  $body-bg: #1e1e2f;
+  $timeline-before-bg : #222a42;
+  $timeline-body-bg: #27293d;
+  $timeline-body-round: 3px;
+  $timeline-body-shadow: 1px 3px 9px rgba(0, 0, 0, .1);
+
+  body {
+    font-family: 'K2D', sans-serif;
+    background: $body-bg;
+    letter-spacing: 1px;
+  }
+
+  // page container
+  .container {
+    max-width: 650px;
+    margin: 50px auto;
+  }
+
+  // typography
+  p {
+    font-weight: 400;
+    line-height: 1.5;
+    font-size: 14px;
+    opacity: .8;
+  }
+
+  // timeline style
+  .timeline {
+    position: relative;
+    padding-left: 0;
+    margin: 0 0 0 0px;
+    color: white;
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3px;
+      height: 100%;
+      background:#55ff8d;
+    }
+
+    .timeline-container {
+      position: relative;
+      margin-bottom: 2.5rem;
+      ;
+
+      .timeline-icon {
+        position: absolute;
+        left: -25px;
+        top: 0;
+        width: 50px;
+        height: 50px;
+        border-radius: 45%;
+        text-align: center;
+        font-size: 2rem;
+        background: #ffffff;
+
+        i {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+        }
+      } 
+
+      // Primary Timeline
+      &.primary {
+
+        .badge {
+          background: $primary !important;
+        }
+      }
+
+      // Dnager Timeline
+      &.danger {
+
+        .badge {
+          background: $danger !important;
+        }
+      }
+
+    }
+  } 
 }

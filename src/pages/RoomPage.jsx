@@ -16,6 +16,7 @@ import PowerCard from "../components/PowerCard";
 import { toast } from "react-toastify";
 import PlayerSeats from "../components/PlayerSeats";
 import { PowerCardV2 } from "../components/PowerCardV2";
+import Orders from "../components/Orders";
 
 export async function roomLoader() {
   const _token = fetchData("_token");
@@ -31,12 +32,20 @@ const RoomPage = () => {
   const { _token, loggedUser } = useLoaderData();
 
   const [loading, setLoading] = useState(true);
-  const [toggle, setToggle] = useState("1");
+  const [toggle, setToggle] = useState("2");
   const [seat, setSeat] = useState();
   const [boardData, setBoardData] = useState({});
   const [boardRoles, setBoardRoles] = useState([]);
+  const [roleOrders, setRoleOrders] = useState({});
   const [drawnRole, setDrawnRole] = useState({});
   const [gameData, setGameData] = useState({});
+
+  const [bookletCheck, setBookletCheck] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setBookletCheck(!bookletCheck);
+  };
+
   useEffect(() => {
     if (_token === null || loggedUser === null) {
       // One or both are null, handle the scenario, maybe navigate to a login page
@@ -57,6 +66,7 @@ const RoomPage = () => {
 
           setBoardData(res.data.boardData);
           setBoardRoles(...boardRoles, res.data.boardRoles);
+          setRoleOrders(res.data.roleOrders);
           setGameData(res.data.gameData);
         } else {
           toast.error("Oops! " + res.message);
@@ -75,6 +85,7 @@ const RoomPage = () => {
         var res = JSON.parse(res);
         if (res.success === true) {
           setSeat(res.data.seat);
+          setLoading(false);
         } else {
           toast.error("Oops! " + res.message);
         }
@@ -86,7 +97,6 @@ const RoomPage = () => {
     }
     loadRoom();
     loadSeat();
-    setLoading(false);
   }, []);
 
   const handleClickLeave = async () => {
@@ -196,24 +206,32 @@ const RoomPage = () => {
               <Tab eventKey="2" title="课本" className="">
                 {boardRoles.length > 0 ? (
                   <div className="booklet">
-                    <div>
-                      {/* <div className="tool-btns me-4">
-                          <div className="button r" id="button-6">
-                            <input
-                              type="checkbox"
-                              className="checkbox"
-                              checked={bookletCheck}
-                              onChange={handleCheckboxChange}
-                            />
-                            <div className="knobs"></div>
-                            <div className="layer"></div>
+                    <section>
+                      <Row className="pt-4">
+                        <div className="d-flex justify-content-end pe-3 pb-2">
+                          <div className="tool-btns">
+                            <div className="button r" id="button-6">
+                              <input
+                                type="checkbox"
+                                className="checkbox"
+                                checked={bookletCheck}
+                                onChange={handleCheckboxChange}
+                              />
+                              <div className="knobs"></div>
+                              <div className="layer"></div>
+                            </div>
                           </div>
-                        </div> */}
+                        </div>
+                      </Row>
+                    </section>
+                    {bookletCheck === false ? (
                       <Booklet boardRoles={boardRoles} />
-                    </div>
+                    ) : (
+                      <Orders roleOrders={roleOrders} boardRoles={boardRoles}/>
+                    )}
                   </div>
                 ) : (
-                  <div className="d-flex justify-content-center align-items-center">
+                  <div className="d-flex justify-content-center align-items-center pt-5">
                     <Spinner animation="border" variant="light" />
                   </div>
                 )}
