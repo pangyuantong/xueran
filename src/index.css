@@ -503,113 +503,161 @@
   }
 }
 
-.cust-seat {
+.cust-seat-left {
 
   /* Shared styles for list items */
   .list-item {
-    position: relative;
-    width: 100%;
-    height: 85px;
-    padding-top: 20px;
-    background: #281e1ea9;
-    /* your color */
-    color: #fff;
-    /* your color */
-    margin-bottom: 20px;
-    /* space between items */
-  }
-
-  /* Specific styles for alignment and padding */
-  .list-item-left {
-    align-self: self-end;
-    padding-left: 60px;
-  }
-
-  .list-item-right {
-    align-self: self-start;
-    padding-right: 60px;
+      position: relative;
+      width: 100%;
+      height: 85px;
+      padding-top: 20px;
+      background: #281e1ea9;
+      /* your color */
+      color: #fff;
+      /* your color */
+      margin-bottom: 20px;
+      /* space between items */
+      align-self: self-end;
+      padding-left: 60px;
   }
 
   .list-item-self {
-    background: #501818a9;
+      background: #501818a9;
   }
 
   /* Shared styles for badges */
   .badge {
-    position: absolute;
-    top: -10px;
-    width: 25px;
-    height: 25px;
-    background: #ffc0c08f;
-    /* your color */
-    color: #b5fdff;
-    font-size: 16px;
-    /* your color */
-    border-radius: 40%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-  }
-
-  /* Specific styles for positioning */
-  .badge-left {
-    left: -10px;
-  }
-
-  .badge-right {
-    right: -10px;
+      position: absolute;
+      top: -10px;
+      width: 25px;
+      height: 25px;
+      background: #ffc0c08f;
+      /* your color */
+      color: #b5fdff;
+      font-size: 16px;
+      /* your color */
+      border-radius: 40%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      left: -10px;
   }
 
   .image-slot {
-    position: absolute;
-    top: 40%;
-    /* adjust as needed */
-    transform: translate(-50%, -50%);
-    width: 60px;
-    /* adjust as needed */
-    height: 60px;
-    /* adjust as needed */
-    background: url("https://i.ibb.co/CQ6Nz19/Whats-App-Image-2024-04-19-at-4-28-43-PM.jpg") no-repeat center center;
-    background-color: #b3b3b387;
-    background-size: cover;
-    border-radius: 50%;
-  }
-
-  .image-slot-left {
-    left: 15%;
-  }
-
-  .image-slot-right {
-    left: 85%;
+      position: absolute;
+      top: 40%;
+      /* adjust as needed */
+      transform: translate(-50%, -50%);
+      width: 60px;
+      /* adjust as needed */
+      height: 60px;
+      /* adjust as needed */
+      background: url("https://i.ibb.co/CQ6Nz19/Whats-App-Image-2024-04-19-at-4-28-43-PM.jpg") no-repeat center center;
+      background-color: #b3b3b387;
+      background-size: cover;
+      border-radius: 50%;
+      left: 15%;
   }
 
   .nametag {
-    position: absolute;
-    bottom: -25%;
-    background: #281e1e;
-    width: 60px;
-    min-width: 60px;
-    max-width: 100px;
-    max-height: 21px;
-    /* your color */
-    color: #ffa24c;
-    font-size: 13px;
-    /* your color */
-    border: 1px;
-    border-style: solid;
-    border-color: #ffa24c;
-    display: flex;
-    justify-content: center;
-    z-index: 1;
+      position: absolute;
+      bottom: -25%;
+      background: #281e1e;
+      width: 60px;
+      min-width: 60px;
+      max-width: 100px;
+      max-height: 21px;
+      /* your color */
+      color: #ffa24c;
+      font-size: 13px;
+      /* your color */
+      border: 1px;
+      border-style: solid;
+      border-color: #ffa24c;
+      display: flex;
+      justify-content: center;
+      z-index: 1;
+      left: 0%;
+  }
+}
+
+.cust-seat-right {
+
+  /* Shared styles for list items */
+  .list-item {
+      position: relative;
+      width: 100%;
+      height: 85px;
+      padding-top: 20px;
+      background: #281e1ea9;
+      /* your color */
+      color: #fff;
+      /* your color */
+      margin-bottom: 20px;
+      /* space between items */
+      align-self: self-start;
+      padding-right: 60px;
   }
 
-  .nametag-left {
-    left: 0%;
+  .list-item-self {
+      background: #501818a9;
   }
 
-  .nametag-right {
-    right: 0%;
+  /* Shared styles for badges */
+  .badge {
+      position: absolute;
+      top: -10px;
+      width: 25px;
+      height: 25px;
+      background: #ffc0c08f;
+      /* your color */
+      color: #b5fdff;
+      font-size: 16px;
+      /* your color */
+      border-radius: 40%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      right: -10px;
+  }
+
+  .image-slot {
+      position: absolute;
+      top: 40%;
+      /* adjust as needed */
+      transform: translate(-50%, -50%);
+      width: 60px;
+      /* adjust as needed */
+      height: 60px;
+      /* adjust as needed */
+      background: url("https://i.ibb.co/CQ6Nz19/Whats-App-Image-2024-04-19-at-4-28-43-PM.jpg") no-repeat center center;
+      background-color: #b3b3b387;
+      background-size: cover;
+      border-radius: 50%;
+      left: 85%;
+  }
+
+  .nametag {
+      position: absolute;
+      bottom: -25%;
+      background: #281e1e;
+      width: 60px;
+      min-width: 60px;
+      max-width: 100px;
+      max-height: 21px;
+      /* your color */
+      color: #ffa24c;
+      font-size: 13px;
+      /* your color */
+      border: 1px;
+      border-style: solid;
+      border-color: #ffa24c;
+      display: flex;
+      justify-content: center;
+      z-index: 1;
+      right: 0%;
   }
 }
 

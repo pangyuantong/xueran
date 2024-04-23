@@ -46,51 +46,29 @@ const PlayerSeats = ({ capacity, user }) => {
     setPickMode(!pickMode);
   };
 
-  const LeftSeat = ({ seatNumber, seatInfo }) => (
+  const SeatItem = ({ seatNumber, seatInfo }) => (
     <div
-      className={`pe-2 list-item list-item-left ${
+      className={`pe-2 list-item ${
         seatInfo && seatInfo.userID === user.userID ? "list-item-self" : ""
       }`}
+      style={{ backgroundColor: `${pickMode === true ? "#FFFFFF" : ""}` }}
       onClick={() => toggleSeat(seatNumber)}
     >
-      <div class="badge badge-left">{seatNumber}</div>
-      <div class="image-slot image-slot-left">
-        <div class="nametag nametag-left">
+      <div class="badge ">{seatNumber}</div>
+      <div class="image-slot ">
+        <div class="nametag ">
           <p style={{ whiteSpace: "nowrap" }}>
             {seatInfo ? seatInfo.userName : "-"}
           </p>
         </div>
       </div>
-      {demons.includes(seatNumber) && (
+      {demons.includes(seatNumber) && pickMode === true ? (
         <Badge bg="danger" pill style={{ position: "relative" }}>
           恶
         </Badge>
+      ) : (
+        <div></div>
       )}
-    </div>
-  );
-
-  const RightSeat = ({ seatNumber, seatInfo }) => (
-    <div
-      className={`ps-2 list-item list-item-right ${
-        seatInfo && seatInfo.userID === user.userID ? "list-item-self" : ""
-      }`}
-      onClick={() => toggleSeat(seatNumber)}
-    >
-      <div class="badge badge-right">{seatNumber}</div>
-      <div class="image-slot image-slot-right ">
-        <div class="nametag nametag-right">
-          <p style={{ whiteSpace: "nowrap" }}>
-            {seatInfo ? seatInfo.userName : "-"}
-          </p>
-        </div>
-      </div>
-      <div className="d-flex flex-row-reverse">
-        {demons.includes(seatNumber) && (
-          <Badge bg="danger" pill style={{ position: "relative" }}>
-            恶
-          </Badge>
-        )}
-      </div>
     </div>
   );
 
@@ -163,7 +141,7 @@ const PlayerSeats = ({ capacity, user }) => {
             <Col></Col>
           </Row>
           <Row style={{ paddingInline: "3%" }}>
-            <div className="col-6 cust-seat">
+            <div className="col-6 cust-seat-left">
               <ListGroup style={{ paddingLeft: "10px" }}>
                 {leftCount > 0 &&
                   Object.entries(seatData)
@@ -171,7 +149,7 @@ const PlayerSeats = ({ capacity, user }) => {
                     .reverse()
                     .map(([seatNumber, seatInfo]) => {
                       return (
-                        <LeftSeat
+                        <SeatItem
                           key={seatNumber}
                           seatNumber={seatNumber}
                           seatInfo={seatInfo}
@@ -180,14 +158,14 @@ const PlayerSeats = ({ capacity, user }) => {
                     })}
               </ListGroup>
             </div>
-            <div className="col-6 cust-seat">
+            <div className="col-6 cust-seat-right">
               <ListGroup style={{ paddingRight: "10px" }}>
                 {leftCount > 0 &&
                   Object.entries(seatData)
                     .slice(0, leftCount)
                     .map(([seatNumber, seatInfo]) => {
                       return (
-                        <RightSeat
+                        <SeatItem
                           key={seatNumber}
                           seatNumber={seatNumber}
                           seatInfo={seatInfo}

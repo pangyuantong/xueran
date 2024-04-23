@@ -31,7 +31,7 @@ const RoomPage = () => {
 
   const { _token, loggedUser } = useLoaderData();
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [toggle, setToggle] = useState("2");
   const [seat, setSeat] = useState();
   const [boardData, setBoardData] = useState({});
