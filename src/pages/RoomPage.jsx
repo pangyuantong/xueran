@@ -8,7 +8,7 @@ import {
   Tab,
   Tabs,
 } from "react-bootstrap";
-import { drawRole, drawSeat, fetchData, getRoom, leaveGame } from "../helpers";
+import { getAPI, fetchData } from "../helpers";
 import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/24/solid";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import Booklet from "../components/Booklet";
@@ -53,7 +53,7 @@ const RoomPage = () => {
     }
     async function loadRoom() {
       try {
-        var res = await getRoom();
+        var res = await getAPI("getRoom");
         var res = JSON.parse(res);
         if (res.success === true) {
           const userInfo = res.data.user;
@@ -82,7 +82,7 @@ const RoomPage = () => {
 
     async function loadSeat() {
       try {
-        var res = await drawSeat();
+        var res = await getAPI("drawSeat");
         var res = JSON.parse(res);
         if (res.success === true) {
           setSeat(res.data.seat);
@@ -104,7 +104,7 @@ const RoomPage = () => {
   const handleClickLeave = async () => {
     setLoading(true);
     try {
-      var res = await leaveGame();
+      var res = await getAPI("leaveGame");
       var res = JSON.parse(res);
 
       setLoading(false);

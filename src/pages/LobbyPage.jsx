@@ -14,7 +14,7 @@ import {
   ArrowLeftEndOnRectangleIcon,
   LifebuoyIcon,
 } from "@heroicons/react/24/solid";
-import { fetchData, getLobby, joinRoom } from "../helpers";
+import { fetchData, getAPI, joinRoom } from "../helpers";
 import { toast } from "react-toastify";
 
 export async function lobbyLoader() {
@@ -41,7 +41,7 @@ const LobbyPage = () => {
     async function loadLobby() {
       console.log("load lobby");
       try {
-        var res = await getLobby();
+        var res = await getAPI("getLobby");
         var res = JSON.parse(res);
         if (res.success === true) {
           const userInfo = res.data.user;

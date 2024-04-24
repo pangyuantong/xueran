@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import AuthForm from "../components/AuthForm";
 
 // Helpers
-import { fetchData, getLobby, joinRoom, leaveGame } from "../helpers";
+import { fetchData, getAPI, joinRoom } from "../helpers";
 import { redirect, useLoaderData, useNavigate } from "react-router-dom";
 import Lobby from "../components/Lobby";
 import Room from "../components/Room";
@@ -13,7 +13,7 @@ import Room from "../components/Room";
 export async function dashboardLoader() {
   const _token = fetchData("_token");
   const loggedUser = fetchData("loggedUser");
-  if ((await getLobby()) !== true) {
+  if ((await getAPI("getLobby")) !== true) {
     toast.error("Error validating token. Please login and try again.");
     return redirect("/");
   }
@@ -68,10 +68,10 @@ const Dashboard = () => {
 
   const handleClickLeave = async () => {
     try {
-      if (await leaveGame()) {
+      if (await getAPI("leaveGame")) {
         setJoinedRoom(false);
         setRoomNum(null);
-        if (await getLobby()) {
+        if (await getAPI("getLobby")) {
           setCurrGamesAvailable(fetchData("gamesAvailable"));
         }
       }

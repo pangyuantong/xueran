@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { drawRole, fetchData } from "../helpers";
+import { getAPI, fetchData } from "../helpers";
 import { toast } from "react-toastify";
 
 const PowerCard = ({ seatNum, drawnRole, setDrawnRole, setLoading }) => {
@@ -8,7 +8,7 @@ const PowerCard = ({ seatNum, drawnRole, setDrawnRole, setLoading }) => {
     if (Object.keys(drawnRole).length === 0) {
       // setLoading(true);
       try {
-        var res = await drawRole();
+        var res = await getAPI("drawRole");
         var res = JSON.parse(res);
         if (res.success === true) {
           const role = res.data.roleInfo;

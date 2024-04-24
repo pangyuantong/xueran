@@ -1,7 +1,7 @@
 // import "./styles.css";
 
 import { useState } from "react";
-import { drawRole } from "../helpers";
+import { getAPI } from "../helpers";
 
 export const PowerCardV2 = ({
   seatNum,
@@ -14,7 +14,7 @@ export const PowerCardV2 = ({
     if (Object.keys(drawnRole).length === 0) {
       // setLoading(true);
       try {
-        var res = await drawRole();
+        var res = await getAPI("drawRole");
         var res = JSON.parse(res);
         if (res.success === true) {
           const role = res.data.roleInfo;

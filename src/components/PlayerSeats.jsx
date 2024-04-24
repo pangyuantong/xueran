@@ -6,11 +6,9 @@ import {
   Row,
   Spinner,
   ListGroup,
-  Tab,
-  Tabs,
   Col,
 } from "react-bootstrap";
-import { fetchData, viewPlayers } from "../helpers";
+import { getAPI } from "../helpers";
 
 const PlayerSeats = ({ capacity, user }) => {
   // console.log(user.userID);
@@ -49,13 +47,13 @@ const PlayerSeats = ({ capacity, user }) => {
   useEffect(() => {
     async function fetchPlayers() {
       try {
-        var res = await viewPlayers();
+        var res = await getAPI("viewPlayers");
         var res = JSON.parse(res);
         if (res.success === true) {
           console.log("test");
           console.log(res.data);
           // console.log(res.data.playersData.seats);
-          setSeatData(res.data);
+          setSeatData(res.data.seatList);
           setLoading(false);
         } else {
           toast.error("Oops! " + res.message);

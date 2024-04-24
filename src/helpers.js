@@ -94,41 +94,6 @@ export const getAuthByToken = async () => {
   }
 };
 
-export const getLobby = async () => {
-  const _token = fetchData("_token");
-  // const navigate = useNavigate();
-
-  if (_token == null) {
-    localStorage.clear();
-    return false;
-  }
-  
-  console.log('load lobby JS')
-
-  try {
-    var response;
-    if (DEBUG_MODE === "MOCK") {
-      response = await axios.get(
-        // `https://mocki.io/v1/e7811454-b731-450d-8fe3-8ae9b040be62`
-        // below without joined room
-        `https://mocki.io/v1/61cf67d3-79f8-4cf2-b109-eaa212c58897`
-      );
-    } else {
-      response = await axios.get(`${DOMAIN}/api/user/games`, {
-        headers: {
-          Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
-        },
-      });
-    }
-
-    const res = response.data;
-    return JSON.stringify(res);
-  } catch (e) {
-    console.error("Error retrieving data:", e);
-    throw new Error("Error retrieving data.");
-  }
-};
-
 export const joinRoom = async (roomNum) => {
   const _token = fetchData("_token");
   console.log("jshelper: " + roomNum);
@@ -159,128 +124,57 @@ export const joinRoom = async (roomNum) => {
   }
 };
 
-export const getRoom = async () => {
+
+
+export const getAPI = async (action) => {
   const _token = fetchData("_token");
+  // const navigate = useNavigate();
+
+  if (_token == null) {
+    localStorage.clear();
+    return false;
+  }
+
+  console.log("load lobby JS");
+
   try {
     var response;
     if (DEBUG_MODE === "MOCK") {
       response = await axios.get(
-        `https://mocki.io/v1/b16cb1a8-4f61-45db-bdaf-0a58487aa1e7`
-        // WITHOUT ROOM
-        // `https://mocki.io/v1/b43cf359-3ab2-4d4d-b54f-49184d3ef6b1`
+        `https://mocki.io/v1/61cf67d3-79f8-4cf2-b109-eaa212c58897`
       );
     } else {
-      response = await axios.get(`${DOMAIN}/api/user/games/info`, {
+      var url = "";
+      switch (action) {
+        case "getLobby":
+          url = `${DOMAIN}/api/user/games`;
+          break;
+        case "getRoom":
+          url = `${DOMAIN}/api/user/games/info`;
+          break;
+        case "drawSeat":
+          url = `${DOMAIN}/api/user/games/draw?drawType=Seat`;
+          break;
+        case "drawRole":
+          url = `${DOMAIN}/api/user/games/draw?drawType=Role`;
+          break;
+        case "leaveGame":
+          url = `${DOMAIN}/api/user/games/quit`;
+          break;
+        case "viewPlayers":
+          url = `${DOMAIN}/api/user/games/all-player-seats`;
+          break;
+        default:
+        // code block
+      }
+
+      response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
         },
       });
     }
 
-    const res = response.data;
-    return JSON.stringify(res);
-  } catch (e) {
-    console.error("Error retrieving data:", e);
-    throw new Error("Error retrieving data.");
-  }
-};
-
-export const drawSeat = async () => {
-  const _token = fetchData("_token");
-  try {
-    var response;
-    if (DEBUG_MODE === "MOCK") {
-      response = await axios.get(
-        `https://mocki.io/v1/796cf1c2-ff4a-4efc-8ebd-c67eec70f4aa`
-      );
-    } else {
-      response = await axios.get(
-        `${DOMAIN}/api/user/games/draw?drawType=Seat`,
-        {
-          headers: {
-            Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
-          },
-        }
-      );
-    }
-
-    const res = response.data;
-    return JSON.stringify(res);
-  } catch (e) {
-    console.error("Error retrieving data:", e);
-    throw new Error("Error retrieving data.");
-  }
-};
-
-export const drawRole = async () => {
-  const _token = fetchData("_token");
-  try {
-    var response;
-    if (DEBUG_MODE === "MOCK") {
-      response = await axios.get(
-        `https://mocki.io/v1/c3979403-0b30-483d-93de-ae3fecf8a52d`
-        // BELOW IS GAME NOT STARTED
-        // `https://mocki.io/v1/6373e301-3bec-4657-b43f-8d1289c98fb9`
-      );
-    } else {
-      response = await axios.get(
-        `${DOMAIN}/api/user/games/draw?drawType=Role`,
-        {
-          headers: {
-            Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
-          },
-        }
-      );
-    }
-
-    const res = response.data;
-    return JSON.stringify(res);
-  } catch (e) {
-    console.error("Error retrieving data:", e);
-    throw new Error("Error retrieving data.");
-  }
-};
-
-export const leaveGame = async () => {
-  const _token = fetchData("_token");
-  const loggedUser = fetchData("loggedUser");
-  try {
-    var response;
-    if (DEBUG_MODE === "MOCK") {
-      response = await axios.get(
-        `https://mocki.io/v1/b45dbd45-330d-49d1-b79e-2d37ea243c69`
-      );
-    } else {
-      response = await axios.get(`${DOMAIN}/api/user/games/quit`, {
-        headers: {
-          Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
-        },
-      });
-    }
-    const res = response.data;
-    return JSON.stringify(res);
-  } catch (e) {
-    console.error("Error retrieving data:", e);
-    throw new Error("Error retrieving data.");
-  }
-};
-
-export const viewPlayers = async () => {
-  const _token = fetchData("_token");
-  // const loggedUser = fetchData("loggedUser");
-  try {
-    var response;
-    if (DEBUG_MODE === "MOCK") {
-      response = await axios.get(
-        `https://mocki.io/v1/0652c969-f81c-4ed4-8a97-a111c7aa3575`
-      );
-    } else {
-      response = await axios.get(`${DOMAIN}/api/user/games/all-player-seats`, {
-        headers: {
-          Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
-        },
-      });
-    }
     const res = response.data;
     return JSON.stringify(res);
   } catch (e) {
