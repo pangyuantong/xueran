@@ -25,6 +25,7 @@ const PlayerSeats = ({ capacity, user }) => {
 
   // Function to toggle the visibility of the badge
   const toggleSeat = (id) => {
+    console.log(id)
     if (picks.includes(id)) {
       // If the id is already in the picks array, remove it
       setPicks(picks.filter((pick) => pick !== id));
@@ -51,10 +52,10 @@ const PlayerSeats = ({ capacity, user }) => {
         var res = await viewPlayers();
         var res = JSON.parse(res);
         if (res.success === true) {
+          console.log("test");
+          console.log(res.data);
           // console.log(res.data.playersData.seats);
           setSeatData(res.data);
-          console.log(seatData);
-          console.log("test");
           setLoading(false);
         } else {
           toast.error("Oops! " + res.message);
@@ -72,27 +73,27 @@ const PlayerSeats = ({ capacity, user }) => {
   const SeatItem = ({ seatNumber, seatInfo }) => (
     <div
       className={` list-item ${
-        seatInfo && seatInfo.userID === user.userID ? "list-item-self" : ""
+        seatInfo && (seatInfo.userID === user.userID ? "list-item-self" : "")
       }`}
       style={{ backgroundColor: `${pickMode ? "#bb2d3b85" : ""}` }}
-      onClick={pickMode ? () => toggleSeat(seatNumber) : undefined}
+      onClick={seatInfo && (pickMode ? () => toggleSeat(seatInfo.userID) : undefined)}
     >
-      <div class="badge ">{seatNumber}</div>
-      <div class="image-slot ">
-        <div class="nametag ">
+      <div className="badge ">{seatNumber}</div>
+      <div className="image-slot ">
+        <div className="nametag ">
           <p style={{ whiteSpace: "nowrap" }}>
             {seatInfo ? seatInfo.userName : "-"}
           </p>
         </div>
       </div>
       <div className="content">
-        {picks.includes(seatNumber) && pickMode === true ? (
+        {seatInfo && (picks.includes(seatInfo.userID) && pickMode === true ? (
           <Badge bg="danger" pill style={{ position: "relative" }}>
             恶
           </Badge>
         ) : (
           <></>
-        )}
+        ))}
       </div>
     </div>
   );
@@ -134,7 +135,7 @@ const PlayerSeats = ({ capacity, user }) => {
                   width="25"
                   height="25"
                   fill="currentColor"
-                  class="bi bi-crosshair"
+                  className="bi bi-crosshair"
                   viewBox="0 0 16 16"
                 >
                   <path d="M8.5.5a.5.5 0 0 0-1 0v.518A7 7 0 0 0 1.018 7.5H.5a.5.5 0 0 0 0 1h.518A7 7 0 0 0 7.5 14.982v.518a.5.5 0 0 0 1 0v-.518A7 7 0 0 0 14.982 8.5h.518a.5.5 0 0 0 0-1h-.518A7 7 0 0 0 8.5 1.018zm-6.48 7A6 6 0 0 1 7.5 2.02v.48a.5.5 0 0 0 1 0v-.48a6 6 0 0 1 5.48 5.48h-.48a.5.5 0 0 0 0 1h.48a6 6 0 0 1-5.48 5.48v-.48a.5.5 0 0 0-1 0v.48A6 6 0 0 1 2.02 8.5h.48a.5.5 0 0 0 0-1zM8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
