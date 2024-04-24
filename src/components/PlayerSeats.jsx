@@ -13,64 +13,37 @@ import {
 import { fetchData, viewPlayers } from "../helpers";
 
 const PlayerSeats = ({ capacity, user }) => {
-  console.log(user.userID);
+  // console.log(user.userID);
   const leftCount = Math.ceil(capacity / 2);
   const [seatData, setSeatData] = useState({});
   const [loading, setLoading] = useState(true);
 
   // State to manage badge visibility
-  const [demons, setDemons] = useState([]);
+  const [picks, setPicks] = useState([]);
+  const [submittedPicks, setSubmittedPicks] = useState([]);
   const [pickMode, setPickMode] = useState(false);
 
   // Function to toggle the visibility of the badge
   const toggleSeat = (id) => {
-    if (pickMode === true) {
-      if (demons.includes(id)) {
-        // If the id is already in the demons array, remove it
-        setDemons(demons.filter((demon) => demon !== id));
-      } else {
-        // If the id is not in the demons array, add it
-        let updatedDemons = [...demons, id];
+    if (picks.includes(id)) {
+      // If the id is already in the picks array, remove it
+      setPicks(picks.filter((pick) => pick !== id));
+    } else {
+      // If the id is not in the picks array, add it
+      let updatedDemons = [...picks, id];
 
-        // Check if the updated array length exceeds 3
-        if (updatedDemons.length > 3) {
-          // Remove the first element
-          updatedDemons.shift();
-        }
-        setDemons(updatedDemons);
+      // Check if the updated array length exceeds 3
+      if (updatedDemons.length > 3) {
+        // Remove the first element
+        updatedDemons.shift();
       }
+      setPicks(updatedDemons);
     }
   };
 
   const togglePickMode = () => {
     setPickMode(!pickMode);
   };
-
-  const SeatItem = ({ seatNumber, seatInfo }) => (
-    <div
-      className={`pe-2 list-item ${
-        seatInfo && seatInfo.userID === user.userID ? "list-item-self" : ""
-      }`}
-      style={{ backgroundColor: `${pickMode === true ? "#FFFFFF" : ""}` }}
-      onClick={() => toggleSeat(seatNumber)}
-    >
-      <div class="badge ">{seatNumber}</div>
-      <div class="image-slot ">
-        <div class="nametag ">
-          <p style={{ whiteSpace: "nowrap" }}>
-            {seatInfo ? seatInfo.userName : "-"}
-          </p>
-        </div>
-      </div>
-      {demons.includes(seatNumber) && pickMode === true ? (
-        <Badge bg="danger" pill style={{ position: "relative" }}>
-          恶
-        </Badge>
-      ) : (
-        <div></div>
-      )}
-    </div>
-  );
 
   useEffect(() => {
     async function fetchPlayers() {
@@ -96,6 +69,34 @@ const PlayerSeats = ({ capacity, user }) => {
     fetchPlayers();
   }, []);
 
+  const SeatItem = ({ seatNumber, seatInfo }) => (
+    <div
+      className={` list-item ${
+        seatInfo && seatInfo.userID === user.userID ? "list-item-self" : ""
+      }`}
+      style={{ backgroundColor: `${pickMode ? "#bb2d3b85" : ""}` }}
+      onClick={pickMode ? () => toggleSeat(seatNumber) : undefined}
+    >
+      <div class="badge ">{seatNumber}</div>
+      <div class="image-slot ">
+        <div class="nametag ">
+          <p style={{ whiteSpace: "nowrap" }}>
+            {seatInfo ? seatInfo.userName : "-"}
+          </p>
+        </div>
+      </div>
+      <div className="content">
+        {picks.includes(seatNumber) && pickMode === true ? (
+          <Badge bg="danger" pill style={{ position: "relative" }}>
+            恶
+          </Badge>
+        ) : (
+          <></>
+        )}
+      </div>
+    </div>
+  );
+
   return (
     <div className="my-3">
       {leftCount < 1 || loading === true ? (
@@ -116,7 +117,10 @@ const PlayerSeats = ({ capacity, user }) => {
           <Row className="mx-0 mb-3 p-0" style={{ maxWidth: "100vw" }}>
             <Col className="d-flex justify-content-center">
               <Button
-                className="btn-danger"
+                // 开始狙击
+                className={` btn-danger ${
+                  pickMode ? "glowing-btn" : ""
+                }`}
                 style={{
                   width: "45px",
                   height: "45px",
@@ -136,6 +140,21 @@ const PlayerSeats = ({ capacity, user }) => {
                   <path d="M8.5.5a.5.5 0 0 0-1 0v.518A7 7 0 0 0 1.018 7.5H.5a.5.5 0 0 0 0 1h.518A7 7 0 0 0 7.5 14.982v.518a.5.5 0 0 0 1 0v-.518A7 7 0 0 0 14.982 8.5h.518a.5.5 0 0 0 0-1h-.518A7 7 0 0 0 8.5 1.018zm-6.48 7A6 6 0 0 1 7.5 2.02v.48a.5.5 0 0 0 1 0v-.48a6 6 0 0 1 5.48 5.48h-.48a.5.5 0 0 0 0 1h.48a6 6 0 0 1-5.48 5.48v-.48a.5.5 0 0 0-1 0v.48A6 6 0 0 1 2.02 8.5h.48a.5.5 0 0 0 0-1zM8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
                 </svg>
               </Button>
+              {pickMode && (
+                <Button
+                  // 开始狙击
+                  className="btn-danger glowing-btn py-2"
+                  onClick=""
+                  style={{
+                    position:"fixed",
+                    right:"10%",
+                    top:"90%",
+                    zIndex: "100",
+                  }}
+                >
+                  Submit
+                </Button>
+              )}
             </Col>
             <Col></Col>
             <Col></Col>
