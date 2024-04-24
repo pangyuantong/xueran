@@ -39,11 +39,14 @@ export const PowerCardV2 = ({
 
   return (
     <div className="power-card-v2">
-      <section className=" card-1-page" 
-          onClick={handleClickFlip}>
+      <section className=" card-1-page">
         <div className="cards">
           <label id={seatNum}>
-            <input type="checkbox"/>
+            <input
+              type="checkbox"
+              checked={isFlipped}
+              onClick={handleClickFlip}
+            />
             <div className="card">
               <div className="front">
                 <h1>{seatNum}</h1>
