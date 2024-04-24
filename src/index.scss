@@ -2,106 +2,7 @@
   body {
     font-family: "Inter", sans-serif;
     line-height: 1.5;
-    min-height: 100vh;
-    padding: 5rem 0;
-    font-size: clamp(1rem, 2.5vw, 1.125rem);
-  }
-
-  section {
-    width: 90%;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-
-    &+section {
-      margin-top: 2.5em;
-    }
-  }
-
-  h1 {
-    font-weight: 700;
-    line-height: 1.125;
-    font-size: 24px;
-  }
-
-  summary {
-    background-color: #d3d3d3;
-    position: relative;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    padding: .5em .5em;
-    list-style: none; // Remove arrow
-
-    &::-webkit-details-marker {
-      display: none; // Remove arrow
-    }
-
-    &:hover {
-      background-color: #f2f5f9;
-    }
-
-
-    div {
-      display: flex;
-      align-items: center;
-    }
-
-    h3 {
-      display: flex;
-      flex-direction: column;
-    }
-
-    small {
-      color: #4d4d4d;
-      font-size: 13px;
-      letter-spacing: 1.4px;
-      /* Adjusts space between characters */
-      padding-top: 5px;
-    }
-
-    strong {
-      font-weight: 700;
-      font-size: 16px;
-    }
-
-    span:first-child {
-      width: 3rem;
-      // height: 4rem;
-      border-radius: 10px;
-      background-color: #f3e1e1;
-      display: flex;
-      flex-shrink: 0;
-      align-items: center;
-      justify-content: center;
-      margin-right: 1.25em;
-
-      svg {
-        width: 2.25rem;
-        height: 2.25rem;
-      }
-    }
-
-    span:last-child {
-      font-weight: 700;
-      margin-left: auto;
-    }
-
-    &:focus {
-      outline: none;
-    }
-
-    .plus {
-      color: #289672;
-    }
-  }
-}
-
-.keben {
-  body {
-    font-family: "Inter", sans-serif;
-    line-height: 1.5;
-    min-height: 100vh;
+    // min-height: auto;
     padding: 5rem 0;
     font-size: clamp(1rem, 2.5vw, 1.125rem);
   }
@@ -126,8 +27,10 @@
   summary {
     background-color: #fff;
     position: relative;
+    border-radius: 10px;
+    margin-bottom: 10px;
     cursor: pointer;
-    padding: 1em .5em;
+    padding: 12px;
     list-style: none; // Remove arrow
 
     &::-webkit-details-marker {
@@ -151,22 +54,22 @@
 
     small {
       color: #2c2c2c;
-      font-size: 12.5px;
-      letter-spacing: 1.1px;
+      font-size: 15px;
+      letter-spacing: 1.4px;
       /* Adjusts space between characters */
+      padding-top: 5px;
       line-height: 1.1;
-
     }
 
     strong {
       font-weight: 1200;
       color: #2c2c2c;
-      font-size: 15px;
+      font-size: 16px;
     }
 
     span:first-child {
       width: 4rem;
-      height: 4rem;
+      // height: 4rem;
       border-radius: 10px;
       background-color: #f3e1e1;
       display: flex;

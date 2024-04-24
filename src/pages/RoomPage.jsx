@@ -35,7 +35,7 @@ const RoomPage = () => {
   const [toggle, setToggle] = useState("2");
   const [seat, setSeat] = useState();
   const [boardData, setBoardData] = useState({});
-  const [boardRoles, setBoardRoles] = useState([]);
+  const [boardRoles, setBoardRoles] = useState({});
   const [roleOrders, setRoleOrders] = useState({});
   const [drawnRole, setDrawnRole] = useState({});
   const [gameData, setGameData] = useState({});
@@ -65,7 +65,7 @@ const RoomPage = () => {
           }
 
           setBoardData(res.data.boardData);
-          setBoardRoles(...boardRoles, res.data.boardRoles);
+          setBoardRoles(res.data.boardRoles);
           setRoleOrders(res.data.roleOrders);
           setGameData(res.data.gameData);
         } else {
@@ -140,7 +140,7 @@ const RoomPage = () => {
           fluid
           style={{
             height: "100vh",
-            width: "100vh",
+            width: "100wh",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -207,9 +207,8 @@ const RoomPage = () => {
                   />
                 )}
               </Tab>
-              <Tab eventKey="2" title="课本" className="">
-                {boardRoles.length > 0 ? (
-                  <div className="booklet justify-content-center">
+              <Tab eventKey="2" title="课本" className=""> 
+                <div className="booklet justify-content-center" style={{maxHeight:"100vh", overflowY:"auto"}}>
                     <section>
                       <Row className="pt-4">
                         <div className="d-flex justify-content-end pe-3 pb-2">
@@ -233,12 +232,7 @@ const RoomPage = () => {
                     ) : (
                       <Orders roleOrders={roleOrders} boardRoles={boardRoles}/>
                     )}
-                  </div>
-                ) : (
-                  <div className="d-flex justify-content-center align-items-center pt-5">
-                    <Spinner animation="border" variant="light" />
-                  </div>
-                )}
+                  </div> 
               </Tab>
             </Tabs>
           </div>
