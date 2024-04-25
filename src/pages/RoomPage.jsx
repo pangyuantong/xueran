@@ -155,6 +155,8 @@ const RoomPage = () => {
             marginLeft: "0",
             marginRight: "0",
             minWidth: "100%",
+            minHeight: "100%",
+            display: "grid",
           }}
         >
           <Row className="" style={{ width: "100%" }}>
@@ -185,8 +187,10 @@ const RoomPage = () => {
               onSelect={(k) => setToggle(k)}
               className=""
               justify
-              style={{ borderBottomColor: "#50c878",
-              overflowX: "hidden" }}
+              style={{
+                borderBottomColor: "#50c878",
+                overflowX: "hidden",
+              }}
             >
               <Tab eventKey="0" title="抿牌" className="">
                 {toggle === "0" && (
@@ -198,8 +202,15 @@ const RoomPage = () => {
                   />
                 )}
               </Tab>
-              <Tab eventKey="1" title="玩家" className="" style={{
-              overflowX: "hidden" }}>
+              <Tab
+                eventKey="1"
+                title="玩家"
+                className=""
+                style={{
+                  overflowX: "hidden",
+                  overflowY: "auto",
+                }}
+              >
                 {toggle === "1" && (
                   <PlayerSeats
                     capacity={gameData.gmCapacity}
@@ -207,32 +218,35 @@ const RoomPage = () => {
                   />
                 )}
               </Tab>
-              <Tab eventKey="2" title="课本" className=""> 
-                <div className="booklet justify-content-center" style={{maxHeight:"100vh", overflowY:"auto"}}>
-                    <section>
-                      <Row className="pt-4">
-                        <div className="d-flex justify-content-end pe-3 pb-2">
-                          <div className="tool-btns">
-                            <div className="button r" id="button-6">
-                              <input
-                                type="checkbox"
-                                className="checkbox"
-                                checked={bookletCheck}
-                                onChange={handleCheckboxChange}
-                              />
-                              <div className="knobs"></div>
-                              <div className="layer"></div>
-                            </div>
+              <Tab eventKey="2" title="课本" className="">
+                <div
+                  className="booklet justify-content-center"
+                  style={{ maxHeight: "100vh", overflowY: "auto" }}
+                >
+                  <section>
+                    <Row className="pt-4">
+                      <div className="d-flex justify-content-end pe-3 pb-2">
+                        <div className="tool-btns">
+                          <div className="button r" id="button-6">
+                            <input
+                              type="checkbox"
+                              className="checkbox"
+                              checked={bookletCheck}
+                              onChange={handleCheckboxChange}
+                            />
+                            <div className="knobs"></div>
+                            <div className="layer"></div>
                           </div>
                         </div>
-                      </Row>
-                    </section>
-                    {bookletCheck === false ? (
-                      <Booklet boardRoles={boardRoles} />
-                    ) : (
-                      <Orders roleOrders={roleOrders} boardRoles={boardRoles}/>
-                    )}
-                  </div> 
+                      </div>
+                    </Row>
+                  </section>
+                  {bookletCheck === false ? (
+                    <Booklet boardRoles={boardRoles} />
+                  ) : (
+                    <Orders roleOrders={roleOrders} boardRoles={boardRoles} />
+                  )}
+                </div>
               </Tab>
             </Tabs>
           </div>
