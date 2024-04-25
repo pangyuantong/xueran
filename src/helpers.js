@@ -182,3 +182,45 @@ export const getAPI = async (action) => {
     throw new Error("Error retrieving data.");
   }
 };
+
+export const postAPI = async (action, data) => {
+  const _token = fetchData("_token");
+  // const navigate = useNavigate();
+
+  if (_token == null) {
+    localStorage.clear();
+    return false;
+  }
+
+  try {
+    var response;
+    if (DEBUG_MODE === "MOCK") {
+      response = await axios.get(
+        `https://mocki.io/v1/61cf67d3-79f8-4cf2-b109-eaa212c58897`
+      );
+    } else {
+      var url = "";
+      switch (action) {
+        case "pickEvils":
+          url = `${DOMAIN}/api/user/games/vote`;
+          break;
+         
+        default:
+        // code block
+      }
+
+      response = await axios.post(url, data, {
+        headers: {
+          Authorization: `Bearer ${_token}`, // Use 'Bearer' if required by your API
+          "Content-Type": 'application/json'
+        },
+      });
+    }
+
+    const res = response.data;
+    return JSON.stringify(res);
+  } catch (e) {
+    console.error("Error retrieving data:", e);
+    throw new Error("Error retrieving data.");
+  }
+};

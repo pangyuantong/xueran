@@ -8,7 +8,8 @@ import {
   ListGroup,
   Col,
 } from "react-bootstrap";
-import { getAPI } from "../helpers";
+import { getAPI, postAPI } from "../helpers";
+import { toast } from "react-toastify";
 
 const PlayerSeats = ({ capacity, user }) => {
   // console.log(user.userID);
@@ -23,25 +24,53 @@ const PlayerSeats = ({ capacity, user }) => {
 
   // Function to toggle the visibility of the badge
   const toggleSeat = (id) => {
-    console.log(id)
-    if (picks.includes(id)) {
-      // If the id is already in the picks array, remove it
-      setPicks(picks.filter((pick) => pick !== id));
-    } else {
-      // If the id is not in the picks array, add it
-      let updatedDemons = [...picks, id];
+    console.log(id);
+    if (id != user.userID && submittedPicks.length == 0) {
+      if (picks.includes(id)) {
+        // If the id is already in the picks array, remove it
+        setPicks(picks.filter((pick) => pick !== id));
+      } else {
+        // If the id is not in the picks array, add it
+        let updatedDemons = [...picks, id];
 
-      // Check if the updated array length exceeds 3
-      if (updatedDemons.length > 3) {
-        // Remove the first element
-        updatedDemons.shift();
+        // Check if the updated array length exceeds 3
+        if (updatedDemons.length > 3) {
+          // Remove the first element
+          updatedDemons.shift();
+        }
+        setPicks(updatedDemons);
       }
-      setPicks(updatedDemons);
     }
   };
 
   const togglePickMode = () => {
     setPickMode(!pickMode);
+  };
+
+  const submitPicks = async () => {
+    if (picks.length == 3) {
+      try {
+        const postData = {
+          picks: picks
+        };
+        var res = await postAPI("pickEvils",postData);
+        var res = JSON.parse(res);
+        if (res.success === true) {
+          setSubmittedPicks(picks);
+          setPicks([]);
+          toast.error("Submitted successfully!");
+        } else {
+          console.log(res.message);
+          toast.error("Oops! " + res.message);
+        }
+      } catch (e) {
+        // setLoading(false);
+        console.error("Error retrieving data:", e);
+        throw new Error("Error retrieving data.");
+      }
+    } else { 
+      toast.error("Please select 3 players.");
+    }
   };
 
   useEffect(() => {
@@ -54,6 +83,7 @@ const PlayerSeats = ({ capacity, user }) => {
           console.log(res.data);
           // console.log(res.data.playersData.seats);
           setSeatData(res.data.seatList);
+          setSubmittedPicks(res.data.votedEvils);
           setLoading(false);
         } else {
           toast.error("Oops! " + res.message);
@@ -74,24 +104,27 @@ const PlayerSeats = ({ capacity, user }) => {
         seatInfo && (seatInfo.userID === user.userID ? "list-item-self" : "")
       }`}
       style={{ backgroundColor: `${pickMode ? "#bb2d3b85" : ""}` }}
-      onClick={seatInfo && (pickMode ? () => toggleSeat(seatInfo.userID) : undefined)}
+      onClick={
+        seatInfo && (pickMode ? () => toggleSeat(seatInfo.userID) : undefined)
+      }
     >
       <div className="badge ">{seatNumber}</div>
       <div className="image-slot ">
-        <div className="nametag ">
-          <p style={{ whiteSpace: "nowrap" }}>
-            {seatInfo ? seatInfo.userName : "-"}
-          </p>
-        </div>
+        {seatInfo && (
+          <div className="nametag ">
+            <p style={{ whiteSpace: "nowrap" }}>{seatInfo.userName}</p>
+          </div>
+        )}
       </div>
       <div className="content">
-        {seatInfo && (picks.includes(seatInfo.userID) && pickMode === true ? (
-          <Badge bg="danger" pill style={{ position: "relative" }}>
-            恶
-          </Badge>
-        ) : (
-          <></>
-        ))}
+        {seatInfo &&
+          ((picks.includes(seatInfo.userID) || submittedPicks.includes(seatInfo.userID)) && pickMode === true ? (
+            <Badge bg="danger" pill style={{ position: "relative" }}>
+              恶
+            </Badge>
+          ) : (
+            <></>
+          ))}
       </div>
     </div>
   );
@@ -117,9 +150,7 @@ const PlayerSeats = ({ capacity, user }) => {
             <Col className="d-flex justify-content-center">
               <Button
                 // 开始狙击
-                className={` btn-danger ${
-                  pickMode ? "glowing-btn" : ""
-                }`}
+                className={` btn-danger ${pickMode ? "glowing-btn" : ""}`}
                 style={{
                   width: "45px",
                   height: "45px",
@@ -139,15 +170,15 @@ const PlayerSeats = ({ capacity, user }) => {
                   <path d="M8.5.5a.5.5 0 0 0-1 0v.518A7 7 0 0 0 1.018 7.5H.5a.5.5 0 0 0 0 1h.518A7 7 0 0 0 7.5 14.982v.518a.5.5 0 0 0 1 0v-.518A7 7 0 0 0 14.982 8.5h.518a.5.5 0 0 0 0-1h-.518A7 7 0 0 0 8.5 1.018zm-6.48 7A6 6 0 0 1 7.5 2.02v.48a.5.5 0 0 0 1 0v-.48a6 6 0 0 1 5.48 5.48h-.48a.5.5 0 0 0 0 1h.48a6 6 0 0 1-5.48 5.48v-.48a.5.5 0 0 0-1 0v.48A6 6 0 0 1 2.02 8.5h.48a.5.5 0 0 0 0-1zM8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
                 </svg>
               </Button>
-              {pickMode && (
+              {pickMode && (submittedPicks.length == 0 &&
                 <Button
                   // 开始狙击
                   className="btn-danger glowing-btn py-2"
-                  onClick=""
+                  onClick={submitPicks}
                   style={{
-                    position:"fixed",
-                    right:"10%",
-                    top:"90%",
+                    position: "fixed",
+                    right: "10%",
+                    top: "90%",
                     zIndex: "100",
                   }}
                 >
