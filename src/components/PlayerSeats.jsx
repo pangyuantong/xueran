@@ -58,7 +58,7 @@ const PlayerSeats = ({ capacity, user }) => {
         if (res.success === true) {
           setSubmittedPicks(picks);
           setPicks([]);
-          toast.error("Submitted successfully!");
+          toast.success("Submitted successfully!");
         } else {
           console.log(res.message);
           toast.error("Oops! " + res.message);
