@@ -48,7 +48,7 @@ const PlayerSeats = ({ capacity, user }) => {
   };
 
   const submitPicks = async () => {
-    if (picks.length == 3) {
+    // if (picks.length == 3) {
       try {
         const postData = {
           picks: picks
@@ -68,9 +68,9 @@ const PlayerSeats = ({ capacity, user }) => {
         console.error("Error retrieving data:", e);
         throw new Error("Error retrieving data.");
       }
-    } else { 
-      toast.error("Please select 3 players.");
-    }
+    // } else { 
+    //   toast.error("Please select 3 players.");
+    // }
   };
 
   useEffect(() => {
