@@ -137,7 +137,7 @@ const PlayerSeats = ({ capacity, user }) => {
         <Container
           fluid
           style={{
-            height: "50vh",
+            height: "50dvh",
             maxWidth: "100vw",
             display: "flex",
             alignItems: "center",
