@@ -51,14 +51,14 @@ const router = createBrowserRouter([
         errorElement: <Error />,
       },
       {
-        path: "/room",
+        path: "/room-bak",
         element: <RoomPage />,
         loader: roomLoader,
         action: roomAction,
         errorElement: <Error />,
       },
       {
-        path: "/roomv2",
+        path: "/room",
         element: <RoomPageV2 />,
         loader: roomV2Loader,
         // action: roomAction,
