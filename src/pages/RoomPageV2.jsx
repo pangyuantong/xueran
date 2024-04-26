@@ -149,7 +149,7 @@ const RoomPageV2 = () => {
   return (
     <Container
       className="justify-content-center p-0"
-      style={{ height: "100vh" }}
+      style={{ height: "100dvh" }}
     >
       <div
         onTouchStart={onTouchStart}

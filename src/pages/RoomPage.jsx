@@ -139,7 +139,7 @@ const RoomPage = () => {
         <Container
           fluid
           style={{
-            height: "100vh",
+            height: "100dvh",
             width: "100wh",
             display: "flex",
             alignItems: "center",
@@ -221,7 +221,7 @@ const RoomPage = () => {
               <Tab eventKey="2" title="课本" className="">
                 <div
                   className="booklet justify-content-center"
-                  style={{ maxHeight: "100vh", overflowY: "auto" }}
+                  style={{ maxHeight: "100dvh", overflowY: "auto" }}
                 >
                   <section>
                     <Row className="pt-4">
