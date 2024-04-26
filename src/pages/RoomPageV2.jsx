@@ -1,11 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Container, Row } from "react-bootstrap";
+import { Button, Container, Row } from "react-bootstrap";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { fetchData, getAPI } from "../helpers";
 import { PowerCardV2 } from "../components/PowerCardV2";
 import PlayerSeats from "../components/PlayerSeats";
 import Booklet from "../components/Booklet";
 import Orders from "../components/Orders";
+import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/16/solid";
 
 export async function roomV2Loader() {
   const _token = fetchData("_token");
@@ -35,9 +36,6 @@ const RoomPageV2 = () => {
   const handleCheckboxChange = () => {
     setBookletCheck(!bookletCheck);
   };
-
-  // the required distance between touchStart and touchEnd to be detected as a swipe
-  const minSwipeDistance = 50;
 
   useEffect(() => {
     if (_token === null || loggedUser === null) {
@@ -94,6 +92,9 @@ const RoomPageV2 = () => {
     loadSeat();
   }, []);
 
+  // the required distance between touchStart and touchEnd to be detected as a swipe
+  const minSwipeDistance = 100;
+
   const onTouchStart = (e) => {
     touchEndRef.current = null; // reset touch end to ensure swipe is calculated correctly
     touchStartRef.current = e.targetTouches[0].clientX;
@@ -111,21 +112,42 @@ const RoomPageV2 = () => {
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
     if (isLeftSwipe) {
-      console.log("left");
-      setToggle(toggle + 1);
-      console.log(toggle);
+      if (toggle < 2) {
+        setToggle(toggle + 1);
+      }
     }
     if (isRightSwipe) {
-      console.log("right");
-      setToggle(toggle - 1);
-      console.log(toggle);
+      if (toggle > 0) {
+        setToggle(toggle - 1);
+      }
     }
-    console.log("swipeeee");
+  };
+
+  const handleClickLeave = async () => {
+    setLoading(true);
+    try {
+      var res = await getAPI("leaveGame");
+      var res = JSON.parse(res);
+
+      setLoading(false);
+      if (res.success === true) {
+        const userInfo = res.data.user;
+        localStorage.setItem("loggedUser", JSON.stringify(userInfo));
+        return navigate("/lobby");
+      } else {
+        toast.error("Oops! " + res.message);
+        return navigate("/");
+      }
+    } catch (e) {
+      setLoading(false);
+      console.error("Error retrieving data:", e);
+      throw new Error("Error retrieving data.");
+    }
   };
 
   return (
     <Container
-      className="d-flex justify-content-center p-0"
+      className="justify-content-center p-0"
       style={{ height: "100vh" }}
     >
       <div
@@ -134,6 +156,58 @@ const RoomPageV2 = () => {
         onTouchEnd={onTouchEnd}
         className="align-self-end slide-container"
       >
+        {/* <button className="exit-btn">
+          <ArrowLeftEndOnRectangleIcon width={20} />
+        </button> */}
+
+        <Button
+          className="exit-btn"
+          onClick={handleClickLeave}
+          style={{
+            borderTopLeftRadius: "0%",
+            borderBottomLeftRadius: "0%",
+          }}
+        >
+          <ArrowLeftEndOnRectangleIcon width={20} />
+        </Button>
+        <div className="slide-tabbar">
+          <div className="tabs">
+            <input
+              type="radio"
+              id="radio-1"
+              name="tabs"
+              checked={toggle == 0}
+              onChange={() => setToggle(0)}
+            />
+            <label className="tab" htmlFor="radio-1">
+              抿牌
+            </label>
+
+            <input
+              type="radio"
+              id="radio-2"
+              name="tabs"
+              checked={toggle == 1}
+              onChange={() => setToggle(1)}
+            />
+            <label className="tab" htmlFor="radio-2">
+              玩家
+            </label>
+
+            <input
+              type="radio"
+              id="radio-3"
+              name="tabs"
+              checked={toggle == 2}
+              onChange={() => setToggle(2)}
+            />
+            <label className="tab" htmlFor="radio-3">
+              课本
+            </label>
+
+            <span className="glider"></span>
+          </div>
+        </div>
         {toggle == 0 && (
           <div className="align-self-center">
             <PowerCardV2

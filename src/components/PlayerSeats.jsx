@@ -158,6 +158,7 @@ const PlayerSeats = ({ capacity, user }) => {
                   height: "45px",
                   borderRadius: "50%",
                   padding: "0",
+                  zIndex: "200",
                 }}
                 onClick={togglePickMode}
               >
