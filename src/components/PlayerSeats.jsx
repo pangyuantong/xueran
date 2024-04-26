@@ -132,7 +132,7 @@ const PlayerSeats = ({ capacity, user }) => {
   );
 
   return (
-    <div className="mt-3">
+    <div className="mt-4">
       {leftCount < 1 || loading === true ? (
         <Container
           fluid
@@ -189,8 +189,8 @@ const PlayerSeats = ({ capacity, user }) => {
               Submit
             </Button>
           )}
-          <Row style={{ paddingInline: "3%" }}>
-            <div className="col-6 cust-seat-left">
+          <Row style={{ paddingInline: "0%", maxWidth:"100vw", alignItems:"center", marginInline:0 }}>
+            <div className="col-6 cust-seat-left pe-1">
               <ListGroup style={{ paddingLeft: "10px" }}>
                 {leftCount > 0 &&
                   Object.entries(seatData)
@@ -207,7 +207,7 @@ const PlayerSeats = ({ capacity, user }) => {
                     })}
               </ListGroup>
             </div>
-            <div className="col-6 cust-seat-right">
+            <div className="col-6 cust-seat-right ps-1">
               <ListGroup style={{ paddingRight: "10px" }}>
                 {leftCount > 0 &&
                   Object.entries(seatData)
