@@ -4,7 +4,7 @@
   background-size: cover;
   background-position: center;
   overflow-y: auto;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   /* This makes the div scrollable vertically */
 }
 
@@ -792,7 +792,7 @@
 
 .slide-container {
   background: #ffffff00;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   min-width: 100vw;
   max-height: 100vh;
   padding-top: 8vh;
