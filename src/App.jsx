@@ -20,6 +20,7 @@ import Lobby from "./pages/LobbyPage";
 import Room from "./components/Room";
 import LobbyPage, { lobbyAction, lobbyLoader } from "./pages/LobbyPage";
 import RoomPage, { roomAction, roomLoader } from "./pages/RoomPage";
+import RoomPageV2, { roomV2Loader } from "./pages/RoomPageV2";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,13 @@ const router = createBrowserRouter([
         element: <RoomPage />,
         loader: roomLoader,
         action: roomAction,
+        errorElement: <Error />,
+      },
+      {
+        path: "/roomv2",
+        element: <RoomPageV2 />,
+        loader: roomV2Loader,
+        // action: roomAction,
         errorElement: <Error />,
       },
       {

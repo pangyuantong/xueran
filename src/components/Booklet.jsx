@@ -14,7 +14,7 @@ const Booklet = ({ boardRoles }) => {
 
   return (
     <div
-      className=""
+      className="booklet"
       style={{
         maxHeight: "100%",
         minHeight: "100%",

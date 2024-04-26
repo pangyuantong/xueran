@@ -45,7 +45,7 @@ export const PowerCardV2 = ({
             <input
               type="checkbox"
               checked={isFlipped}
-              onClick={handleClickFlip}
+              onChange={handleClickFlip}
             />
             <div className="card">
               <div className="front">

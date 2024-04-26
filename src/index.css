@@ -668,6 +668,10 @@
 }
 
 .tool-btns {
+  position: fixed;
+  top: 10;
+  right: 5%;
+  z-index: 100;
 
   .button-cover,
   .knobs,
@@ -782,4 +786,12 @@
   100% {
       box-shadow: 0 0 10px rgba(226, 226, 226, 0.75);
   }
+}
+
+.slide-container {
+  background: #ffffff00;
+  min-height: 92vh;
+  min-width: 100vw;
+  max-height: 92vh;
+  overflow-y: auto;
 }
