@@ -4,7 +4,7 @@ import { redirect, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const DEBUG_MODE = "XMOCK";
-const DOMAIN = "https://xueran.site/portal";
+export const DOMAIN = "https://xueran.site/portal";
 
 export const fetchData = (key) => {
   return JSON.parse(localStorage.getItem(key));
