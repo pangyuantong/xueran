@@ -39,6 +39,7 @@ const LobbyPage = () => {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  //laravel echo
   const echo = useWebSocket();
 
   useEffect(() => {
@@ -59,16 +60,23 @@ const LobbyPage = () => {
           toast.error("Oops! " + res.message);
         }
 
-        setLoading(false);
-
+        //Lobby websocket
         if (echo) {
-          const channel = echo.private(`lobby`);
+          const channel = echo.private('lobby');
+
           channel.listen('.lobby.updated', (e) => {
-            console.log(e);
+            console.log('Lobby updated:', e);
+          });
+
+          // Listen for successful subscription
+          channel.subscribed(() => {
+            console.log('Successfully subscribed to the lobby channel!');
           });
 
           return () => channel.stopListening('.lobby.updated');
         }
+
+        setLoading(false);
       } catch (e) {
         setLoading(false);
         console.error("Error retrieving data:", e);

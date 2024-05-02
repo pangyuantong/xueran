@@ -4,7 +4,8 @@ import Pusher from 'pusher-js';
 window.Pusher = Pusher;
 
 import axios from 'axios';
- 
+import { fetchData, DOMAIN } from "./helpers";
+
 // Create a context
 const WebSocketContext = createContext(null);
 
@@ -15,15 +16,7 @@ export const WebSocketProvider = ({ children }) => {
     useEffect(() => {
         const setupWebSocket = async () => {
             // Setting up axios defaults
-            axios.defaults.baseURL = 'http://portal.test'; // your Laravel backend URL
-            axios.defaults.withCredentials = true;
-
-            // Retrieve CSRF token
-            await axios.get('/sanctum/csrf-cookie').then(response => {
-                console.log('CSRF token retrieved and set');
-            }).catch(error => {
-                console.error('Error fetching CSRF token:', error);
-            });
+            axios.defaults.baseURL = DOMAIN; // your Laravel backend URL
 
             // Setting up Pusher and Echo
             const echoInstance = new Echo({
@@ -45,18 +38,26 @@ export const WebSocketProvider = ({ children }) => {
                             }, {
                                 headers: {
                                     'Authorization': `Bearer ${token}`,
-                                    'X-XSRF-TOKEN': getCookie('XSRF-TOKEN') // Fetching the CSRF token from cookies
                                 }
                             })
-                            .then(response => {
-                                callback(null, response.data);
-                            })
-                            .catch(error => {
-                                callback(true, error);
-                            });
+                                .then(response => {
+                                    callback(null, response.data);
+                                })
+                                .catch(error => {
+                                    callback(true, error);
+                                });
                         }
                     };
                 },
+            });
+
+            // Handle Pusher connection events
+            echoInstance.connector.pusher.connection.bind('connected', () => {
+                console.log('WebSocket connected!');
+            });
+
+            echoInstance.connector.pusher.connection.bind('disconnected', () => {
+                console.log('WebSocket disconnected.');
             });
 
             setEcho(echoInstance);
@@ -66,6 +67,8 @@ export const WebSocketProvider = ({ children }) => {
 
         // Cleanup on unmount
         return () => {
+            echo.connector.pusher.connection.unbind('connected');
+            echo.connector.pusher.connection.unbind('disconnected');
             if (echo) echo.disconnect();
         };
     }, []);
@@ -83,21 +86,5 @@ export const useWebSocket = () => useContext(WebSocketContext);
 // Helper function to get the token
 function getToken() {
     // This should ideally fetch a dynamic token from your authentication mechanism
-    return '322|Vfyb1z9wqueyKyOFIZMAxa6y4fmBIh3qlTv7wruR3aa2f7d6';
-}
-
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
+    return fetchData('_token');
 }

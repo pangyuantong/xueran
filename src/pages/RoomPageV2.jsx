@@ -8,6 +8,7 @@ import Booklet from "../components/Booklet";
 import Orders from "../components/Orders";
 import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/16/solid";
 import { toast } from "react-toastify";
+import { useWebSocket } from '../WebSocketContext.jsx';
 
 export async function roomV2Loader() {
   const _token = fetchData("_token");
@@ -38,6 +39,9 @@ const RoomPageV2 = () => {
     setBookletCheck(!bookletCheck);
   };
 
+  //laravel echo
+  const echo = useWebSocket();
+
   useEffect(() => {
     if (_token === null || loggedUser === null) {
       // One or both are null, handle the scenario, maybe navigate to a login page
@@ -65,6 +69,24 @@ const RoomPageV2 = () => {
           setLoading(false);
           // return navigate("/lobby");
         }
+
+        //room websocket
+        if (echo) {
+          const userInfo = res.data.user;
+          const channel = echo.private(`games.${userInfo.joinedGameID}`);
+
+          channel.listen('.seats.updated', (e) => {
+            console.log('Seats updated:', e);
+          });
+
+          // Listen for successful subscription
+          channel.subscribed(() => {
+            console.log('Successfully subscribed to the room channel!');
+          });
+
+          return () => channel.stopListening('.seats.updated');
+        }
+
       } catch (e) {
         setLoading(false);
         console.error("Error retrieving data:", e);
