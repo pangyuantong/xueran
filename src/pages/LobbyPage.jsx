@@ -17,6 +17,8 @@ import {
 import { fetchData, getAPI, joinRoom } from "../helpers";
 import { toast } from "react-toastify";
 
+import { useWebSocket } from '../WebSocketContext.jsx';
+
 export async function lobbyLoader() {
   const _token = fetchData("_token");
   const loggedUser = fetchData("loggedUser");
@@ -24,7 +26,7 @@ export async function lobbyLoader() {
   return { loggedUser, _token };
 }
 
-export async function lobbyAction({ request }) {}
+export async function lobbyAction({ request }) { }
 
 const LobbyPage = () => {
   const navigate = useNavigate();
@@ -36,6 +38,8 @@ const LobbyPage = () => {
   }
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const echo = useWebSocket();
 
   useEffect(() => {
     async function loadLobby() {
@@ -56,6 +60,15 @@ const LobbyPage = () => {
         }
 
         setLoading(false);
+
+        if (echo) {
+          const channel = echo.private(`lobby`);
+          channel.listen('.lobby.updated', (e) => {
+            console.log(e);
+          });
+
+          return () => channel.stopListening('.lobby.updated');
+        }
       } catch (e) {
         setLoading(false);
         console.error("Error retrieving data:", e);
@@ -63,7 +76,7 @@ const LobbyPage = () => {
       }
     }
     loadLobby();
-  }, []);
+  }, [echo]);
 
   const handleClickJoin = async (gmID) => {
     console.log(gmID);
