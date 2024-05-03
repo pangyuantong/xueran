@@ -28,6 +28,7 @@ export const WebSocketProvider = ({ children }) => {
                 forceTLS: (import.meta.env.VITE_REVERB_SCHEME ?? 'https') === 'https',
                 enabledTransports: ['ws', 'wss'],
                 withCredentials: true,
+                encrypted: false,
                 authorizer: (channel, options) => {
                     return {
                         authorize: (socketId, callback) => {
