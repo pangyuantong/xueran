@@ -158,6 +158,7 @@ export const PowerCardV2 = ({
                             {drawnRole.roleDescLong.length > 100 && (
                               <button
                                 className="border-0 text-primary"
+                                style={{color:'#f0f0f0'}}
                                 onClick={() =>
                                   setIsDescExpanded(!isDescExpanded)
                                 }
