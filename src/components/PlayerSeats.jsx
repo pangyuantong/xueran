@@ -109,13 +109,20 @@ const PlayerSeats = ({ capacity, user }) => {
       }
     >
       <div className="badge ">{seatNumber}</div>
-      <div className="image-slot ">
-        {seatInfo && (
+
+      {seatInfo && (
+        <div className="image-slot">
+          <img src="https://i.ibb.co/CQ6Nz19/Whats-App-Image-2024-04-19-at-4-28-43-PM.jpg" alt="" style={{height:"100%", borderRadius:"50%"}} />
           <div className="nametag ">
             <p style={{ whiteSpace: "nowrap" }}>{seatInfo.userName}</p>
           </div>
-        )}
-      </div>
+        </div>
+      )}
+      {/* {seatInfo && (
+        <div className="nametag ">
+          <p style={{ whiteSpace: "nowrap" }}>{seatInfo.userName}</p>
+        </div>
+      )} */}
       <div className="content">
         {seatInfo &&
           ((picks.includes(seatInfo.userID) ||
@@ -150,7 +157,7 @@ const PlayerSeats = ({ capacity, user }) => {
         <div>
           <Button
             // 开始狙击
-            className={` btn-danger ${pickMode ? "glowing-btn" : ""}`}
+            className={` btn-danger ${pickMode ? "glowing" : ""}`}
             style={{
               width: "45px",
               height: "45px",
@@ -177,7 +184,7 @@ const PlayerSeats = ({ capacity, user }) => {
           {pickMode && submittedPicks.length == 0 && (
             <Button
               // 开始狙击
-              className="btn-danger glowing-btn py-2"
+              className="btn-danger glowing py-2"
               onClick={submitPicks}
               style={{
                 position: "fixed",
@@ -189,7 +196,14 @@ const PlayerSeats = ({ capacity, user }) => {
               Submit
             </Button>
           )}
-          <Row style={{ paddingInline: "0%", maxWidth:"100vw", alignItems:"center", marginInline:0 }}>
+          <Row
+            style={{
+              paddingInline: "0%",
+              maxWidth: "100vw",
+              alignItems: "center",
+              marginInline: 0,
+            }}
+          >
             <div className="col-6 cust-seat-left pe-1">
               <ListGroup style={{ paddingLeft: "10px" }}>
                 {leftCount > 0 &&

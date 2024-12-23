@@ -769,7 +769,7 @@
   }
 }
 
-.glowing-btn {
+.glowing {
   /* Bootstrap primary color */
   color: white;
   box-shadow: 0 0 10px rgba(0, 123, 255, 0.75);
