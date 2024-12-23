@@ -125,7 +125,9 @@ export const PowerCardV2 = ({
               <div className="back">
                 {drawnRole && (
                   <>
-                    <div className="role-name">{isRoleHidden ? "- 隐藏 -" : drawnRole.roleName}</div>
+                    <div className="role-name">
+                      {isRoleHidden ? "- 隐藏 -" : drawnRole.roleName}
+                    </div>
                     <img
                       src={drawnRole.roleImg}
                       alt="Character"
@@ -139,26 +141,28 @@ export const PowerCardV2 = ({
                         {drawnRole.roleDescLong && (
                           <div>
                             <p
-                              className={`description ${
-                                isDescExpanded ? "expanded" : "collapsed"
-                              }`}
+                              className="m-0"
                               style={{
                                 overflow: isDescExpanded ? "auto" : "hidden",
-                                maxHeight: '250px',
-                                textOverflow: "ellipsis",
-                                display: "-webkit-box",
-                                WebkitBoxOrient: "vertical",
-                                WebkitLineClamp: isDescExpanded ? "none" : 3, // Show 3 lines when collapsed
+                                maxHeight: "250px",
                               }}
                             >
-                              {drawnRole.roleDescLong}
+                              {isDescExpanded
+                                ? drawnRole.roleDescLong
+                                : `${drawnRole.roleDescLong.slice(0, 100)}${
+                                    drawnRole.roleDescLong.length > 100
+                                      ? "..."
+                                      : ""
+                                  }`}
                             </p>
-                            {drawnRole.roleDescLong.length > 100 && ( // Adjust threshold as needed
+                            {drawnRole.roleDescLong.length > 100 && (
                               <button
-                                onClick={toggleDescExpand}
                                 className="border-0 text-primary"
+                                onClick={() =>
+                                  setIsDescExpanded(!isDescExpanded)
+                                }
                               >
-                                {isDescExpanded ? "Read Less" : "Read More..."}
+                                {isDescExpanded ? "Read Less" : "Read More"}
                               </button>
                             )}
                           </div>
