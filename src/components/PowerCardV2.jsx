@@ -139,12 +139,13 @@ export const PowerCardV2 = ({
                           {drawnRole.roleDesc}
                         </p>
                         {drawnRole.roleDescLong && (
-                          <div>
+                          <div className="w-100">
                             <p
-                              className="m-0"
+                              className="m-0 w-100"
                               style={{
                                 overflow: isDescExpanded ? "auto" : "hidden",
                                 maxHeight: "250px",
+                                whiteSpace: "pre-wrap",
                               }}
                             >
                               {isDescExpanded
@@ -158,7 +159,7 @@ export const PowerCardV2 = ({
                             {drawnRole.roleDescLong.length > 100 && (
                               <button
                                 className="border-0 text-primary"
-                                style={{color:'#f0f0f0'}}
+                                style={{ color: "#f0f0f0" }}
                                 onClick={() =>
                                   setIsDescExpanded(!isDescExpanded)
                                 }
